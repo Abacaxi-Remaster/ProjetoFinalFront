@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'MenuAluno.dart';
 import 'MenuCursos.dart';
 import 'MenuTestes.dart';
+import 'Login.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,7 +37,6 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ↓ Add the code below.
   var favorites = <WordPair>[];
 
   void toggleFavorite() {
@@ -46,6 +46,12 @@ class MyAppState extends ChangeNotifier {
       favorites.add(current);
     }
     notifyListeners();
+  }
+
+  var test = <String>[];
+
+  void addTest(String teste) {
+    test.add(teste);
   }
 }
 
@@ -62,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = Aluno();
+        page = LoginPage();
         break;
       case 1:
         page = CursosPage();

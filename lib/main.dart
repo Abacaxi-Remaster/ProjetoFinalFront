@@ -1,10 +1,12 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/Cadastro.dart';
 import 'package:provider/provider.dart';
 import 'MenuAluno.dart';
 import 'MenuCursos.dart';
 import 'MenuTestes.dart';
 import 'Login.dart';
+import 'Cadastro.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,24 +32,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-
-  void getNext() {
-    current = WordPair.random();
-    notifyListeners();
-  }
-
-  var favorites = <WordPair>[];
-
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
-    notifyListeners();
-  }
-
   var test = <String>[];
 
   void addTest(String teste) {
@@ -74,10 +58,10 @@ class _MyHomePageState extends State<MyHomePage> {
         page = CursosPage();
         break;
       case 2:
-        page = TestesPage();
+        page = CadastroPage();
         break;
       case 3:
-        page = TestesPage();
+        page = Placeholder();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');

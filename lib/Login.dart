@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'main.dart';
 
 class LoginPage extends StatelessWidget {
@@ -31,11 +30,6 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(10),
               child: TextFormField(
-                validator: MultiValidator([
-                  RequiredValidator(errorText: "* Required"),
-                  EmailValidator(
-                      errorText: "Insira um endereço de email válido!"),
-                ]),
                 controller: userController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -53,9 +47,6 @@ class LoginPage extends StatelessWidget {
                   labelText: 'Password',
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
             ),
             ElevatedButton(
               onPressed: () {

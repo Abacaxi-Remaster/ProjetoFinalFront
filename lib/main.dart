@@ -34,4 +34,7 @@ class MyAppState extends ChangeNotifier {
 
   var logado = false;
   var tipo_logado = 0;
+  void TESTE_toggle_logado() {
+    logado = !logado;
+  }
 }

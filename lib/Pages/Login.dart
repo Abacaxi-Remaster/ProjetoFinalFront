@@ -53,6 +53,8 @@ class LoginPage extends StatelessWidget {
                 //substituir por envio para API
                 appState.addTest(userController.text);
                 appState.addTest(passwordController.text);
+                appState.TESTE_toggle_logado();
+                print(appState.logado);
               },
               child: Text('Próximo'),
             ),

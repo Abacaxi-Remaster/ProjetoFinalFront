@@ -20,11 +20,11 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     if (appState.logado) {
-      page = LoginPage();
-      menu = menus[0];
-    } else {
       menu = menus[appState.tipo_logado];
       page = Placeholder();
+    } else {
+      page = LoginPage();
+      menu = menus[0];
     }
 
     return LayoutBuilder(builder: (context, constraints) {
@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 class EmptyMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return Container();
+    ;
   }
 }

@@ -24,10 +24,12 @@ class CadastroPage extends StatelessWidget {
           child: Column(
             children: [
               Text('Cadastro'),
+
               //Espaço de nome
               //Espaço de email
               //Espaço de senha
               //Espaço de confirmar senha
+              //Espaço dependendo do tipo
               //Botão de enviar
               //retorno para o login (?)
             ],

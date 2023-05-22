@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Pages/all.dart';
-import 'Menus/all.dart';
+import 'all.dart';
 import 'main.dart';
 
 class MyHomePage extends StatefulWidget {

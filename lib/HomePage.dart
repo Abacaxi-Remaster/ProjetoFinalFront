@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_final_front/Login.dart';
-import 'package:projeto_final_front/MenuAluno.dart';
 import 'package:provider/provider.dart';
+import 'Pages/all.dart';
+import 'Menus/all.dart';
 import 'main.dart';
 
 class MyHomePage extends StatefulWidget {

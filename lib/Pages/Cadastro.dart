@@ -24,12 +24,61 @@ class CadastroPage extends StatelessWidget {
           child: Column(
             children: [
               Text('Cadastro'),
-
-              //Espaço de nome
-              //Espaço de email
-              //Espaço de senha
-              //Espaço de confirmar senha
-              //Espaço dependendo do tipo
+              Row(
+                children: [
+                  //botões de tipo
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: TextFormField(
+                  //controller: userController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Nome Completo',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: TextFormField(
+                  //controller: userController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: TextFormField(
+                  //controller: userController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Senha',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: TextFormField(
+                  //controller: userController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Confirmar Senha',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: TextFormField(
+                  //controller: userController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Rever este espaço!',
+                  ),
+                ),
+              ),
               //Botão de enviar
               //retorno para o login (?)
             ],

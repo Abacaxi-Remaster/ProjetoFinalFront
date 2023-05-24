@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/HomePage.dart';
+import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import '/main.dart';
 
@@ -8,7 +10,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     var appState = context.watch<MyAppState>();
 
     return Center(
@@ -55,11 +56,16 @@ class LoginPage extends StatelessWidget {
                 appState.addTest(passwordController.text);
                 appState.TESTE_toggle_logado();
                 print(appState.logado);
+                //fim da substituição
+                appState.setPage(MyHomePageState().updatePage(0));
               },
               child: Text('Próximo'),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                appState.setPage(CadastroPage());
+                print('setou');
+              },
               child: Text(
                 'Sign Up',
               ),

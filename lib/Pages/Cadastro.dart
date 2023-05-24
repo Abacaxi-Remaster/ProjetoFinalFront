@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import '/main.dart';
 
@@ -79,8 +80,23 @@ class CadastroPage extends StatelessWidget {
                   ),
                 ),
               ),
-              //Botão de enviar
-              //retorno para o login (?)
+              ElevatedButton(
+                onPressed: () {
+                  //substituir por envio para API
+                  print(appState.logado);
+                  //fim da substituição
+                  appState.setPage(LoginPage());
+                },
+                child: Text('Cadastrar'),
+              ),
+              TextButton(
+                onPressed: () {
+                  appState.setPage(LoginPage());
+                },
+                child: Text(
+                  'voltar para o Login',
+                ),
+              )
             ],
           ),
         ),

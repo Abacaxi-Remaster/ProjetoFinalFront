@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import 'HomePage.dart';
 
@@ -26,14 +27,24 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
+  Widget page = LoginPage();
   var test = <String>[];
+  var logado = false;
+  var tipoLogado = 0;
+
+  void setPage(Widget newPage) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      page = newPage;
+      print('page: ');
+      print(page);
+      notifyListeners();
+    });
+  }
 
   void addTest(String teste) {
     test.add(teste);
   }
 
-  var logado = false;
-  var tipoLogado = 0;
   void TESTE_toggle_logado() {
     logado = !logado;
     notifyListeners();

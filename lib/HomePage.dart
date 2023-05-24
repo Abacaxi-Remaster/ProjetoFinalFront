@@ -5,12 +5,11 @@ import 'main.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => MyHomePageState();
   void updatePage() {}
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  Widget page = Placeholder(); //página Atual
+class MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
 
   List<List<NavigationRailDestination>> testes = [
@@ -57,16 +56,17 @@ class _MyHomePageState extends State<MyHomePage> {
     ],
   ];
 
-  void updatePage(tipoLogado) {
+  Widget updatePage(selectedIndex) {
+    var tipoLogado = MyAppState().tipoLogado;
     switch (tipoLogado) {
       case 0:
         switch (selectedIndex) {
           case 0:
-            print('aluno 0');
-            break;
+            print('Pagina Original Aluno');
+            return LoginPage();
           case 1:
             print('aluno 1');
-            break;
+            return CursosPage();
           default:
             break;
         }
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         switch (selectedIndex) {
           case 0:
-            print('mentor 0');
+            print('Pagina Original Mentor');
             break;
           case 1:
             print('mentor 1');
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         switch (selectedIndex) {
           case 0:
-            print('empresa 0');
+            print('Pagina Original Empresa');
             break;
           case 1:
             print('empresa 1');
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 3:
         switch (selectedIndex) {
           case 0:
-            print('adm 0');
+            print('Pagina Original ADM');
             break;
           case 1:
             print('adm 1');
@@ -108,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         break;
     }
+    return Placeholder();
   }
 
   @override
@@ -115,14 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget menu = Placeholder(); //menu atual
     var appState = context.watch<MyAppState>();
 
-    updatePage(appState.tipoLogado);
-
     return LayoutBuilder(builder: (context, constraints) {
       if (appState.logado) {
         menu = navigationMenu(constraints, appState.tipoLogado);
-        page = CadastroPage();
       } else {
-        page = LoginPage();
         menu = EmptyMenu();
       }
       return Scaffold(
@@ -141,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: Container(
                 color: Theme.of(context).colorScheme.primaryContainer,
-                child: page,
+                child: appState.page,
               ),
             ),
           ],
@@ -151,11 +148,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   NavigationRail navigationMenu(BoxConstraints constraints, tipo) {
+    var appState = context.watch<MyAppState>();
     return NavigationRail(
       extended: constraints.maxWidth >= 600,
       destinations: testes[tipo],
       selectedIndex: selectedIndex,
       onDestinationSelected: (value) {
+        appState.setPage(updatePage(selectedIndex));
         setState(() {
           selectedIndex = value;
         });

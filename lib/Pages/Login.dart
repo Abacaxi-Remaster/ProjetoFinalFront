@@ -57,7 +57,8 @@ class LoginPage extends StatelessWidget {
                 appState.TESTE_toggle_logado();
                 print(appState.logado);
                 //fim da substituição
-                appState.setPage(MyHomePageState().updatePage(0));
+                appState.setPage(
+                    MyHomePageState().updatePage(0, appState.tipoLogado));
               },
               child: Text('Próximo'),
             ),

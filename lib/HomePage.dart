@@ -56,14 +56,13 @@ class MyHomePageState extends State<MyHomePage> {
     ],
   ];
 
-  Widget updatePage(selectedIndex) {
-    var tipoLogado = MyAppState().tipoLogado;
+  Widget updatePage(selectedIndex, tipoLogado) {
     switch (tipoLogado) {
       case 0:
         switch (selectedIndex) {
           case 0:
             print('Pagina Original Aluno');
-            return LoginPage();
+            return Placeholder();
           case 1:
             print('aluno 1');
             return CursosPage();
@@ -75,10 +74,10 @@ class MyHomePageState extends State<MyHomePage> {
         switch (selectedIndex) {
           case 0:
             print('Pagina Original Mentor');
-            break;
+            return LoginPage();
           case 1:
             print('mentor 1');
-            break;
+            return CadastroPage();
           default:
             break;
         }
@@ -154,7 +153,7 @@ class MyHomePageState extends State<MyHomePage> {
       destinations: testes[tipo],
       selectedIndex: selectedIndex,
       onDestinationSelected: (value) {
-        appState.setPage(updatePage(selectedIndex));
+        appState.setPage(updatePage(value, appState.tipoLogado));
         setState(() {
           selectedIndex = value;
         });

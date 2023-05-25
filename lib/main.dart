@@ -7,7 +7,6 @@ void main() {
   runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -42,7 +41,6 @@ class MyAppState extends ChangeNotifier {
     });
   }
 
-  
   List<Treinamento> _treinamentos = [];
 
   List<Treinamento> get treinamentos => _treinamentos;
@@ -53,29 +51,34 @@ class MyAppState extends ChangeNotifier {
     print(treinamento);
   }
 
-  var favorites = <WordPair>[];
-  
   void addTest(String teste) {
     test.add(teste);
   }
-  
 
   void TESTE_toggle_logado() {
     logado = !logado;
     notifyListeners();
   }
-  
+
+  void TESTE_toggle_tipoLogado() {
+    tipoLogado = (tipoLogado + 1) % 4;
+    print(tipoLogado);
+    notifyListeners();
+  }
+
   var treinar = <String>[];
-  void addTreinamentos(String treinamentosAlunos){
+  void addTreinamentos(String treinamentosAlunos) {
     treinar.add(treinamentosAlunos);
   }
+
   var teste = <String>[];
   void addTestes(String testesAlunos) {
-  teste.add(testesAlunos);
-  notifyListeners();
-}
+    teste.add(testesAlunos);
+    notifyListeners();
+  }
+
   var vaga = <String>[];
-  void addVagas(String vagasAlunos){
+  void addVagas(String vagasAlunos) {
     vaga.add(vagasAlunos);
   }
 }
@@ -173,11 +176,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     });
-    
-  void TESTE_toggle_tipoLogado() {
-    tipoLogado = (tipoLogado + 1) % 4;
-    print(tipoLogado);
-    notifyListeners();
-    
   }
 }

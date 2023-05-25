@@ -95,54 +95,48 @@ class ADMMenuState extends State<ADMMenu> {
 }
 
 class ADM extends StatelessWidget {
-  final treinamentosController =  TextEditingController();
-  final testesController =  TextEditingController();
-  final vagasController =  TextEditingController();
+  final treinamentosController = TextEditingController();
+  final testesController = TextEditingController();
+  final vagasController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    var pair = appState.current;
 
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.check;
-    } else {
-      icon = Icons.check_box;
-    }
+    IconData icon = Icons.check;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: TextFormField(
-            controller: treinamentosController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Treinamentos',
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: TextFormField(
+              controller: treinamentosController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Treinamentos',
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: TextFormField(
-            controller: testesController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Testes',
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: TextFormField(
+              controller: testesController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Testes',
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: TextFormField(
-            controller: vagasController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Vagas',
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: TextFormField(
+              controller: vagasController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Vagas',
+              ),
             ),
           ),
-        ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [

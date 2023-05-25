@@ -6,14 +6,8 @@ class Aluno extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    var pair = appState.current;
 
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
+    IconData icon = Icons.favorite;
 
     return Center(
       child: Column(
@@ -24,9 +18,7 @@ class Aluno extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
+                onPressed: () {},
                 icon: Icon(icon),
                 label: Text('Informações'),
               ),

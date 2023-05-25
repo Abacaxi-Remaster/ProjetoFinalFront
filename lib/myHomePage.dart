@@ -1,84 +1,8 @@
+/*import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:projeto_final_front/all.dart';
+import 'package:projeto_final_front/Paginas/MenuCursos.dart';
 import 'package:provider/provider.dart';
-import 'HomePage.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'Projeto Final',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
-        ),
-        home: MyHomePage(),
-      ),
-    );
-  }
-}
-
-class MyAppState extends ChangeNotifier {
-  Widget page = LoginPage();
-  var test = <String>[];
-  var logado = false;
-  var tipoLogado = 0;
-
-  void setPage(Widget newPage) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      page = newPage;
-      print('page: ');
-      print(page);
-      notifyListeners();
-    });
-  }
-
-  
-  List<Treinamento> _treinamentos = [];
-
-  List<Treinamento> get treinamentos => _treinamentos;
-
-  void adicionarTreinamento(Treinamento treinamento) {
-    _treinamentos.add(treinamento);
-    notifyListeners();
-    print(treinamento);
-  }
-
-  var favorites = <WordPair>[];
-  
-  void addTest(String teste) {
-    test.add(teste);
-  }
-  
-
-  void TESTE_toggle_logado() {
-    logado = !logado;
-    notifyListeners();
-  }
-  
-  var treinar = <String>[];
-  void addTreinamentos(String treinamentosAlunos){
-    treinar.add(treinamentosAlunos);
-  }
-  var teste = <String>[];
-  void addTestes(String testesAlunos) {
-  teste.add(testesAlunos);
-  notifyListeners();
-}
-  var vaga = <String>[];
-  void addVagas(String vagasAlunos){
-    vaga.add(vagasAlunos);
-  }
-}
+import 'Paginas/all.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -173,11 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     });
-    
-  void TESTE_toggle_tipoLogado() {
-    tipoLogado = (tipoLogado + 1) % 4;
-    print(tipoLogado);
-    notifyListeners();
-    
   }
 }
+*/

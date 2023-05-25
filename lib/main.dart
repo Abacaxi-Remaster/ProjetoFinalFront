@@ -83,12 +83,12 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+/*class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
-class _MyHomePageState extends State<MyHomePage> {
+*/
+/*class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
   TextEditingController textController = TextEditingController();
 
@@ -178,3 +178,4 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }
+*/

@@ -1,8 +1,7 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:projeto_final_front/Paginas/MenuCursos.dart';
+import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
-import 'Paginas/all.dart';
+import 'HomePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,13 +28,21 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
+  Widget page = LoginPage();
+  var test = <String>[];
+  var logado = false;
+  var tipoLogado = 0;
 
-  void getNext() {
-    current = WordPair.random();
-    notifyListeners();
+  void setPage(Widget newPage) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      page = newPage;
+      print('page: ');
+      print(page);
+      notifyListeners();
+    });
   }
 
+  
   List<Treinamento> _treinamentos = [];
 
   List<Treinamento> get treinamentos => _treinamentos;
@@ -47,15 +54,17 @@ class MyAppState extends ChangeNotifier {
   }
 
   var favorites = <WordPair>[];
+  
+  void addTest(String teste) {
+    test.add(teste);
+  }
+  
 
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
+  void TESTE_toggle_logado() {
+    logado = !logado;
     notifyListeners();
   }
+  
   var treinar = <String>[];
   void addTreinamentos(String treinamentosAlunos){
     treinar.add(treinamentosAlunos);
@@ -164,5 +173,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     });
+    
+  void TESTE_toggle_tipoLogado() {
+    tipoLogado = (tipoLogado + 1) % 4;
+    print(tipoLogado);
+    notifyListeners();
+    
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_final_front/Paginas/all.dart';
 import 'package:provider/provider.dart';
 import 'all.dart';
 import 'main.dart';
@@ -16,36 +15,56 @@ class MyHomePageState extends State<MyHomePage> {
   List<List<NavigationRailDestination>> testes = [
     //Lista de possíveis barras de navegação
     [
+      //Aluno
       NavigationRailDestination(
-        icon: Icon(Icons.home),
-        label: Text('Home'),
+        icon: Icon(Icons.folder),
+        label: Text('Treinamentos'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.favorite),
-        label: Text('Favorites'),
-      ),
-    ],
-    [
-      NavigationRailDestination(
-        icon: Icon(Icons.home),
-        label: Text('Home'),
+        icon: Icon(Icons.menu_book),
+        label: Text('Testes'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.email),
-        label: Text('Favorites'),
-      ),
-    ],
-    [
-      NavigationRailDestination(
-        icon: Icon(Icons.label),
-        label: Text('Home'),
+        icon: Icon(Icons.event),
+        label: Text('Vagas'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.email),
-        label: Text('Favorites'),
+        icon: Icon(Icons.logout),
+        label: Text('Log out'),
       ),
     ],
     [
+      //Mentor
+      NavigationRailDestination(
+        icon: Icon(Icons.check_box),
+        label: Text('Atividades Concluídas'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.logout),
+        label: Text('Log out'),
+      ),
+    ],
+    [
+      //Empresa
+      NavigationRailDestination(
+        icon: Icon(Icons.check_box),
+        label: Text('Atividades Concluídas'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.summarize),
+        label: Text('Notas'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.event),
+        label: Text('Vagas'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.logout),
+        label: Text('Log out'),
+      ),
+    ],
+    [
+      //ADM
       NavigationRailDestination(
         icon: Icon(Icons.folder),
         label: Text('Treinamentos'),
@@ -88,8 +107,6 @@ class MyHomePageState extends State<MyHomePage> {
       logout(),
     ];
     final mentorOptions = [
-      Placeholder(),
-      Placeholder(),
       Placeholder(),
       logout(),
     ];
@@ -168,6 +185,5 @@ class EmptyMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
-    ;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/Paginas/CrudVagas.dart';
 import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import 'HomePage.dart';
@@ -32,6 +33,11 @@ class MyAppState extends ChangeNotifier {
   var logado = false;
   var tipoLogado = 0;
 
+  void resetTipoLogado() {
+    tipoLogado = 0;
+    //deletar dados temporarios do usuário
+  }
+
   void setPage(Widget newPage) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       page = newPage;
@@ -45,14 +51,19 @@ class MyAppState extends ChangeNotifier {
 
   List<Treinamento> get treinamentos => _treinamentos;
 
+  List<Vaga> _vagas = [];
+  List<Vaga> get vagas => _vagas;
+
   void adicionarTreinamento(Treinamento treinamento) {
     _treinamentos.add(treinamento);
     notifyListeners();
     print(treinamento);
   }
 
-  void addTest(String teste) {
-    test.add(teste);
+  void adicionarVaga(Vaga vaga) {
+    _vagas.add(vaga);
+    notifyListeners();
+    print(vaga);
   }
 
   void TESTE_toggle_logado() {
@@ -83,12 +94,12 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+/*class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
-class _MyHomePageState extends State<MyHomePage> {
+*/
+/*class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
   TextEditingController textController = TextEditingController();
 
@@ -178,3 +189,4 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }
+*/

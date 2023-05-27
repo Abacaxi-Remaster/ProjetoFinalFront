@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';
 
+// MENU ADM, MENU ALUNO
 class AtConcluidasMentorPage extends StatelessWidget {
-  final testesController =  TextEditingController();
+  final testesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,7 @@ class AtConcluidasMentorPage extends StatelessWidget {
 
     return ListView(
       children: [
-        Text('Atividades concluidas',
-              style: TextStyle(fontSize: 25)),
+        Text('Atividades concluidas', style: TextStyle(fontSize: 25)),
         for (var treinamentosAlunos in appState.treinar)
           ListTile(
             leading: Icon(Icons.task),
@@ -29,7 +29,7 @@ class AtConcluidasMentorPage extends StatelessWidget {
 }
 
 class AtConcluidasAlunosPage extends StatelessWidget {
-  final testesController =  TextEditingController();
+  final testesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +37,12 @@ class AtConcluidasAlunosPage extends StatelessWidget {
 
     return ListView(
       children: [
-        Text('Treinamentos em curso',
-              style: TextStyle(fontSize: 25)),
+        Text('Treinamentos em curso', style: TextStyle(fontSize: 25)),
         for (var treinamentosAlunos in appState.treinar)
-            ListTile(
-              leading: Icon(Icons.task),
-              title: Text(treinamentosAlunos),
-            ),
+          ListTile(
+            leading: Icon(Icons.task),
+            title: Text(treinamentosAlunos),
+          ),
         for (var testesAlunos in appState.teste)
           ListTile(
             leading: Icon(Icons.task),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/Paginas/CrudVagas.dart';
 import 'package:provider/provider.dart';
 import 'all.dart';
 import 'main.dart';
@@ -59,6 +60,10 @@ class MyHomePageState extends State<MyHomePage> {
         label: Text('Vagas'),
       ),
       NavigationRailDestination(
+        icon: Icon(Icons.edit_calendar),
+        label: Text('Criar Vagas'),
+      ),
+      NavigationRailDestination(
         icon: Icon(Icons.logout),
         label: Text('Log out'),
       ),
@@ -101,9 +106,9 @@ class MyHomePageState extends State<MyHomePage> {
       logout(),
     ];
     final alunoOptions = [
+      TreinamentosAlunoPage(),
       Placeholder(),
-      Placeholder(),
-      Placeholder(),
+      VagasAlunoPage(),
       logout(),
     ];
     final mentorOptions = [
@@ -113,7 +118,8 @@ class MyHomePageState extends State<MyHomePage> {
     final empresaOptions = [
       Placeholder(),
       Placeholder(),
-      Placeholder(),
+      VagasPage(),
+      MenuVagas(),
       logout(),
     ];
     switch (tipoLogado) {

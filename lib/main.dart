@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/Paginas/CrudVagas.dart';
 import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import 'HomePage.dart';
@@ -50,10 +51,19 @@ class MyAppState extends ChangeNotifier {
 
   List<Treinamento> get treinamentos => _treinamentos;
 
+  List<Vaga> _vagas = [];
+  List<Vaga> get vagas => _vagas;
+
   void adicionarTreinamento(Treinamento treinamento) {
     _treinamentos.add(treinamento);
     notifyListeners();
     print(treinamento);
+  }
+
+  void adicionarVaga(Vaga vaga) {
+    _vagas.add(vaga);
+    notifyListeners();
+    print(vaga);
   }
 
   void TESTE_toggle_logado() {

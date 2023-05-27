@@ -52,8 +52,8 @@ class LoginPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 //substituir por envio para API
-                appState.addTest(userController.text);
-                appState.addTest(passwordController.text);
+                //appState.addTest(userController.text);
+                //appState.addTest(passwordController.text);
                 appState.TESTE_toggle_logado();
                 print(appState.logado);
                 //fim da substituição

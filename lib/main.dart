@@ -32,6 +32,11 @@ class MyAppState extends ChangeNotifier {
   var logado = false;
   var tipoLogado = 0;
 
+  void resetTipoLogado() {
+    tipoLogado = 0;
+    //deletar dados temporarios do usuário
+  }
+
   void setPage(Widget newPage) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       page = newPage;
@@ -49,10 +54,6 @@ class MyAppState extends ChangeNotifier {
     _treinamentos.add(treinamento);
     notifyListeners();
     print(treinamento);
-  }
-
-  void addTest(String teste) {
-    test.add(teste);
   }
 
   void TESTE_toggle_logado() {
@@ -83,12 +84,12 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+/*class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
-class _MyHomePageState extends State<MyHomePage> {
+*/
+/*class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
   TextEditingController textController = TextEditingController();
 
@@ -178,3 +179,4 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }
+*/

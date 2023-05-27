@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/Paginas/all.dart';
 import 'package:provider/provider.dart';
 import 'all.dart';
 import 'main.dart';
@@ -46,66 +47,67 @@ class MyHomePageState extends State<MyHomePage> {
     ],
     [
       NavigationRailDestination(
-        icon: Icon(Icons.home),
-        label: Text('Home'),
+        icon: Icon(Icons.folder),
+        label: Text('Treinamentos'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.sim_card_alert),
-        label: Text('Favorites'),
+        icon: Icon(Icons.menu_book),
+        label: Text('Testes'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.event),
+        label: Text('Vagas'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.check_box),
+        label: Text('Atividades Concluidas'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.logout),
+        label: Text('Log out'),
       ),
     ],
   ];
 
+  Widget logout() {
+    return LoginPage();
+  }
+
   Widget updatePage(selectedIndex, tipoLogado) {
+    final admOptions = [
+      MenuTreinamentos(),
+      TestesPage(),
+      VagasPage(),
+      AtConcluidasMentorPage(),
+      logout(),
+    ];
+    final alunoOptions = [
+      Placeholder(),
+      Placeholder(),
+      Placeholder(),
+      logout(),
+    ];
+    final mentorOptions = [
+      Placeholder(),
+      Placeholder(),
+      Placeholder(),
+      logout(),
+    ];
+    final empresaOptions = [
+      Placeholder(),
+      Placeholder(),
+      Placeholder(),
+      logout(),
+    ];
     switch (tipoLogado) {
       case 0:
-        switch (selectedIndex) {
-          case 0:
-            print('Pagina Original Aluno');
-            return Placeholder();
-          case 1:
-            print('aluno 1');
-            return CursosPage();
-          default:
-            break;
-        }
-        break;
+        return alunoOptions[selectedIndex];
       case 1:
-        switch (selectedIndex) {
-          case 0:
-            print('Pagina Original Mentor');
-            return LoginPage();
-          case 1:
-            print('mentor 1');
-            return CadastroPage();
-          default:
-            break;
-        }
-        break;
+        return mentorOptions[selectedIndex];
       case 2:
-        switch (selectedIndex) {
-          case 0:
-            print('Pagina Original Empresa');
-            break;
-          case 1:
-            print('empresa 1');
-            break;
-          default:
-            break;
-        }
-        break;
+        return empresaOptions[selectedIndex];
       case 3:
-        switch (selectedIndex) {
-          case 0:
-            print('Pagina Original ADM');
-            break;
-          case 1:
-            print('adm 1');
-            break;
-          default:
-            break;
-        }
-        break;
+        return admOptions[selectedIndex];
     }
     return Placeholder();
   }

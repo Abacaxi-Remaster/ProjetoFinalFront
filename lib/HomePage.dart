@@ -46,17 +46,40 @@ class MyHomePageState extends State<MyHomePage> {
     ],
     [
       NavigationRailDestination(
-        icon: Icon(Icons.home),
-        label: Text('Home'),
+        icon: Icon(Icons.folder),
+        label: Text('Treinamentos'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.sim_card_alert),
-        label: Text('Favorites'),
+        icon: Icon(Icons.menu_book),
+        label: Text('Testes'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.event),
+        label: Text('Vagas'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.check_box),
+        label: Text('Atividades Concluidas'),
+      ),
+      NavigationRailDestination(
+        icon: Icon(Icons.logout),
+        label: Text('Log out'),
       ),
     ],
   ];
 
+  Widget logout() {
+    return LoginPage();
+  }
+
   Widget updatePage(selectedIndex, tipoLogado) {
+    final admOptions = [
+      MenuTreinamentos(),
+      TestesPage(),
+      VagasPage(),
+      AtConcluidasMentorPage(),
+      logout(),
+    ];
     switch (tipoLogado) {
       case 0:
         switch (selectedIndex) {
@@ -97,15 +120,21 @@ class MyHomePageState extends State<MyHomePage> {
       case 3:
         switch (selectedIndex) {
           case 0:
-            print('Pagina Original ADM');
-            break;
+            return admOptions[0];
           case 1:
-            print('adm 1');
-            break;
+            return admOptions[1];
+          case 2:
+            return admOptions[2];
+          case 3:
+            return admOptions[3];
+          case 4:
+            return admOptions[4];
+          case 5:
+            return admOptions[5];
           default:
-            break;
+            throw UnimplementedError('no widget for $selectedIndex');
         }
-        break;
+      //break;
     }
     return Placeholder();
   }

@@ -32,6 +32,11 @@ class MyAppState extends ChangeNotifier {
   var logado = false;
   var tipoLogado = 0;
 
+  void resetTipoLogado() {
+    tipoLogado = 0;
+    //deletar dados temporarios do usuário
+  }
+
   void setPage(Widget newPage) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       page = newPage;

@@ -56,10 +56,6 @@ class MyAppState extends ChangeNotifier {
     print(treinamento);
   }
 
-  void addTest(String teste) {
-    test.add(teste);
-  }
-
   void TESTE_toggle_logado() {
     logado = !logado;
     notifyListeners();

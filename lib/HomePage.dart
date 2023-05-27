@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/Paginas/all.dart';
 import 'package:provider/provider.dart';
 import 'all.dart';
 import 'main.dart';
@@ -80,61 +81,33 @@ class MyHomePageState extends State<MyHomePage> {
       AtConcluidasMentorPage(),
       logout(),
     ];
+    final alunoOptions = [
+      Placeholder(),
+      Placeholder(),
+      Placeholder(),
+      logout(),
+    ];
+    final mentorOptions = [
+      Placeholder(),
+      Placeholder(),
+      Placeholder(),
+      logout(),
+    ];
+    final empresaOptions = [
+      Placeholder(),
+      Placeholder(),
+      Placeholder(),
+      logout(),
+    ];
     switch (tipoLogado) {
       case 0:
-        switch (selectedIndex) {
-          case 0:
-            print('Pagina Original Aluno');
-            return Placeholder();
-          case 1:
-            print('aluno 1');
-            return CursosPage();
-          default:
-            break;
-        }
-        break;
+        return alunoOptions[selectedIndex];
       case 1:
-        switch (selectedIndex) {
-          case 0:
-            print('Pagina Original Mentor');
-            return LoginPage();
-          case 1:
-            print('mentor 1');
-            return CadastroPage();
-          default:
-            break;
-        }
-        break;
+        return mentorOptions[selectedIndex];
       case 2:
-        switch (selectedIndex) {
-          case 0:
-            print('Pagina Original Empresa');
-            break;
-          case 1:
-            print('empresa 1');
-            break;
-          default:
-            break;
-        }
-        break;
+        return empresaOptions[selectedIndex];
       case 3:
-        switch (selectedIndex) {
-          case 0:
-            return admOptions[0];
-          case 1:
-            return admOptions[1];
-          case 2:
-            return admOptions[2];
-          case 3:
-            return admOptions[3];
-          case 4:
-            return admOptions[4];
-          case 5:
-            return admOptions[5];
-          default:
-            throw UnimplementedError('no widget for $selectedIndex');
-        }
-      //break;
+        return admOptions[selectedIndex];
     }
     return Placeholder();
   }

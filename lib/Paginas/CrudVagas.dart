@@ -158,10 +158,30 @@ class MenuVagasCrudState extends State<MenuVagas> {
   }
 }
 
+class Inscrito {
+  int idVaga;
+  String nome;
+
+  Inscrito({required this.idVaga, required this.nome});
+}
+
 class VagasAlunoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+
+    String nome = '';
+    int idVaga = 0;
+
+    void criarInscrito() {
+      Inscrito inscrito = Inscrito(
+        nome: nome,
+        idVaga: idVaga,
+      );
+
+      var appState = context.watch<MyAppState>();
+      appState.adicionarInscrito(inscrito);
+    }
 
     return ListView(
       children: [
@@ -170,14 +190,56 @@ class VagasAlunoPage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.task),
             title: Text('Titulo: ${vaga.tituloVaga}'),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            subtitle: Row(
               children: [
-                Text('Descrição: ${vaga.descricao}'),
-                Text('Código: ${vaga.id}'),
-                Text('Empresa Contratante: ${vaga.empresaContratando}'),
-                Text('Requisitos: ${vaga.requisitos}'),
-                Text('Vaga: ${vaga.salario}'),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Descrição: ${vaga.descricao}'),
+                      Text('Código: ${vaga.id}'),
+                      Text('Empresa Contratante: ${vaga.empresaContratando}'),
+                      Text('Requisitos: ${vaga.requisitos}'),
+                      Text('Vaga: ${vaga.salario}'),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: Icon(Icons.add),
+                    tooltip: 'Inscreva-se',
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Confirme sua Inscrição'),
+                            actions: [
+                              TextButton(
+                                child: Text('Cancelar'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Confirmar'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  appState.adicionarInscrito(Inscrito(
+                                    nome: nome,
+                                    idVaga: idVaga,
+                                  ));
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),

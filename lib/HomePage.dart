@@ -97,7 +97,7 @@ class MyHomePageState extends State<MyHomePage> {
     final admOptions = [
       MenuTreinamentos(),
       TestesPage(),
-      VagasAlunoPage(),
+      VagasPage(),
       AtConcluidasMentorPage(),
       logout(),
     ];
@@ -113,7 +113,7 @@ class MyHomePageState extends State<MyHomePage> {
     ];
     final empresaOptions = [
       Placeholder(),
-      VagasAlunoPage(),
+      VagasPage(),
       MenuVagas(),
       logout(),
     ];

@@ -1,7 +1,3 @@
--> Confirmar com KUTKUT se podia deletar Vagas page (Menu vagas)
-
-
-
 -> Logout
 -> Verificação Input
 -> Inscrição Vaga (botão)
@@ -9,5 +5,8 @@
 -> Lista Inscritos (vaga e treinamento)
 -> Atividades Concluídas
 -> Usuário Incorreto
+
+
+
 
 VER COM LUISINHO RESPOSTA LOGIN!

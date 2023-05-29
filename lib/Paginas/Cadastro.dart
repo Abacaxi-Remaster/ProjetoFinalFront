@@ -18,9 +18,14 @@ class _CadastroPageState extends State<CadastroPage> {
   final List<bool> _tipoCadastrado = <bool>[true, false, false];
   var tipoSelecionado = 0;
 
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final passwordController2 = TextEditingController();
+  final nomeController = TextEditingController();
+  final ultimoController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     var appState = context.watch<MyAppState>();
     var labelFinal;
 
@@ -73,7 +78,7 @@ class _CadastroPageState extends State<CadastroPage> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
-                  //controller: userController,
+                  controller: nomeController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Nome Completo',
@@ -83,7 +88,7 @@ class _CadastroPageState extends State<CadastroPage> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
-                  //controller: userController,
+                  controller: emailController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
@@ -93,7 +98,7 @@ class _CadastroPageState extends State<CadastroPage> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
-                  //controller: userController,
+                  controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -104,7 +109,7 @@ class _CadastroPageState extends State<CadastroPage> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
-                  //controller: userController,
+                  controller: passwordController2,
                   obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -115,7 +120,7 @@ class _CadastroPageState extends State<CadastroPage> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
-                  //controller: userController,
+                  controller: ultimoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: labelFinal,
@@ -124,9 +129,9 @@ class _CadastroPageState extends State<CadastroPage> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  //substituir por envio para API
-                  print(appState.logado);
-                  //fim da substituição
+                  //adicionar confirmação de inputs
+                  cadastro(tipoSelecionado, nomeController, emailController,
+                      passwordController, ultimoController);
                   appState.setPage(LoginPage());
                 },
                 child: Text('Cadastrar'),

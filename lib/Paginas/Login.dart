@@ -51,6 +51,7 @@ class LoginPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                //Confirmação de senha e email(?)
                 //substituir por envio para API
                 //appState.addTest(userController.text);
                 //appState.addTest(passwordController.text);

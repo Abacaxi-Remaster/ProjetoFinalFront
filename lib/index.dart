@@ -2,6 +2,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:projeto_final_front/all.dart';
 
+validaNull(value) {
+  if (value == null || value.isEmpty) {
+    return '*Campo Obrigatório!';
+  }
+  return null;
+}
+
 class RegisterUser {
   int tipo;
   String nome;

@@ -1,1 +1,12 @@
--> Implementar Logout
+-> Logout
+-> Verificação Input
+-> Inscrição Vaga (botão)
+-> Inscrição Treinamento (botão)
+-> Lista Inscritos (vaga e treinamento)
+-> Atividades Concluídas
+-> Usuário Incorreto
+
+
+
+
+VER COM LUISINHO RESPOSTA LOGIN!

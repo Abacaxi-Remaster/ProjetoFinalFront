@@ -163,6 +163,53 @@ class VagasAlunoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return Placeholder();
+    return ListView(
+      children: [
+        Text('Lista de Vagas:', style: TextStyle(fontSize: 25)),
+        for (var vaga in appState.vagas)
+          ListTile(
+            leading: Icon(Icons.task),
+            title: Text('Titulo: ${vaga.tituloVaga}'),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Descrição: ${vaga.descricao}'),
+                Text('Código: ${vaga.id}'),
+                Text('Empresa Contratante: ${vaga.empresaContratando}'),
+                Text('Requisitos: ${vaga.requisitos}'),
+                Text('Vaga: ${vaga.salario}'),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class VagasPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    return ListView(
+      children: [
+        Text('Lista de Vagas:', style: TextStyle(fontSize: 25)),
+        for (var vaga in appState.vagas)
+          ListTile(
+            leading: Icon(Icons.task),
+            title: Text('Titulo: ${vaga.tituloVaga}'),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Descrição: ${vaga.descricao}'),
+                Text('Código: ${vaga.id}'),
+                Text('Empresa Contratante: ${vaga.empresaContratando}'),
+                Text('Requisitos: ${vaga.requisitos}'),
+                Text('Vaga: ${vaga.salario}'),
+              ],
+            ),
+          ),
+      ],
+    );
   }
 }

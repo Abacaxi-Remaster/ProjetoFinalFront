@@ -1,41 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
 import 'dart:math';
 import '../main.dart';
+import '../all.dart';
 
 class MenuVagas extends StatefulWidget {
   @override
   MenuVagasCrudState createState() => MenuVagasCrudState();
-}
-
-class Vaga {
-  String tituloVaga;
-  String descricao;
-  int id;
-  String empresaContratando;
-  String requisitos;
-  String salario;
-
-  Vaga(
-      {required this.tituloVaga,
-      required this.descricao,
-      required this.id,
-      required this.empresaContratando,
-      required this.requisitos,
-      required this.salario});
-
-  @override
-  String toString() {
-    return 'Vaga: '
-        'tituloVaga=$tituloVaga, '
-        'descricao=$descricao, '
-        'id=$id, '
-        'empresaContratando=$empresaContratando, '
-        'requisitos=$requisitos, '
-        'salario=$salario';
-  }
 }
 
 class MenuVagasCrudState extends State<MenuVagas> {
@@ -156,13 +127,6 @@ class MenuVagasCrudState extends State<MenuVagas> {
       ],
     );
   }
-}
-
-class Inscrito {
-  int idVaga;
-  String nome;
-
-  Inscrito({required this.idVaga, required this.nome});
 }
 
 class VagasAlunoPage extends StatelessWidget {

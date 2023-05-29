@@ -4,3 +4,11 @@
 -> Lista Inscritos (vaga e treinamento)
 -> Atividades Concluídas
 -> Usuário Incorreto
+
+Perguntas:
+-> Ao enviar algo com id, enviar '0'?
+-> Não tem data de início do treinamento?
+-> O quê exatamente coloco após a barra? (terminar treinamento!)
+-> Confirmar nomes dos toJson (vaga, treinamento, inscrito)
+-> Confirmar se é p mandar id do aluno (seja lá o q isso for), ou o nome na inscrição!
+-> 

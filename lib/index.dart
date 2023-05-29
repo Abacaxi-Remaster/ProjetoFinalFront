@@ -96,7 +96,7 @@ void login(tipo, email, senha) async {
   LoggedUser user = LoggedUser(tipo, email, senha);
   String jsonUser = jsonEncode(user.toJson());
   http.Response response = await http.post(
-    Uri.parse("http://localhost:3000/login"),
+    Uri.parse("http://localhost:8000/login"),
     headers: {'Content-Type': 'application/json'},
     body: jsonUser,
   );

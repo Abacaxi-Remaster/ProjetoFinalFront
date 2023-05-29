@@ -6,7 +6,7 @@ import '/main.dart';
 const List<Widget> Tipos = <Widget>[
   Text('Aluno'),
   Text('Mentor'),
-  Text('Empresa')
+  Text('Empresa'),
 ];
 
 class CadastroPage extends StatefulWidget {
@@ -15,6 +15,7 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final List<bool> _tipoCadastrado = <bool>[true, false, false];
   var tipoSelecionado = 0;
 
@@ -130,8 +131,12 @@ class _CadastroPageState extends State<CadastroPage> {
               ElevatedButton(
                 onPressed: () {
                   //adicionar confirmação de inputs
-                  cadastro(tipoSelecionado, nomeController, emailController,
-                      passwordController, ultimoController);
+                  /*cadastro(
+                      tipoSelecionado,
+                      nomeController.text,
+                      emailController.text,
+                      passwordController.text,
+                      ultimoController.text);*/
                   appState.setPage(LoginPage());
                 },
                 child: Text('Cadastrar'),

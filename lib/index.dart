@@ -2,6 +2,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:projeto_final_front/all.dart';
 
+validaNull(value) {
+  if (value == null || value.isEmpty) {
+    return '*Campo Obrigatório!';
+  }
+  return null;
+}
+
 class RegisterUser {
   int tipo;
   String nome;
@@ -96,7 +103,7 @@ void login(tipo, email, senha) async {
   LoggedUser user = LoggedUser(tipo, email, senha);
   String jsonUser = jsonEncode(user.toJson());
   http.Response response = await http.post(
-    Uri.parse("http://localhost:3000/login"),
+    Uri.parse("http://localhost:8000/login"),
     headers: {'Content-Type': 'application/json'},
     body: jsonUser,
   );

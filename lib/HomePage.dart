@@ -48,12 +48,8 @@ class MyHomePageState extends State<MyHomePage> {
     [
       //Empresa
       NavigationRailDestination(
-        icon: Icon(Icons.check_box),
-        label: Text('Atividades Concluídas'),
-      ),
-      NavigationRailDestination(
         icon: Icon(Icons.summarize),
-        label: Text('Notas'),
+        label: Text('Atividades Concluídas'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.event),
@@ -101,7 +97,7 @@ class MyHomePageState extends State<MyHomePage> {
     final admOptions = [
       MenuTreinamentos(),
       TestesPage(),
-      VagasAlunoPage(),
+      VagasPage(),
       AtConcluidasMentorPage(),
       logout(),
     ];
@@ -117,8 +113,7 @@ class MyHomePageState extends State<MyHomePage> {
     ];
     final empresaOptions = [
       Placeholder(),
-      Placeholder(),
-      VagasAlunoPage(),
+      VagasPage(),
       MenuVagas(),
       logout(),
     ];

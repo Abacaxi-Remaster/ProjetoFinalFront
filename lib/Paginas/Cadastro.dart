@@ -6,7 +6,7 @@ import '/main.dart';
 const List<Widget> Tipos = <Widget>[
   Text('Aluno'),
   Text('Mentor'),
-  Text('Empresa')
+  Text('Empresa'),
 ];
 
 class CadastroPage extends StatefulWidget {
@@ -15,12 +15,12 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final List<bool> _tipoCadastrado = <bool>[true, false, false];
   var tipoSelecionado = 0;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final passwordController2 = TextEditingController();
   final nomeController = TextEditingController();
   final ultimoController = TextEditingController();
 
@@ -45,7 +45,7 @@ class _CadastroPageState extends State<CadastroPage> {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 50, horizontal: 250),
         child: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(12.0),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -54,97 +54,108 @@ class _CadastroPageState extends State<CadastroPage> {
             ),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
-          child: Column(
-            children: [
-              Text('Cadastro'),
-              ToggleButtons(
-                onPressed: (int index) {
-                  setState(() {
-                    // The button that is tapped is set to true, and the others to false.
-                    for (int i = 0; i < _tipoCadastrado.length; i++) {
-                      _tipoCadastrado[i] = i == index;
+          child: Form(
+            key: _formKey,
+            autovalidateMode: AutovalidateMode.always,
+            child: Column(
+              children: [
+                Text('Cadastro'),
+                ToggleButtons(
+                  onPressed: (int index) {
+                    setState(() {
+                      // The button that is tapped is set to true, and the others to false.
+                      for (int i = 0; i < _tipoCadastrado.length; i++) {
+                        _tipoCadastrado[i] = i == index;
+                      }
+                      tipoSelecionado = index;
+                    });
+                  },
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  constraints: const BoxConstraints(
+                    minHeight: 40.0,
+                    minWidth: 80.0,
+                  ),
+                  isSelected: _tipoCadastrado,
+                  children: Tipos,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(12),
+                  child: TextFormField(
+                    controller: nomeController,
+                    validator: (value) {
+                      return validaNull(value);
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Nome Completo',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(12),
+                  child: TextFormField(
+                    controller: emailController,
+                    validator: (value) {
+                      return validaNull(value);
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(12),
+                  child: TextFormField(
+                    controller: passwordController,
+                    validator: (value) {
+                      return validaNull(value);
+                    },
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Senha',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(12),
+                  child: TextFormField(
+                    controller: ultimoController,
+                    validator: (value) {
+                      return validaNull(value);
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: labelFinal,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    //adicionar confirmação de inputs
+                    if (_formKey.currentState!.validate()) {
+                      /*cadastro(
+                          tipoSelecionado,
+                          nomeController.text,
+                          emailController.text,
+                          passwordController.text,
+                          ultimoController.text);*/
+                      appState.setPage(LoginPage());
                     }
-                    tipoSelecionado = index;
-                  });
-                },
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                constraints: const BoxConstraints(
-                  minHeight: 40.0,
-                  minWidth: 80.0,
+                  },
+                  child: Text('Cadastrar'),
                 ),
-                isSelected: _tipoCadastrado,
-                children: Tipos,
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: nomeController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Nome Completo',
+                TextButton(
+                  onPressed: () {
+                    appState.setPage(LoginPage());
+                  },
+                  child: Text(
+                    'voltar para o Login',
                   ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Senha',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: passwordController2,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Confirmar Senha',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: ultimoController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: labelFinal,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  //adicionar confirmação de inputs
-                  cadastro(tipoSelecionado, nomeController, emailController,
-                      passwordController, ultimoController);
-                  appState.setPage(LoginPage());
-                },
-                child: Text('Cadastrar'),
-              ),
-              TextButton(
-                onPressed: () {
-                  appState.setPage(LoginPage());
-                },
-                child: Text(
-                  'voltar para o Login',
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

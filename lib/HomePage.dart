@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final_front/Paginas/CrudVagas.dart';
+import 'package:projeto_final_front/Paginas/Quiz.dart';
 import 'package:provider/provider.dart';
 import 'all.dart';
 import 'main.dart';

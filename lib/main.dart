@@ -3,6 +3,8 @@ import 'package:projeto_final_front/Paginas/CrudVagas.dart';
 import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import 'HomePage.dart';
+import 'package:provider/provider.dart';
+import 'package:projeto_final_front/main.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,14 +30,22 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
+  var selectedIndex = 0;
   Widget page = LoginPage();
   var test = <String>[];
   var logado = false;
   var tipoLogado = 0;
 
-  void resetTipoLogado() {
+  void deslogar() {
+    //WidgetsBinding.instance.addPostFrameCallback((_) {
     tipoLogado = 0;
+    logado = false;
+    page = LoginPage();
+    selectedIndex = 0;
+    print('delogou');
+    notifyListeners();
     //deletar dados temporarios do usuário
+    //});
   }
 
   void setPage(Widget newPage) {
@@ -47,12 +57,22 @@ class MyAppState extends ChangeNotifier {
     });
   }
 
+  void setIndex(int newIndex) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      selectedIndex = newIndex;
+      notifyListeners();
+    });
+  }
+
   List<Treinamento> _treinamentos = [];
 
   List<Treinamento> get treinamentos => _treinamentos;
 
   List<Vaga> _vagas = [];
   List<Vaga> get vagas => _vagas;
+
+  List<Inscrito> _inscritos = [];
+  List<Inscrito> get inscritos => _inscritos;
 
   void adicionarTreinamento(Treinamento treinamento) {
     _treinamentos.add(treinamento);
@@ -70,12 +90,19 @@ class MyAppState extends ChangeNotifier {
     print(vaga);
   }
 
+  void adicionarInscrito(Inscrito inscrito) {
+    _inscritos.add(inscrito);
+    notifyListeners();
+    print(inscrito);
+  }
+
   void TESTE_toggle_logado() {
     logado = !logado;
     notifyListeners();
   }
 
   void TESTE_toggle_tipoLogado() {
+    setIndex(0);
     tipoLogado = (tipoLogado + 1) % 4;
     print(tipoLogado);
     notifyListeners();

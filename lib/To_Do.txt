@@ -1,1 +1,6 @@
--> Implementar Logout
+-> Inscrição Treinamento (botão)
+-> Lista Inscritos (vaga e treinamento)
+-> Atividades Concluídas
+-> Usuário Incorreto
+
+Perguntas:

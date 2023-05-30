@@ -8,12 +8,9 @@ import 'main.dart';
 class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => MyHomePageState();
-  void updatePage() {}
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  var selectedIndex = 0;
-
   List<List<NavigationRailDestination>> testes = [
     //Lista de possíveis barras de navegação
     [
@@ -30,10 +27,6 @@ class MyHomePageState extends State<MyHomePage> {
         icon: Icon(Icons.event),
         label: Text('Vagas'),
       ),
-      NavigationRailDestination(
-        icon: Icon(Icons.logout),
-        label: Text('Log out'),
-      ),
     ],
     [
       //Mentor
@@ -42,19 +35,15 @@ class MyHomePageState extends State<MyHomePage> {
         label: Text('Atividades Concluídas'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.logout),
-        label: Text('Log out'),
+        icon: Icon(Icons.event),
+        label: Text('Vagas'),
       ),
     ],
     [
       //Empresa
       NavigationRailDestination(
-        icon: Icon(Icons.check_box),
-        label: Text('Atividades Concluídas'),
-      ),
-      NavigationRailDestination(
         icon: Icon(Icons.summarize),
-        label: Text('Notas'),
+        label: Text('Atividades Concluídas'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.event),
@@ -65,8 +54,8 @@ class MyHomePageState extends State<MyHomePage> {
         label: Text('Criar Vagas'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.logout),
-        label: Text('Log out'),
+        icon: Icon(Icons.check_box),
+        label: Text('Atividades Concluidas'),
       ),
     ],
     [
@@ -83,20 +72,8 @@ class MyHomePageState extends State<MyHomePage> {
         icon: Icon(Icons.event),
         label: Text('Vagas'),
       ),
-      NavigationRailDestination(
-        icon: Icon(Icons.check_box),
-        label: Text('Atividades Concluidas'),
-      ),
-      NavigationRailDestination(
-        icon: Icon(Icons.logout),
-        label: Text('Log out'),
-      ),
     ],
   ];
-
-  Widget logout() {
-    return LoginPage();
-  }
 
   Widget updatePage(selectedIndex, tipoLogado) {
     final admOptions = [
@@ -104,24 +81,21 @@ class MyHomePageState extends State<MyHomePage> {
       TestesPage(),
       VagasPage(),
       AtConcluidasMentorPage(),
-      logout(),
     ];
     final alunoOptions = [
       TreinamentosAlunoPage(),
       Placeholder(),
       VagasAlunoPage(),
-      logout(),
     ];
     final mentorOptions = [
       Placeholder(),
-      logout(),
+      VagasPage(),
     ];
     final empresaOptions = [
       Placeholder(),
-      Placeholder(),
       VagasPage(),
       MenuVagas(),
-      logout(),
+      Placeholder(),
     ];
     switch (tipoLogado) {
       case 0:
@@ -151,6 +125,7 @@ class MyHomePageState extends State<MyHomePage> {
         floatingActionButton: ElevatedButton(
           //TESTE!
           onPressed: () {
+            //appState.deslogar();
             appState.TESTE_toggle_tipoLogado();
           },
           child: Text('Próximo'),
@@ -177,11 +152,11 @@ class MyHomePageState extends State<MyHomePage> {
     return NavigationRail(
       extended: constraints.maxWidth >= 600,
       destinations: testes[tipo],
-      selectedIndex: selectedIndex,
+      selectedIndex: appState.selectedIndex,
       onDestinationSelected: (value) {
         appState.setPage(updatePage(value, appState.tipoLogado));
         setState(() {
-          selectedIndex = value;
+          appState.setIndex(value);
         });
       },
     );

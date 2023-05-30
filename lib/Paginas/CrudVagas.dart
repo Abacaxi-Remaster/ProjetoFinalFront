@@ -1,51 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
 import 'dart:math';
 import '../main.dart';
+import '../all.dart';
 
 class MenuVagas extends StatefulWidget {
   @override
   MenuVagasCrudState createState() => MenuVagasCrudState();
 }
 
-class Vaga {
-  String tituloVaga;
-  String descricao;
-  int id;
-  String empresaContratando;
-  String requisitos;
-  String salario;
-
-  Vaga(
-      {required this.tituloVaga,
-      required this.descricao,
-      required this.id,
-      required this.empresaContratando,
-      required this.requisitos,
-      required this.salario});
-
-  @override
-  String toString() {
-    return 'Vaga: '
-        'tituloVaga=$tituloVaga, '
-        'descricao=$descricao, '
-        'id=$id, '
-        'empresaContratando=$empresaContratando, '
-        'requisitos=$requisitos, '
-        'salario=$salario';
-  }
-}
-
 class MenuVagasCrudState extends State<MenuVagas> {
-  final VagasController = TextEditingController();
+  final tituloController = TextEditingController();
+  final descricaoController = TextEditingController();
+  final requisitosController = TextEditingController();
+  final salarioController = TextEditingController();
   String tituloVaga = '';
   String descricao = '';
   int id = Random().nextInt(1000);
   String empresaContratando = '';
   String requisitos = '';
   String salario = '';
+
+  void submitForm() {
+    tituloController.clear();
+    descricaoController.clear();
+    requisitosController.clear();
+    salarioController.clear();
+  }
 
   void criarVaga() {
     Vaga vaga = Vaga(
@@ -69,7 +50,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
       children: [
         Text('Vagas', style: TextStyle(fontSize: 25)),
         TextFormField(
-          controller: VagasController,
+          controller: tituloController,
           decoration: InputDecoration(labelText: 'Titulo da vaga'),
           onChanged: (value) {
             setState(() {
@@ -78,6 +59,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
           },
         ),
         TextFormField(
+          controller: descricaoController,
           decoration: InputDecoration(labelText: 'Descrição'),
           onChanged: (value) {
             setState(() {
@@ -96,6 +78,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
           },
         ),
         TextFormField(
+          controller: requisitosController,
           decoration: InputDecoration(labelText: 'Requisitos'),
           onChanged: (value) {
             setState(() {
@@ -104,6 +87,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
           },
         ),
         TextFormField(
+          controller: salarioController,
           decoration: InputDecoration(labelText: 'Salario'),
           onChanged: (value) {
             setState(() {
@@ -120,7 +104,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
                 return AlertDialog(
                   title: Text('Criar Vaga'),
                   content: TextField(
-                    controller: VagasController,
+                    controller: tituloController,
                   ),
                   actions: [
                     TextButton(
@@ -140,6 +124,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
                             empresaContratando: empresaContratando,
                             requisitos: requisitos,
                             salario: salario));
+                        submitForm();
                       },
                     ),
                   ],
@@ -163,6 +148,108 @@ class VagasAlunoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return Placeholder();
+    int idAluno = 0;
+    int idVaga = 0;
+
+    void criarInscrito() {
+      Inscrito inscrito = Inscrito(
+        idAluno: idAluno,
+        idVaga: idVaga,
+      );
+
+      var appState = context.watch<MyAppState>();
+      appState.adicionarInscrito(inscrito);
+    }
+
+    return ListView(
+      children: [
+        Text('Lista de Vagas:', style: TextStyle(fontSize: 25)),
+        for (var vaga in appState.vagas)
+          ListTile(
+            leading: Icon(Icons.task),
+            title: Text('Titulo: ${vaga.tituloVaga}'),
+            subtitle: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Descrição: ${vaga.descricao}'),
+                      Text('Código: ${vaga.id}'),
+                      Text('Empresa Contratante: ${vaga.empresaContratando}'),
+                      Text('Requisitos: ${vaga.requisitos}'),
+                      Text('Vaga: ${vaga.salario}'),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: Icon(Icons.add),
+                    tooltip: 'Inscreva-se',
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Confirme sua Inscrição'),
+                            actions: [
+                              TextButton(
+                                child: Text('Cancelar'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Confirmar'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  appState.adicionarInscrito(Inscrito(
+                                    idAluno: idAluno,
+                                    idVaga: idVaga,
+                                  ));
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class VagasPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    return ListView(
+      children: [
+        Text('Lista de Vagas:', style: TextStyle(fontSize: 25)),
+        for (var vaga in appState.vagas)
+          ListTile(
+            leading: Icon(Icons.task),
+            title: Text('Titulo: ${vaga.tituloVaga}'),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Descrição: ${vaga.descricao}'),
+                Text('Código: ${vaga.id}'),
+                Text('Empresa Contratante: ${vaga.empresaContratando}'),
+                Text('Requisitos: ${vaga.requisitos}'),
+                Text('Vaga: ${vaga.salario}'),
+              ],
+            ),
+          ),
+      ],
+    );
   }
 }

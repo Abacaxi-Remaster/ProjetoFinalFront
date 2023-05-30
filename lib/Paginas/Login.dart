@@ -4,7 +4,16 @@ import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import '/main.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final List<bool> _tipoCadastrado = <bool>[true, false, false];
+  var tipoSelecionado = 0;
+
   final userController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -17,7 +26,7 @@ class LoginPage extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         alignment: Alignment.center,
         width: 400,
-        height: 300,
+        height: 400,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
@@ -25,53 +34,84 @@ class LoginPage extends StatelessWidget {
           ),
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
-        child: Column(
-          children: [
-            Text('LOGIN'),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: TextFormField(
-                controller: userController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email',
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: Column(
+            children: [
+              Text('LOGIN'),
+              ToggleButtons(
+                onPressed: (int index) {
+                  setState(() {
+                    // The button that is tapped is set to true, and the others to false.
+                    for (int i = 0; i < _tipoCadastrado.length; i++) {
+                      _tipoCadastrado[i] = i == index;
+                    }
+                    tipoSelecionado = index;
+                  });
+                },
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                constraints: const BoxConstraints(
+                  minHeight: 40.0,
+                  minWidth: 80.0,
+                ),
+                isSelected: _tipoCadastrado,
+                children: Tipos,
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: userController,
+                  validator: (value) {
+                    return validaNull(value);
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password',
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: passwordController,
+                  validator: (value) {
+                    return validaNull(value);
+                  },
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                  ),
                 ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                //substituir por envio para API
-                //appState.addTest(userController.text);
-                //appState.addTest(passwordController.text);
-                appState.TESTE_toggle_logado();
-                print(appState.logado);
-                //fim da substituição
-                appState.setPage(
-                    MyHomePageState().updatePage(0, appState.tipoLogado));
-              },
-              child: Text('Próximo'),
-            ),
-            TextButton(
-              onPressed: () {
-                appState.setPage(CadastroPage());
-                print('setou');
-              },
-              child: Text(
-                'Sign Up',
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    print(appState.logado);
+                    //Confirmação de senha e email(?)
+                    /*login(tipoSelecionado, userController.text,
+                      passwordController.text);*/
+                    appState.TESTE_toggle_logado();
+
+                    //Adicionar teste baseado no retorno da requisição (logar efetivamente)
+                    appState.setPage(
+                        MyHomePageState().updatePage(0, appState.tipoLogado));
+                  }
+                },
+                child: Text('Próximo'),
               ),
-            )
-          ],
+              TextButton(
+                onPressed: () {
+                  appState.setPage(CadastroPage());
+                  print('setou');
+                },
+                child: Text(
+                  'Sign Up',
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

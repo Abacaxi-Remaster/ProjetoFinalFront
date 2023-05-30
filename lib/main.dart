@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Projeto Final',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 3, 169, 244)),
         ),
         home: MyHomePage(),
       ),
@@ -58,6 +58,10 @@ class MyAppState extends ChangeNotifier {
     _treinamentos.add(treinamento);
     notifyListeners();
     print(treinamento);
+  }
+  void removerTreinamento(Treinamento treinamento) {
+    treinamentos.remove(treinamento);
+    notifyListeners();
   }
 
   void adicionarVaga(Vaga vaga) {

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:math';
 import '../main.dart';
+import '../all.dart';
 
 class MenuTreinamentos extends StatefulWidget {
   @override
@@ -23,23 +24,23 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
   DateTime dataInicialTreinamento = DateTime.now();
   DateTime dataFinalTreinamento = DateTime.now();
 
-void criarTreinamento() {
-  Treinamento treinamento = Treinamento(
-    nomeComercial: nomeComercial,
-    descricao: descricao,
-    cargaHoraria: cargaHoraria,
-    codigo: codigo,
-    minCandidatos: minCandidatos,
-    maxCandidatos: maxCandidatos,
-    dataInicialInscricao: dataInicialInscricao,
-    dataFinalInscricao: dataFinalInscricao,
-    dataInicialTreinamento: dataInicialTreinamento,
-    dataFinalTreinamento: dataFinalTreinamento,
-  );
+  void criarTreinamento() {
+    Treinamento treinamento = Treinamento(
+      nomeComercial: nomeComercial,
+      descricao: descricao,
+      cargaHoraria: cargaHoraria,
+      codigo: codigo,
+      minCandidatos: minCandidatos,
+      maxCandidatos: maxCandidatos,
+      dataInicialInscricao: dataInicialInscricao,
+      dataFinalInscricao: dataFinalInscricao,
+      dataInicialTreinamento: dataInicialTreinamento,
+      dataFinalTreinamento: dataFinalTreinamento,
+    );
 
-  var appState = context.watch<MyAppState>();
-  appState.adicionarTreinamento(treinamento);
-}
+    var appState = context.watch<MyAppState>();
+    appState.adicionarTreinamento(treinamento);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,8 @@ void criarTreinamento() {
           },
         ),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Quantidade Mínima de Inscritos'),
+          decoration:
+              InputDecoration(labelText: 'Quantidade Mínima de Inscritos'),
           onChanged: (value) {
             setState(() {
               minCandidatos = value;
@@ -82,7 +84,8 @@ void criarTreinamento() {
           },
         ),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Quantidade Máxima de Inscritos'),
+          decoration:
+              InputDecoration(labelText: 'Quantidade Máxima de Inscritos'),
           onChanged: (value) {
             setState(() {
               maxCandidatos = value;
@@ -111,7 +114,17 @@ void criarTreinamento() {
                       child: Text('Salvar'),
                       onPressed: () {
                         Navigator.of(context).pop();
-                        appState.adicionarTreinamento(Treinamento(nomeComercial: nomeComercial, descricao: descricao, cargaHoraria: cargaHoraria, codigo: codigo, minCandidatos: minCandidatos, maxCandidatos: maxCandidatos, dataInicialInscricao: dataInicialInscricao, dataFinalInscricao: dataFinalInscricao, dataInicialTreinamento: dataInicialTreinamento, dataFinalTreinamento: dataFinalTreinamento));
+                        appState.adicionarTreinamento(Treinamento(
+                            nomeComercial: nomeComercial,
+                            descricao: descricao,
+                            cargaHoraria: cargaHoraria,
+                            codigo: codigo,
+                            minCandidatos: minCandidatos,
+                            maxCandidatos: maxCandidatos,
+                            dataInicialInscricao: dataInicialInscricao,
+                            dataFinalInscricao: dataFinalInscricao,
+                            dataInicialTreinamento: dataInicialTreinamento,
+                            dataFinalTreinamento: dataFinalTreinamento));
                       },
                     ),
                   ],
@@ -127,47 +140,6 @@ void criarTreinamento() {
           ),
       ],
     );
-  }
-}
-
-class Treinamento {
-  String nomeComercial;
-  String descricao;
-  String cargaHoraria;
-  int codigo;
-  String minCandidatos;
-  String maxCandidatos;
-  DateTime dataInicialInscricao;
-  DateTime dataFinalInscricao;
-  DateTime dataInicialTreinamento;
-  DateTime dataFinalTreinamento;
-  
-  Treinamento({
-    required this.nomeComercial,
-    required this.descricao,
-    required this.cargaHoraria,
-    required this.codigo,
-    required this.minCandidatos,
-    required this.maxCandidatos,
-    required this.dataInicialInscricao,
-    required this.dataFinalInscricao,
-    required this.dataInicialTreinamento,
-    required this.dataFinalTreinamento,
-  });
-
-  @override
-  String toString() {
-    return 'Treinamento: '
-        'nomeComercial=$nomeComercial, '
-        'descricao=$descricao, '
-        'cargaHoraria=$cargaHoraria, '
-        'codigo=$codigo, '
-        'minCandidatos=$minCandidatos, '
-        'maxCandidatos=$maxCandidatos, '
-        'dataInicialInscricao=$dataInicialInscricao, '
-        'dataFinalInscricao=$dataFinalInscricao, '
-        'dataInicialTreinamento=$dataInicialTreinamento, '
-        'dataFinalTreinamento=$dataFinalTreinamento';
   }
 }
 
@@ -191,11 +163,14 @@ class TreinamentosAlunoPage extends StatelessWidget {
                 Text('Código: ${treinamento.codigo}'),
                 Text('Mínimo de Candidatos: ${treinamento.minCandidatos}'),
                 Text('Máximo de Candidatos: ${treinamento.maxCandidatos}'),
-                Text('Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
-                Text('Data Final de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalInscricao)}'),
-                Text('Data Inicial do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialTreinamento)}'),
-                Text('Data Final do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalTreinamento)}'),
-
+                Text(
+                    'Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
+                Text(
+                    'Data Final de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalInscricao)}'),
+                Text(
+                    'Data Inicial do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialTreinamento)}'),
+                Text(
+                    'Data Final do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalTreinamento)}'),
               ],
             ),
           ),

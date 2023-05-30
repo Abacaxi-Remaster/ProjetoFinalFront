@@ -83,7 +83,7 @@ class LoggedUser {
         };
       case 1:
         return {
-          'usuario': "professores",
+          'usuario': "mentores",
           'email': email,
           'senha': senha,
         };
@@ -112,4 +112,173 @@ void login(tipo, email, senha) async {
     //User logged = User.fromJson(jsonBody);
     //setar usuário logado como logado
   } else {}
+}
+
+class Treinamento {
+  String nomeComercial;
+  String descricao;
+  String cargaHoraria;
+  int codigo;
+  String minCandidatos;
+  String maxCandidatos;
+  DateTime dataInicialInscricao;
+  DateTime dataFinalInscricao;
+  DateTime dataInicialTreinamento;
+  DateTime dataFinalTreinamento;
+
+  Treinamento({
+    required this.nomeComercial,
+    required this.descricao,
+    required this.cargaHoraria,
+    required this.codigo,
+    required this.minCandidatos,
+    required this.maxCandidatos,
+    required this.dataInicialInscricao,
+    required this.dataFinalInscricao,
+    required this.dataInicialTreinamento,
+    required this.dataFinalTreinamento,
+  });
+
+  @override
+  String toString() {
+    return 'Treinamento: '
+        'nomeComercial=$nomeComercial, '
+        'descricao=$descricao, '
+        'cargaHoraria=$cargaHoraria, '
+        'codigo=$codigo, '
+        'minCandidatos=$minCandidatos, '
+        'maxCandidatos=$maxCandidatos, '
+        'dataInicialInscricao=$dataInicialInscricao, '
+        'dataFinalInscricao=$dataFinalInscricao, '
+        'dataInicialTreinamento=$dataInicialTreinamento, '
+        'dataFinalTreinamento=$dataFinalTreinamento';
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "nome_comercial": nomeComercial,
+      "descricao": descricao,
+      "carga_horaria": cargaHoraria,
+      //comeco_insc, comeco_fim, comeco_treinamento, fim_treinamento
+      "qntd_min_insc": minCandidatos,
+      "qntd_max_insc": maxCandidatos,
+    };
+  }
+}
+
+void criaTreinamento(
+    nomeComercial,
+    descricao,
+    cargaHoraria,
+    codigo,
+    minCandidatos,
+    maxCandidatos,
+    dataInicialInscricao,
+    dataFinalInscricao,
+    dataInicialTreinamento,
+    dataFinalTreinamento) async {
+  Treinamento novoTreinamento = Treinamento(
+      nomeComercial: nomeComercial,
+      descricao: descricao,
+      cargaHoraria: cargaHoraria,
+      codigo: codigo,
+      minCandidatos: minCandidatos,
+      maxCandidatos: maxCandidatos,
+      dataInicialInscricao: dataInicialInscricao,
+      dataFinalInscricao: dataFinalInscricao,
+      dataInicialTreinamento: dataInicialTreinamento,
+      dataFinalTreinamento: dataFinalTreinamento);
+  String jsonTreinamento = jsonEncode(novoTreinamento.toJson());
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/treinamentos"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonTreinamento,
+  );
+  if (response.statusCode == 200) {
+    print('Treinamento registrado com sucesso');
+  }
+}
+
+class Vaga {
+  String tituloVaga;
+  String descricao;
+  int id;
+  String empresaContratando;
+  String requisitos;
+  String salario;
+
+  Vaga(
+      {required this.tituloVaga,
+      required this.descricao,
+      required this.id,
+      required this.empresaContratando,
+      required this.requisitos,
+      required this.salario});
+
+  @override
+  String toString() {
+    return 'Vaga: '
+        'tituloVaga=$tituloVaga, '
+        'descricao=$descricao, '
+        'id=$id, '
+        'empresaContratando=$empresaContratando, '
+        'requisitos=$requisitos, '
+        'salario=$salario';
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "tituloVaga": tituloVaga,
+      "descricao": descricao,
+      "empresaContratando": empresaContratando,
+      "requisitos": requisitos,
+      "salario": salario
+    };
+  }
+}
+
+void criaVaga(
+    tituloVaga, descricao, id, empresaContratando, requisitos, salario) async {
+  Vaga novaVaga = Vaga(
+      tituloVaga: tituloVaga,
+      descricao: descricao,
+      id: id,
+      empresaContratando: empresaContratando,
+      requisitos: requisitos,
+      salario: salario);
+  String jsonVaga = jsonEncode(novaVaga.toJson());
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/vagas"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonVaga,
+  );
+  if (response.statusCode == 200) {
+    print('Vaga registrada com sucesso');
+  }
+}
+
+class Inscrito {
+  int idVaga;
+  int idAluno;
+
+  Inscrito({required this.idVaga, required this.idAluno});
+  Map<String, dynamic> toJson() {
+    return {
+      "id_aluno": idAluno,
+      "id_vagas": idVaga,
+    };
+  }
+}
+
+void criaInscricao(idVaga, idAluno) async {
+  Inscrito inscricao = Inscrito(idVaga: idVaga, idAluno: idAluno);
+  String jsonInscricao = jsonEncode(inscricao.toJson());
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonInscricao,
+  );
+  if (response.statusCode == 200) {
+    print('Inscrição realizada com sucesso');
+  }
 }

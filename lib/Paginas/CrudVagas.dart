@@ -1,51 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
 import 'dart:math';
 import '../main.dart';
+import '../all.dart';
 
 class MenuVagas extends StatefulWidget {
   @override
   MenuVagasCrudState createState() => MenuVagasCrudState();
 }
 
-class Vaga {
-  String tituloVaga;
-  String descricao;
-  int id;
-  String empresaContratando;
-  String requisitos;
-  String salario;
-
-  Vaga(
-      {required this.tituloVaga,
-      required this.descricao,
-      required this.id,
-      required this.empresaContratando,
-      required this.requisitos,
-      required this.salario});
-
-  @override
-  String toString() {
-    return 'Vaga: '
-        'tituloVaga=$tituloVaga, '
-        'descricao=$descricao, '
-        'id=$id, '
-        'empresaContratando=$empresaContratando, '
-        'requisitos=$requisitos, '
-        'salario=$salario';
-  }
-}
-
 class MenuVagasCrudState extends State<MenuVagas> {
-  final VagasController = TextEditingController();
+  final tituloController = TextEditingController();
+  final descricaoController = TextEditingController();
+  final requisitosController = TextEditingController();
+  final salarioController = TextEditingController();
   String tituloVaga = '';
   String descricao = '';
   int id = Random().nextInt(1000);
   String empresaContratando = '';
   String requisitos = '';
   String salario = '';
+
+  void submitForm() {
+    tituloController.clear();
+    descricaoController.clear();
+    requisitosController.clear();
+    salarioController.clear();
+  }
 
   void criarVaga() {
     Vaga vaga = Vaga(
@@ -69,7 +50,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
       children: [
         Text('Vagas', style: TextStyle(fontSize: 25)),
         TextFormField(
-          controller: VagasController,
+          controller: tituloController,
           decoration: InputDecoration(labelText: 'Titulo da vaga'),
           onChanged: (value) {
             setState(() {
@@ -78,6 +59,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
           },
         ),
         TextFormField(
+          controller: descricaoController,
           decoration: InputDecoration(labelText: 'Descrição'),
           onChanged: (value) {
             setState(() {
@@ -96,6 +78,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
           },
         ),
         TextFormField(
+          controller: requisitosController,
           decoration: InputDecoration(labelText: 'Requisitos'),
           onChanged: (value) {
             setState(() {
@@ -104,6 +87,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
           },
         ),
         TextFormField(
+          controller: salarioController,
           decoration: InputDecoration(labelText: 'Salario'),
           onChanged: (value) {
             setState(() {
@@ -120,7 +104,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
                 return AlertDialog(
                   title: Text('Criar Vaga'),
                   content: TextField(
-                    controller: VagasController,
+                    controller: tituloController,
                   ),
                   actions: [
                     TextButton(
@@ -140,6 +124,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
                             empresaContratando: empresaContratando,
                             requisitos: requisitos,
                             salario: salario));
+                        submitForm();
                       },
                     ),
                   ],
@@ -158,24 +143,17 @@ class MenuVagasCrudState extends State<MenuVagas> {
   }
 }
 
-class Inscrito {
-  int idVaga;
-  String nome;
-
-  Inscrito({required this.idVaga, required this.nome});
-}
-
 class VagasAlunoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    String nome = '';
+    int idAluno = 0;
     int idVaga = 0;
 
     void criarInscrito() {
       Inscrito inscrito = Inscrito(
-        nome: nome,
+        idAluno: idAluno,
         idVaga: idVaga,
       );
 
@@ -228,7 +206,7 @@ class VagasAlunoPage extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                   appState.adicionarInscrito(Inscrito(
-                                    nome: nome,
+                                    idAluno: idAluno,
                                     idVaga: idVaga,
                                   ));
                                 },

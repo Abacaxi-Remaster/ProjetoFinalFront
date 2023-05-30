@@ -3,6 +3,8 @@ import 'package:projeto_final_front/Paginas/CrudVagas.dart';
 import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import 'HomePage.dart';
+import 'package:provider/provider.dart';
+import 'package:projeto_final_front/main.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,14 +30,22 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
+  var selectedIndex = 0;
   Widget page = LoginPage();
   var test = <String>[];
   var logado = false;
   var tipoLogado = 0;
 
-  void resetTipoLogado() {
+  void deslogar() {
+    //WidgetsBinding.instance.addPostFrameCallback((_) {
     tipoLogado = 0;
+    logado = false;
+    page = LoginPage();
+    selectedIndex = 0;
+    print('delogou');
+    notifyListeners();
     //deletar dados temporarios do usuário
+    //});
   }
 
   void setPage(Widget newPage) {
@@ -43,6 +53,13 @@ class MyAppState extends ChangeNotifier {
       page = newPage;
       print('page: ');
       print(page);
+      notifyListeners();
+    });
+  }
+
+  void setIndex(int newIndex) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      selectedIndex = newIndex;
       notifyListeners();
     });
   }
@@ -81,6 +98,7 @@ class MyAppState extends ChangeNotifier {
   }
 
   void TESTE_toggle_tipoLogado() {
+    setIndex(0);
     tipoLogado = (tipoLogado + 1) % 4;
     print(tipoLogado);
     notifyListeners();

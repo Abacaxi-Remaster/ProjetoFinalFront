@@ -83,7 +83,7 @@ class LoggedUser {
         };
       case 1:
         return {
-          'usuario': "professores",
+          'usuario': "mentores",
           'email': email,
           'senha': senha,
         };
@@ -156,12 +156,10 @@ class Treinamento {
 
   Map<String, dynamic> toJson() {
     return {
-      //id": number,
       "nome_comercial": nomeComercial,
       "descricao": descricao,
       "carga_horaria": cargaHoraria,
-      //"comeco_fim_insc": dataFinalInscricao,
-      //"comeco_fim_treinamento": dataFinalTreinamento,
+      //comeco_insc, comeco_fim, comeco_treinamento, fim_treinamento
       "qntd_min_insc": minCandidatos,
       "qntd_max_insc": maxCandidatos,
     };
@@ -192,7 +190,7 @@ void criaTreinamento(
       dataFinalTreinamento: dataFinalTreinamento);
   String jsonTreinamento = jsonEncode(novoTreinamento.toJson());
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/"),
+    Uri.parse("http://localhost:8000/treinamentos"),
     headers: {'Content-Type': 'application/json'},
     body: jsonTreinamento,
   );
@@ -250,7 +248,7 @@ void criaVaga(
       salario: salario);
   String jsonVaga = jsonEncode(novaVaga.toJson());
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/"),
+    Uri.parse("http://localhost:8000/vagas"),
     headers: {'Content-Type': 'application/json'},
     body: jsonVaga,
   );
@@ -261,19 +259,19 @@ void criaVaga(
 
 class Inscrito {
   int idVaga;
-  String nome;
+  int idAluno;
 
-  Inscrito({required this.idVaga, required this.nome});
+  Inscrito({required this.idVaga, required this.idAluno});
   Map<String, dynamic> toJson() {
     return {
-      "id_aluno": nome,
+      "id_aluno": idAluno,
       "id_vagas": idVaga,
     };
   }
 }
 
-void criaInscricao(idVaga, nome) async {
-  Inscrito inscricao = Inscrito(idVaga: idVaga, nome: nome);
+void criaInscricao(idVaga, idAluno) async {
+  Inscrito inscricao = Inscrito(idVaga: idVaga, idAluno: idAluno);
   String jsonInscricao = jsonEncode(inscricao.toJson());
   http.Response response = await http.post(
     Uri.parse("http://localhost:8000/"),

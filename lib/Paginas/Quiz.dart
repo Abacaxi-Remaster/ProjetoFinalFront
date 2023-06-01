@@ -30,8 +30,6 @@ class QuizState extends State<Quiz> {
   bool checkAlternativaD = false;
   bool checkAlternativaE = false;
 
-  int contaQuestao = 0;
-
   List<Respostas> salvaResp = [];
   void addResposta() {
     setState(() {
@@ -53,6 +51,30 @@ class QuizState extends State<Quiz> {
       ));
     });
   }
+
+  void printRespostas(List<Respostas> respostas) {
+  for (int i = 0; i < respostas.length; i++) {
+    Respostas resposta = respostas[i];
+    print('Questão: ${resposta.questao}');
+    print('Pergunta: ${resposta.pergunta}');
+    print('Resposta A: ${resposta.respostaDaAlternativaA}');
+    print('Alternativa A: ${resposta.alternativaA}');
+    print('Resposta B: ${resposta.respostaDaAlternativaB}');
+    print('Alternativa B: ${resposta.alternativaB}');
+    print('Resposta C: ${resposta.respostaDaAlternativaC}');
+    print('Alternativa C: ${resposta.alternativaC}');
+    print('Resposta D: ${resposta.respostaDaAlternativaD}');
+    print('Alternativa D: ${resposta.alternativaD}');
+    print('Resposta E: ${resposta.respostaDaAlternativaE}');
+    print('Alternativa E: ${resposta.alternativaE}');
+    print('ID do Treinamento Quiz: ${resposta.idTreinamentoQuiz}');
+    print('---');
+  }
+}
+
+  int salvaIndex= 0;
+  int contaQuestao = 0;
+
   @override
   Widget build(BuildContext context) {
     final TextStyle style = TextStyle(
@@ -207,8 +229,7 @@ class QuizState extends State<Quiz> {
             ),            
           ],
         );
-    }
-
+    }    
     return Scaffold(
       appBar: AppBar(
           title: const Text('Quiz'),
@@ -217,6 +238,7 @@ class QuizState extends State<Quiz> {
         body: ListView.builder(
         itemCount: salvaResp.length,
         itemBuilder: (context, index) {
+          salvaIndex = index;
           return Column(
             children: [
               ListTile(
@@ -241,9 +263,39 @@ class QuizState extends State<Quiz> {
                       addResposta();
                       contaQuestao++;
                   },
-                  child: Text('Novo', style: TextStyle(fontSize: 20)),
+                  child: Text('NOVO', style: TextStyle(fontSize: 20)),
                 ),
               ]),
+              SizedBox(height: 5,),
+              SizedBox(
+                height: 58,
+                child: ButtonTheme(
+                  minWidth: MediaQuery.of(context).size.width,
+                  child: ButtonTheme(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                        ),
+                      ),
+                      onPressed: () {
+                        //Funcao para mandar questão para o banco de dados passando salvaResp
+                        printRespostas(salvaResp);
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Enviar quiz",
+                        textAlign: TextAlign.center,
+                        style: style.copyWith(
+                          color: Colors.lightBlue,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
           ]),
     );
   }

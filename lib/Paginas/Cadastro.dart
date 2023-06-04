@@ -135,12 +135,12 @@ class _CadastroPageState extends State<CadastroPage> {
                   onPressed: () {
                     //adicionar confirmação de inputs
                     if (_formKey.currentState!.validate()) {
-                      /*cadastro(
+                      cadastro(
                           tipoSelecionado,
                           nomeController.text,
                           emailController.text,
                           passwordController.text,
-                          ultimoController.text);*/
+                          ultimoController.text);
                       appState.setPage(LoginPage());
                     }
                   },

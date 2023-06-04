@@ -3,4 +3,10 @@
 -> Atividades Concluídas
 -> Usuário Incorreto
 
+-> Senha errada
+-> login do adm
+
+
 Perguntas:
+Lembrete:
+-> login adm -> testar c tabela luisinho

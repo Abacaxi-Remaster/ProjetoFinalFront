@@ -30,7 +30,7 @@ class RegisterUser {
         };
       case 1:
         return {
-          'usuario': "professores",
+          'usuario': "mentores",
           'nome': nome,
           'email': email,
           'senha': senha,
@@ -63,6 +63,10 @@ void cadastro(tipo, nome, email, senha, ultimo) async {
 
   if (response.statusCode == 200) {
     print('Cadastro feito com sucesso');
+  } else {
+    if (response.statusCode == 400) {
+      print('erro no cadastro');
+    }
   }
 }
 
@@ -70,8 +74,10 @@ class LoggedUser {
   int tipo;
   String email;
   String senha;
+  String nome;
+  String id;
 
-  LoggedUser(this.tipo, this.email, this.senha);
+  LoggedUser(this.tipo, this.email, this.senha, this.nome, this.id);
 
   Map<String, dynamic> toJson() {
     switch (tipo) {
@@ -93,25 +99,50 @@ class LoggedUser {
           'email': email,
           'senha': senha,
         };
+      case 3:
+        return {
+          'usuario': "ADM",
+          'email': email,
+          'senha': senha,
+        };
       default:
         return {'default': ''};
     }
   }
+
+  static LoggedUser fromJson(Map<String, dynamic> json, int tipo) {
+    return LoggedUser(
+      tipo,
+      json['email'],
+      json['senha'],
+      json['nome'],
+      json['id'],
+    );
+  }
 }
 
-void login(tipo, email, senha) async {
-  LoggedUser user = LoggedUser(tipo, email, senha);
+Future<LoggedUser> login(tipo, email, senha) async {
+  LoggedUser user = LoggedUser(tipo, email, senha, '', '');
   String jsonUser = jsonEncode(user.toJson());
   http.Response response = await http.post(
     Uri.parse("http://localhost:8000/login"),
     headers: {'Content-Type': 'application/json'},
     body: jsonUser,
   );
-  if (response.statusCode == 202) {
+  if (response.statusCode == 200) {
     final jsonBody = json.decode(response.body);
-    //User logged = User.fromJson(jsonBody);
-    //setar usuário logado como logado
-  } else {}
+    print("logou!");
+    print(jsonBody);
+    LoggedUser logged = LoggedUser.fromJson(jsonBody, tipo);
+    return logged;
+  } else {
+    if (response.statusCode == 204) {
+      print("204");
+    } else {
+      print("outro");
+    }
+    return LoggedUser(204, 'email', 'senha', 'nome', 'id');
+  }
 }
 
 class Treinamento {
@@ -159,7 +190,10 @@ class Treinamento {
       "nome_comercial": nomeComercial,
       "descricao": descricao,
       "carga_horaria": cargaHoraria,
-      //comeco_insc, comeco_fim, comeco_treinamento, fim_treinamento
+      "comeco_insc": dataInicialInscricao,
+      "fim_insc": dataFinalInscricao,
+      "comeco_treinamento": dataInicialTreinamento,
+      "fim_treinamento": dataFinalTreinamento,
       "qntd_min_insc": minCandidatos,
       "qntd_max_insc": maxCandidatos,
     };

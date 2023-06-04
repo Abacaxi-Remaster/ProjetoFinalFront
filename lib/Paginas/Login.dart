@@ -86,17 +86,22 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
+                    LoggedUser loggedUser;
                     print(appState.logado);
-                    //Confirmação de senha e email(?)
-                    /*login(tipoSelecionado, userController.text,
-                      passwordController.text);*/
-                    appState.TESTE_toggle_logado();
-
-                    //Adicionar teste baseado no retorno da requisição (logar efetivamente)
-                    appState.setPage(
-                        MyHomePageState().updatePage(0, appState.tipoLogado));
+                    if (userController.text == 'ADM') {
+                      loggedUser = await login(
+                          3, userController.text, passwordController.text);
+                    } else {
+                      loggedUser = await login(tipoSelecionado,
+                          userController.text, passwordController.text);
+                    }
+                    appState.logar(loggedUser);
+                    if (loggedUser.tipo != 204) {
+                      appState.setPage(
+                          MyHomePageState().updatePage(0, appState.tipoLogado));
+                    }
                   }
                 },
                 child: Text('Próximo'),
@@ -104,7 +109,6 @@ class _LoginPageState extends State<LoginPage> {
               TextButton(
                 onPressed: () {
                   appState.setPage(CadastroPage());
-                  print('setou');
                 },
                 child: Text(
                   'Sign Up',

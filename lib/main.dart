@@ -11,7 +11,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +21,45 @@ class MyApp extends StatelessWidget {
         title: 'Projeto Final',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 3, 169, 244)),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Color.fromARGB(255, 3, 169, 244),
+          ),
         ),
-        home: MyHomePage(),
+        home: Builder(
+          builder: (context) {
+            var appState = context.watch<MyAppState>();
+            appState.scaffoldMessenger = ScaffoldMessenger.of(context);
+            return MyHomePage();
+          },
+        ),
       ),
     );
   }
 }
 
 class MyAppState extends ChangeNotifier {
+  late ScaffoldMessengerState scaffoldMessenger;
   var selectedIndex = 0;
   Widget page = LoginPage();
   var test = <String>[];
   var logado = false;
   var tipoLogado = 0;
+  LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 'id');
+
+  void logar(LoggedUser user) {
+    if (user.tipo == 204) {
+      scaffoldMessenger.showSnackBar(
+        SnackBar(
+          content: Text('Crendenciais Inválidas!'),
+        ),
+      );
+    } else {
+      logged = user;
+      logado = true;
+      tipoLogado = user.tipo;
+      notifyListeners();
+    }
+  }
 
   void deslogar() {
     //WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -46,6 +71,14 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
     //deletar dados temporarios do usuário
     //});
+  }
+
+  void erro(String mensagem) {
+    scaffoldMessenger.showSnackBar(
+      SnackBar(
+        content: Text(mensagem),
+      ),
+    );
   }
 
   void setPage(Widget newPage) {
@@ -79,6 +112,7 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
     print(treinamento);
   }
+
   void removerTreinamento(Treinamento treinamento) {
     treinamentos.remove(treinamento);
     notifyListeners();
@@ -124,100 +158,3 @@ class MyAppState extends ChangeNotifier {
     vaga.add(vagasAlunos);
   }
 }
-
-/*class MyHomePage extends StatefulWidget {
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-*/
-/*class _MyHomePageState extends State<MyHomePage> {
-  var selectedIndex = 0;
-  TextEditingController textController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = Aluno();
-        break;
-      case 1:
-        page = TreinamentosAlunoPage();
-        break;
-      case 2:
-        page = TestesPage();
-        break;
-      case 3:
-        page = VagasPage();
-        break;
-      case 4:
-        page = ADMMenu();
-        break;
-      case 5:
-        page = AtConcluidasMentorPage();
-        break;
-      /*case 6:
-        page = CursosCall();
-        break;*/
-      default:
-        throw UnimplementedError('no widget for $selectedIndex');
-    }
-
-    return LayoutBuilder(builder: (context, constraints) {
-      return Scaffold(
-        body: Row(
-          children: [
-            SafeArea(
-              child: NavigationRail(
-                extended: constraints.maxWidth >= 600, // ← Here.
-                destinations: [
-                  NavigationRailDestination(
-                    icon: Icon(Icons.menu),
-                    label: Text('Menu'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.folder),
-                    label: Text('Treinamentos'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.menu_book),
-                    label: Text('Testes'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.event),
-                    label: Text('Vagas'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.logout),
-                    label: Text('AdmTeste'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.check_box),
-                    label: Text('Atividades Concluidas'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.check),
-                    label: Text('Cursos'),
-                  ),
-                ],
-                selectedIndex: selectedIndex,
-                onDestinationSelected: (value) {
-                  setState(() {
-                    selectedIndex = value;
-                  });
-                },
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: page,
-              ),
-            ),
-          ],
-        ),
-      );
-    });
-  }
-}
-*/

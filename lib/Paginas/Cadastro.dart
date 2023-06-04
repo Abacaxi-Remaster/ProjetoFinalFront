@@ -132,16 +132,25 @@ class _CadastroPageState extends State<CadastroPage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     //adicionar confirmação de inputs
                     if (_formKey.currentState!.validate()) {
-                      cadastro(
-                          tipoSelecionado,
-                          nomeController.text,
-                          emailController.text,
-                          passwordController.text,
-                          ultimoController.text);
-                      appState.setPage(LoginPage());
+                      if (nomeController.text == 'ADM') {
+                        appState.erro('Nome de usuário inválido!');
+                      } else {
+                        int resposta = await cadastro(
+                            tipoSelecionado,
+                            nomeController.text,
+                            emailController.text,
+                            passwordController.text,
+                            ultimoController.text);
+                        if (resposta == 200) {
+                          appState.setPage(LoginPage());
+                        } else {
+                          appState.erro('Erro no cadastro - Email já em uso!');
+                        }
+                      }
+                      ;
                     }
                   },
                   child: Text('Cadastrar'),

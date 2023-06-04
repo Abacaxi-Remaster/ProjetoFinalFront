@@ -50,7 +50,7 @@ class RegisterUser {
   }
 }
 
-void cadastro(tipo, nome, email, senha, ultimo) async {
+Future<int> cadastro(tipo, nome, email, senha, ultimo) async {
   RegisterUser newUser = RegisterUser(tipo, nome, email, senha, ultimo);
 
   String jsonUser = jsonEncode(newUser.toJson());
@@ -68,6 +68,7 @@ void cadastro(tipo, nome, email, senha, ultimo) async {
       print('erro no cadastro');
     }
   }
+  return response.statusCode;
 }
 
 class LoggedUser {

@@ -73,6 +73,14 @@ class MyAppState extends ChangeNotifier {
     //});
   }
 
+  void erro(String mensagem) {
+    scaffoldMessenger.showSnackBar(
+      SnackBar(
+        content: Text(mensagem),
+      ),
+    );
+  }
+
   void setPage(Widget newPage) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       page = newPage;

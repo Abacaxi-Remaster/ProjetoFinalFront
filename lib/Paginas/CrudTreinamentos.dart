@@ -13,7 +13,13 @@ class MenuTreinamentos extends StatefulWidget {
 }
 
 class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
-  final treinamentosController = TextEditingController();
+  final nomeComercialController = TextEditingController();
+  final descricaoController = TextEditingController();
+  final cargaHorariaController = TextEditingController();
+  final qtdMinInscritosController = TextEditingController();
+  final qtdMaxInscritosController = TextEditingController();
+  final fieldText = TextEditingController();
+
   String nomeComercial = '';
   String descricao = '';
   String cargaHoraria = '';
@@ -42,16 +48,32 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
     var appState = context.watch<MyAppState>();
     appState.adicionarTreinamento(treinamento);
   }
-
+  
+  void submitForm() {
+    nomeComercialController.clear();
+    descricaoController.clear();
+    cargaHorariaController.clear();
+    qtdMinInscritosController.clear();
+    qtdMaxInscritosController.clear();
+  }
+  
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-
+    void checkText(minCandidatos, maxCandidatos) {
+      if (minCandidatos != '' && maxCandidatos != '') {
+        if (int.parse(maxCandidatos) < int.parse(minCandidatos) ||
+            int.parse(minCandidatos) > int.parse(maxCandidatos)) {
+          fieldText.clear();
+        }
+      }
+    }
+    
     return ListView(
       children: [
         Text('Treinamentos', style: TextStyle(fontSize: 25)),
         TextFormField(
-          controller: treinamentosController,
+          controller: nomeComercialController,
           decoration: InputDecoration(labelText: 'Nome Comercial'),
           onChanged: (value) {
             setState(() {
@@ -60,6 +82,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
           },
         ),
         TextFormField(
+          controller: descricaoController,
           decoration: InputDecoration(labelText: 'Descrição'),
           onChanged: (value) {
             setState(() {
@@ -68,6 +91,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
           },
         ),
         TextFormField(
+          controller: cargaHorariaController,
           decoration: InputDecoration(labelText: 'Carga Horária'),
           onChanged: (value) {
             setState(() {
@@ -76,8 +100,8 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
           },
         ),
         TextFormField(
-          decoration:
-              InputDecoration(labelText: 'Quantidade Mínima de Inscritos'),
+          controller: qtdMinInscritosController,
+          decoration: InputDecoration(labelText: 'Quantidade Mínima de Inscritos'),
           onChanged: (value) {
             setState(() {
               minCandidatos = value;
@@ -85,8 +109,8 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
           },
         ),
         TextFormField(
-          decoration:
-              InputDecoration(labelText: 'Quantidade Máxima de Inscritos'),
+          controller: qtdMaxInscritosController,
+          decoration: InputDecoration(labelText: 'Quantidade Máxima de Inscritos'),
           onChanged: (value) {
             setState(() {
               maxCandidatos = value;
@@ -115,7 +139,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
                 return AlertDialog(
                   title: Text('Criar Treinamento'),
                   content: TextField(
-                    controller: treinamentosController,
+                    controller: nomeComercialController,
                   ),
                   actions: [
                     TextButton(
@@ -140,6 +164,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
                           dataInicialTreinamento: dataInicialTreinamento,
                           dataFinalTreinamento: dataFinalTreinamento,
                         ));
+                        submitForm();
                       },
                     ),
                   ],

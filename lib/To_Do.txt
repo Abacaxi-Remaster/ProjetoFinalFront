@@ -1,12 +1,27 @@
 -> Inscrição Treinamento (botão)
 -> Lista Inscritos (vaga e treinamento)
 -> Atividades Concluídas
--> Usuário Incorreto
-
--> Senha errada
--> login do adm
 
 
 Perguntas:
 Lembrete:
 -> login adm -> testar c tabela luisinho
+
+
+
+Páginas:
+    100% prontas:
+        - HomePage
+        - Cadastro
+    
+    Prontas, com leves ajustes faltando:
+        - Login
+            - Falta Login do ADM! (backend)
+    
+    Em Desenvolvimento:
+        -Treinamentos
+            - Falta o quiz
+        - Quiz
+        - Atividades recentes
+            -Falta o quiz
+        - 

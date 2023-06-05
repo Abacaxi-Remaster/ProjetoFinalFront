@@ -135,8 +135,8 @@ class _CadastroPageState extends State<CadastroPage> {
                   onPressed: () async {
                     //adicionar confirmação de inputs
                     if (_formKey.currentState!.validate()) {
-                      if (nomeController.text == 'ADM') {
-                        appState.erro('Nome de usuário inválido!');
+                      if (emailController.text == 'ADM') {
+                        appState.erro('Erro no cadastro - Email inválido!');
                       } else {
                         int resposta = await cadastro(
                             tipoSelecionado,

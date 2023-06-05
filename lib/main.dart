@@ -84,8 +84,8 @@ class MyAppState extends ChangeNotifier {
   void setPage(Widget newPage) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       page = newPage;
-      print('page: ');
-      print(page);
+      //print('page: ');
+      //print(page);
       notifyListeners();
     });
   }
@@ -139,6 +139,12 @@ class MyAppState extends ChangeNotifier {
     setIndex(0);
     tipoLogado = (tipoLogado + 1) % 4;
     print(tipoLogado);
+    notifyListeners();
+  }
+
+  void TESTE_adm() {
+    setIndex(0);
+    tipoLogado = 3;
     notifyListeners();
   }
 

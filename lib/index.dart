@@ -102,7 +102,7 @@ class LoggedUser {
         };
       case 3:
         return {
-          'usuario': "ADM",
+          'usuario': "adm",
           'email': email,
           'senha': senha,
         };

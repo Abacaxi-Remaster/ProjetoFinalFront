@@ -48,6 +48,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
     var appState = context.watch<MyAppState>();
     appState.adicionarTreinamento(treinamento);
   }
+  
   void submitForm() {
     nomeComercialController.clear();
     descricaoController.clear();
@@ -118,7 +119,6 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
         ),
         ElevatedButton(
           onPressed: () {
-            
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -210,11 +210,14 @@ class TreinamentosAlunoPage extends StatelessWidget {
                 Text('Código: ${treinamento.codigo}'),
                 Text('Mínimo de Candidatos: ${treinamento.minCandidatos}'),
                 Text('Máximo de Candidatos: ${treinamento.maxCandidatos}'),
-                Text('Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
-                Text('Data Final de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalInscricao)}'),
-                Text('Data Inicial do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialTreinamento)}'),
-                Text('Data Final do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalTreinamento)}'),
-              
+                Text(
+                    'Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
+                Text(
+                    'Data Final de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalInscricao)}'),
+                Text(
+                    'Data Inicial do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialTreinamento)}'),
+                Text(
+                    'Data Final do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalTreinamento)}'),
               ],
             ),
           ),

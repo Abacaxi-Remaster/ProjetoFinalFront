@@ -1,12 +1,27 @@
 -> Inscrição Treinamento (botão)
 -> Lista Inscritos (vaga e treinamento)
 -> Atividades Concluídas
--> Usuário Incorreto
 
--> Senha errada
+
+-> msg de erro no email, não no nome! (adm)
 -> login do adm
 
 
 Perguntas:
 Lembrete:
 -> login adm -> testar c tabela luisinho
+
+
+
+Páginas:
+    100% prontas:
+        - HomePage
+        - Cadastro
+    Prontas, com leves ajustes faltando:
+        - Login
+            - Falta Login do ADM!
+        -Treinamentos
+            - Falta o quiz
+    Em Desenvolvimento:
+        - Quiz
+        - 

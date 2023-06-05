@@ -3,10 +3,6 @@
 -> Atividades Concluídas
 
 
--> msg de erro no email, não no nome! (adm)
--> login do adm
-
-
 Perguntas:
 Lembrete:
 -> login adm -> testar c tabela luisinho
@@ -17,11 +13,15 @@ Páginas:
     100% prontas:
         - HomePage
         - Cadastro
+    
     Prontas, com leves ajustes faltando:
         - Login
-            - Falta Login do ADM!
+            - Falta Login do ADM! (backend)
+    
+    Em Desenvolvimento:
         -Treinamentos
             - Falta o quiz
-    Em Desenvolvimento:
         - Quiz
+        - Atividades recentes
+            -Falta o quiz
         - 

@@ -45,6 +45,13 @@ class MyAppState extends ChangeNotifier {
   var logado = false;
   var tipoLogado = 0;
   LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 'id');
+  Vaga vagaAtual = Vaga(
+      tituloVaga: 'tituloVaga',
+      descricao: 'descricao',
+      id: -1,
+      empresaContratando: 'empresaContratando',
+      requisitos: 'requisitos',
+      salario: 'salario');
 
   void logar(LoggedUser user) {
     if (user.tipo == 204) {
@@ -122,6 +129,11 @@ class MyAppState extends ChangeNotifier {
     _vagas.add(vaga);
     notifyListeners();
     print(vaga);
+  }
+
+  void removerVaga(Vaga vaga) {
+    vagas.remove(vaga);
+    notifyListeners();
   }
 
   void adicionarInscrito(Inscrito inscrito) {

@@ -4,6 +4,7 @@
 
 
 Perguntas:
+-> get vaga luisinho! (fazer backend);
 Lembrete:
 -> login adm -> testar c tabela luisinho
 
@@ -19,9 +20,15 @@ Páginas:
             - Falta Login do ADM! (backend)
     
     Em Desenvolvimento:
-        -Treinamentos
+        - Treinamentos
             - Falta o quiz
+            - Falta conectar com o banco de dados!
         - Quiz
         - Atividades recentes
             -Falta o quiz
-        - 
+        - Vagas
+            -Falta ver o banco de dados para adicionar a lista de inscritos
+            -Falta adicionar o botão de deletar dentro do menu!
+        -Realizar Quizes:
+            -Falta tudo acho
+            

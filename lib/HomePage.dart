@@ -45,10 +45,6 @@ class MyHomePageState extends State<MyHomePage> {
         label: Text('Atividades Concluídas'),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.event),
-        label: Text('Vagas'),
-      ),
-      NavigationRailDestination(
         icon: Icon(Icons.edit_calendar),
         label: Text('Criar Vagas'),
       ),
@@ -92,7 +88,6 @@ class MyHomePageState extends State<MyHomePage> {
     ];
     final empresaOptions = [
       Placeholder(),
-      VagasPage(),
       MenuVagas(),
       Placeholder(),
     ];
@@ -124,10 +119,9 @@ class MyHomePageState extends State<MyHomePage> {
         floatingActionButton: ElevatedButton(
           onPressed: () {
             //appState.deslogar();
-
-            //TESTES: ----------------------------------------
-            //appState.TESTE_toggle_tipoLogado();
-            appState.TESTE_adm();
+            //TESTES: ----------------------------------------;
+            appState.TESTE_toggle_tipoLogado();
+            //appState.TESTE_adm();
           },
           child: Text('Deslogar'),
         ),

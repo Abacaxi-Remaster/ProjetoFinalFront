@@ -68,16 +68,6 @@ class MenuVagasCrudState extends State<MenuVagas> {
           },
         ),
         TextFormField(
-          decoration: InputDecoration(
-              labelText:
-                  '-Mudar para automaticamente colocar a empresa logada-'),
-          onChanged: (value) {
-            setState(() {
-              empresaContratando = value;
-            });
-          },
-        ),
-        TextFormField(
           controller: requisitosController,
           decoration: InputDecoration(labelText: 'Requisitos'),
           onChanged: (value) {
@@ -121,7 +111,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
                             tituloVaga: tituloVaga,
                             descricao: descricao,
                             id: id,
-                            empresaContratando: empresaContratando,
+                            empresaContratando: appState.logged.nome,
                             requisitos: requisitos,
                             salario: salario));
                         submitForm();
@@ -137,6 +127,19 @@ class MenuVagasCrudState extends State<MenuVagas> {
           ListTile(
             leading: Icon(Icons.task),
             title: Text(vaga.tituloVaga),
+            subtitle: Text(vaga.descricao),
+            trailing: IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                appState.vagaAtual = vaga;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetalheVaga(),
+                  ),
+                );
+              },
+            ),
           ),
       ],
     );
@@ -179,7 +182,7 @@ class VagasAlunoPage extends StatelessWidget {
                       Text('Código: ${vaga.id}'),
                       Text('Empresa Contratante: ${vaga.empresaContratando}'),
                       Text('Requisitos: ${vaga.requisitos}'),
-                      Text('Vaga: ${vaga.salario}'),
+                      Text('Salario: ${vaga.salario}'),
                     ],
                   ),
                 ),

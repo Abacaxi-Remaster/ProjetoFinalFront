@@ -9,6 +9,7 @@ validaNull(value) {
   return null;
 }
 
+//Cadastro/Login:
 class RegisterUser {
   int tipo;
   String nome;
@@ -146,6 +147,7 @@ Future<LoggedUser> login(tipo, email, senha) async {
   }
 }
 
+//Treinamento/Quiz:
 class Treinamento {
   String nomeComercial;
   String descricao;
@@ -234,6 +236,7 @@ void criaTreinamento(
   }
 }
 
+//Vagas/Inscritos:
 class Vaga {
   String tituloVaga;
   String descricao;
@@ -290,6 +293,19 @@ void criaVaga(
   if (response.statusCode == 200) {
     print('Vaga registrada com sucesso');
   }
+}
+
+Vaga getVaga(int id) {
+  // ver get c luisinho!
+  Vaga vaga;
+  vaga = Vaga(
+      tituloVaga: 'tituloVaga',
+      descricao: 'descricao',
+      id: id,
+      empresaContratando: 'empresaContratando',
+      requisitos: 'requisitos',
+      salario: 'salario');
+  return vaga;
 }
 
 class Inscrito {

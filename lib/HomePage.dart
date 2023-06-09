@@ -26,6 +26,10 @@ class MyHomePageState extends State<MyHomePage> {
         icon: Icon(Icons.event),
         label: Text('Vagas'),
       ),
+      NavigationRailDestination(
+        icon: Icon(Icons.event_available),
+        label: Text('Vagas Inscritas'),
+      ),
     ],
     [
       //Mentor
@@ -43,10 +47,6 @@ class MyHomePageState extends State<MyHomePage> {
       NavigationRailDestination(
         icon: Icon(Icons.summarize),
         label: Text('Atividades Concluídas'),
-      ),
-      NavigationRailDestination(
-        icon: Icon(Icons.event),
-        label: Text('Vagas'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.edit_calendar),
@@ -85,14 +85,14 @@ class MyHomePageState extends State<MyHomePage> {
       TreinamentosAlunoPage(),
       Placeholder(),
       VagasAlunoPage(),
+      VagasInscritasAlunoPage(),
     ];
     final mentorOptions = [
       Placeholder(),
       VagasPage(),
     ];
     final empresaOptions = [
-      Placeholder(),
-      VagasPage(),
+      TestesPage(),
       MenuVagas(),
       Placeholder(),
     ];
@@ -124,10 +124,9 @@ class MyHomePageState extends State<MyHomePage> {
         floatingActionButton: ElevatedButton(
           onPressed: () {
             //appState.deslogar();
-
-            //TESTES: ----------------------------------------
-            //appState.TESTE_toggle_tipoLogado();
-            appState.TESTE_adm();
+            //TESTES: ----------------------------------------;
+            appState.TESTE_toggle_tipoLogado();
+            //appState.TESTE_adm();
           },
           child: Text('Deslogar'),
         ),

@@ -147,6 +147,7 @@ class _CadastroPageState extends State<CadastroPage> {
                         if (resposta == 200) {
                           appState.setPage(LoginPage());
                         } else {
+                          print(resposta);
                           appState.erro('Erro no cadastro - Email já em uso!');
                         }
                       }

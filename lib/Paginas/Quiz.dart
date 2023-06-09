@@ -124,12 +124,16 @@ class QuizState extends State<Quiz> {
               onChanged: (bool? value) {
                 setState(() {
                   listaRespostas[index].alternativaA = value!;
-                  checkAlternativaA = listaRespostas[index].alternativaA;
+                  //checkAlternativaA = listaRespostas[index].alternativaA;
                   listaRespostas[index].alternativaB = false;
                   listaRespostas[index].alternativaC = false;
                   listaRespostas[index].alternativaD = false;
                   listaRespostas[index].alternativaE = false;
-                  alternativa = 'a';
+                  if (value!) {
+                    listaRespostas[index].alternativaCorreta = 'A';
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                  }
                 });
               },
               title: Text('Selecionar'),
@@ -149,12 +153,16 @@ class QuizState extends State<Quiz> {
               onChanged: (bool? value) {
                 setState(() {
                   listaRespostas[index].alternativaB = value!;
-                  checkAlternativaB = listaRespostas[index].alternativaB;
+                  //checkAlternativaB = listaRespostas[index].alternativaB;
                   listaRespostas[index].alternativaA = false;
                   listaRespostas[index].alternativaC = false;
                   listaRespostas[index].alternativaD = false;
                   listaRespostas[index].alternativaE = false;
-                  alternativa = 'b';
+                  if (value!) {
+                    listaRespostas[index].alternativaCorreta = 'B';
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                  }
                 });
               },
               title: Text('Selecionar'),
@@ -175,12 +183,16 @@ class QuizState extends State<Quiz> {
               onChanged: (bool? value) {
                 setState(() {
                   listaRespostas[index].alternativaC = value!;
-                  checkAlternativaC = listaRespostas[index].alternativaC;
+                  //checkAlternativaC = listaRespostas[index].alternativaC;
                   listaRespostas[index].alternativaA = false;
                   listaRespostas[index].alternativaB = false;
                   listaRespostas[index].alternativaD = false;
                   listaRespostas[index].alternativaE = false;
-                  alternativa = 'c';
+                  if (value!) {
+                    listaRespostas[index].alternativaCorreta = 'C';
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                  }
                 });
               },
               title: Text('Selecionar'),
@@ -201,12 +213,17 @@ class QuizState extends State<Quiz> {
               onChanged: (bool? value) {
                 setState(() {
                   listaRespostas[index].alternativaD = value!;
-                  checkAlternativaD = listaRespostas[index].alternativaD;
+                  //checkAlternativaD = listaRespostas[index].alternativaD;
                   listaRespostas[index].alternativaA = false;
                   listaRespostas[index].alternativaB = false;
                   listaRespostas[index].alternativaC = false;
                   listaRespostas[index].alternativaE = false;
-                  alternativa = 'd';
+                  if (value!) {
+                    listaRespostas[index].alternativaCorreta = 'D';
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                  }
+
                 });
               },
               title: Text('Selecionar'),
@@ -227,13 +244,18 @@ class QuizState extends State<Quiz> {
               onChanged: (bool? value) {
                 setState(() {
                   listaRespostas[index].alternativaE = value!;
-                  checkAlternativaE = listaRespostas[index].alternativaE;
+                  //checkAlternativaE = listaRespostas[index].alternativaE;
                   listaRespostas[index].alternativaA = false;
                   listaRespostas[index].alternativaB = false;
                   listaRespostas[index].alternativaC = false;
                   listaRespostas[index].alternativaD = false;
-                  alternativa = 'e';
+                  if (value!) {
+                    listaRespostas[index].alternativaCorreta = 'E';
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                  }
                 });
+
               },
               title: Text('Selecionar'),
             ), 
@@ -328,7 +350,6 @@ class Respostas {
   bool alternativaC;
   bool alternativaD;
   bool alternativaE;
-  bool correta = true;
   int idTreinamentoQuiz;
 
   Respostas({

@@ -124,7 +124,6 @@ class MyHomePageState extends State<MyHomePage> {
         floatingActionButton: ElevatedButton(
           onPressed: () {
             //appState.deslogar();
-            //TESTES: ----------------------------------------;
             appState.TESTE_toggle_tipoLogado();
             //appState.TESTE_adm();
           },

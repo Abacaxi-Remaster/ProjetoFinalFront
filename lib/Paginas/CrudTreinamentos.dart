@@ -49,7 +49,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
     var appState = context.watch<MyAppState>();
     appState.adicionarTreinamento(treinamento);
   }
-  
+
   void submitForm() {
     nomeComercialController.clear();
     descricaoController.clear();
@@ -57,12 +57,11 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
     qtdMinInscritosController.clear();
     qtdMaxInscritosController.clear();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    
     return ListView(
       children: [
         Text('Treinamentos', style: TextStyle(fontSize: 25)),
@@ -95,7 +94,8 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
         ),
         TextFormField(
           controller: qtdMinInscritosController,
-          decoration: InputDecoration(labelText: 'Quantidade Mínima de Inscritos'),
+          decoration:
+              InputDecoration(labelText: 'Quantidade Mínima de Inscritos'),
           onChanged: (value) {
             setState(() {
               minCandidatos = value;
@@ -104,7 +104,8 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
         ),
         TextFormField(
           controller: qtdMaxInscritosController,
-          decoration: InputDecoration(labelText: 'Quantidade Máxima de Inscritos'),
+          decoration:
+              InputDecoration(labelText: 'Quantidade Máxima de Inscritos'),
           onChanged: (value) {
             setState(() {
               maxCandidatos = value;
@@ -117,7 +118,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
               context,
               MaterialPageRoute(
                 builder: (context) => Quiz(
-                  quizID: Random().nextInt(1000),
+                  quizID: '',
                 ),
               ),
             );
@@ -190,7 +191,7 @@ class TreinamentosAlunoPage extends StatelessWidget {
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
-  
+
   int index = 0;
   String emailUser = '';
   List<dynamic> dataListCursosBD = [];
@@ -199,12 +200,11 @@ class TreinamentosAlunoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    int idAluno = 0;
-    int idTreinamento = 0;
-    int flag = 0;
+    String idAluno = '0';
+    String idTreinamento = '0';
 
     void criarInscritoTreinamento() {
-      Inscrito inscrito = Inscrito(
+      InscritoVaga inscrito = InscritoVaga(
         idAluno: idAluno,
         idVaga: idTreinamento,
       );
@@ -212,6 +212,7 @@ class TreinamentosAlunoPage extends StatelessWidget {
       var appState = context.watch<MyAppState>();
       appState.adicionarInscrito(inscrito);
     }
+
     return ListView(
       children: [
         Text('Lista de Treinamentos:', style: TextStyle(fontSize: 25)),
@@ -229,8 +230,10 @@ class TreinamentosAlunoPage extends StatelessWidget {
                       Text('Descrição: ${treinamento.descricao}'),
                       Text('Carga Horária: ${treinamento.cargaHoraria}'),
                       Text('Código: ${treinamento.codigo}'),
-                      Text('Mínimo de Candidatos: ${treinamento.minCandidatos}'),
-                      Text('Máximo de Candidatos: ${treinamento.maxCandidatos}'),
+                      Text(
+                          'Mínimo de Candidatos: ${treinamento.minCandidatos}'),
+                      Text(
+                          'Máximo de Candidatos: ${treinamento.maxCandidatos}'),
                       Text(
                           'Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
                       Text(
@@ -262,18 +265,18 @@ class TreinamentosAlunoPage extends StatelessWidget {
                               ),
                               TextButton(
                                 child: Text('Confirmar e começar quiz'),
-                               onPressed: () {
+                                onPressed: () {
                                   Navigator.of(context).pop();
-                                  appState.adicionarInscrito(Inscrito(
+                                  appState.adicionarInscrito(InscritoVaga(
                                     idAluno: idAluno,
                                     idVaga: idTreinamento,
                                   ));
                                   Navigator.push(
-                                   context,
+                                    context,
                                     MaterialPageRoute(
                                       builder: (context) => FazerQuiz(
-                                        emailUser: _emailUser, 
-                                        quizID: idTreinamento,
+                                        emailUser: _emailUser,
+                                        quizID: '',
                                       ),
                                     ),
                                   );
@@ -291,7 +294,7 @@ class TreinamentosAlunoPage extends StatelessWidget {
           ),
       ],
     );
-    
+
     /*return ListView(
       children: [
         Text('Lista de Treinamentos:', style: TextStyle(fontSize: 25)),

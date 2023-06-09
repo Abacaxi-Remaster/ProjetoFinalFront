@@ -110,8 +110,8 @@ class MyAppState extends ChangeNotifier {
   List<Vaga> _vagas = [];
   List<Vaga> get vagas => _vagas;
 
-  List<Inscrito> _inscritos = [];
-  List<Inscrito> get inscritos => _inscritos;
+  List<InscritoVaga> _inscritos = [];
+  List<InscritoVaga> get inscritos => _inscritos;
 
   void adicionarTreinamento(Treinamento treinamento) {
     _treinamentos.add(treinamento);
@@ -135,7 +135,7 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void adicionarInscrito(Inscrito inscrito) {
+  void adicionarInscrito(InscritoVaga inscrito) {
     _inscritos.add(inscrito);
     notifyListeners();
     print(inscrito);

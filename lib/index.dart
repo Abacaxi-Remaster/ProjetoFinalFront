@@ -343,11 +343,11 @@ Vaga getVaga(String id) {
   return vaga;
 }
 
-class Inscrito {
+class InscritoVaga {
   String idVaga;
   String idAluno;
 
-  Inscrito({required this.idVaga, required this.idAluno});
+  InscritoVaga({required this.idVaga, required this.idAluno});
   Map<String, dynamic> toJson() {
     return {
       "id_aluno": idAluno,
@@ -356,8 +356,8 @@ class Inscrito {
   }
 }
 
-void criaInscricao(idVaga, idAluno) async {
-  Inscrito inscricao = Inscrito(idVaga: idVaga, idAluno: idAluno);
+void criaInscricaoVaga(idVaga, idAluno) async {
+  InscritoVaga inscricao = InscritoVaga(idVaga: idVaga, idAluno: idAluno);
   String jsonInscricao = jsonEncode(inscricao.toJson());
 
   http.Response response = await http.post(
@@ -372,6 +372,7 @@ void criaInscricao(idVaga, idAluno) async {
   }
 }
 
+//Treinamento
 class quiz {
   String questao;
   String pergunta;
@@ -382,7 +383,6 @@ class quiz {
   String respostaDaAlternativaD;
   String respostaDaAlternativaE;
   String alternativaCorreta;
-
 
   int idTreinamentoQuiz;
 
@@ -412,13 +412,13 @@ class quiz {
 
   Map<String, dynamic> toJson() {
     return {
-        "enunciado": pergunta,
-        "resposta": alternativaCorreta,
-        "opcao_a": respostaDaAlternativaA,
-        "opcao_b": respostaDaAlternativaB,
-        "opcao_c": respostaDaAlternativaC,
-        "opcao_d": respostaDaAlternativaD,
-        "opcao_e": respostaDaAlternativaE,
+      "enunciado": pergunta,
+      "resposta": alternativaCorreta,
+      "opcao_a": respostaDaAlternativaA,
+      "opcao_b": respostaDaAlternativaB,
+      "opcao_c": respostaDaAlternativaC,
+      "opcao_d": respostaDaAlternativaD,
+      "opcao_e": respostaDaAlternativaE,
     };
   }
 }

@@ -207,7 +207,7 @@ class VagasAlunoPage extends StatelessWidget {
                                       onPressed: () {
                                         print(vaga.id);
                                         print(appState.logged.id);
-                                        criaInscricao(
+                                        criaInscricaoVaga(
                                             vaga.id, appState.logged.id);
                                         Navigator.of(context)
                                             .pop(); // Pass the appropriate values for idAluno and idVaga

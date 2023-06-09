@@ -6,7 +6,7 @@ import 'dart:math';
 import '../main.dart';
 
 class Quiz extends StatefulWidget {
-  final int quizID;
+  final String quizID;
 
   Quiz({
     required this.quizID,
@@ -54,6 +54,7 @@ class QuizState extends State<Quiz> {
       ));
     });
   }
+
   void printRespostas(List<Respostas> respostas) {
     for (int i = 0; i < respostas.length; i++) {
       Respostas resposta = respostas[i];
@@ -75,7 +76,7 @@ class QuizState extends State<Quiz> {
     }
   }
 
-  int salvaIndex= 0;
+  int salvaIndex = 0;
   int contaQuestao = 0;
 
   @override
@@ -99,175 +100,171 @@ class QuizState extends State<Quiz> {
       respostaE = '';
 
       return Column(
-          children: [
-            TextField(
-              onChanged: (text) {
-                listaRespostas[index].pergunta = text;
-                pergunta = listaRespostas[index].pergunta;
-              },
-              decoration: InputDecoration(
-                labelText: 'Pergunta',
-              ),
+        children: [
+          TextField(
+            onChanged: (text) {
+              listaRespostas[index].pergunta = text;
+              pergunta = listaRespostas[index].pergunta;
+            },
+            decoration: InputDecoration(
+              labelText: 'Pergunta',
             ),
-            SizedBox(height: 20),
-            TextField(
-              onChanged: (text) {
-                listaRespostas[index].respostaDaAlternativaA = text;
-                respostaA = listaRespostas[index].respostaDaAlternativaA;
-              },
-              decoration: InputDecoration(
-                labelText: 'Resposta A',
-              ),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            onChanged: (text) {
+              listaRespostas[index].respostaDaAlternativaA = text;
+              respostaA = listaRespostas[index].respostaDaAlternativaA;
+            },
+            decoration: InputDecoration(
+              labelText: 'Resposta A',
             ),
-            CheckboxListTile(
-              value: listaRespostas[index].alternativaA,
-              onChanged: (bool? value) {
-                setState(() {
-                  listaRespostas[index].alternativaA = value!;
-                  //checkAlternativaA = listaRespostas[index].alternativaA;
-                  listaRespostas[index].alternativaB = false;
-                  listaRespostas[index].alternativaC = false;
-                  listaRespostas[index].alternativaD = false;
-                  listaRespostas[index].alternativaE = false;
-                  if (value!) {
-                    listaRespostas[index].alternativaCorreta = 'A';
-                  } else {
-                    listaRespostas[index].alternativaCorreta = '';
-                  }
-                });
-              },
-              title: Text('Selecionar'),
+          ),
+          CheckboxListTile(
+            value: listaRespostas[index].alternativaA,
+            onChanged: (bool? value) {
+              setState(() {
+                listaRespostas[index].alternativaA = value!;
+                //checkAlternativaA = listaRespostas[index].alternativaA;
+                listaRespostas[index].alternativaB = false;
+                listaRespostas[index].alternativaC = false;
+                listaRespostas[index].alternativaD = false;
+                listaRespostas[index].alternativaE = false;
+                if (value) {
+                  listaRespostas[index].alternativaCorreta = 'A';
+                } else {
+                  listaRespostas[index].alternativaCorreta = '';
+                }
+              });
+            },
+            title: Text('Selecionar'),
+          ),
+          SizedBox(height: 10),
+          TextField(
+            onChanged: (text) {
+              listaRespostas[index].respostaDaAlternativaB = text;
+              respostaB = listaRespostas[index].respostaDaAlternativaB;
+            },
+            decoration: InputDecoration(
+              labelText: 'Resposta B',
             ),
-            SizedBox(height: 10),
-            TextField(
-              onChanged: (text) {
-                listaRespostas[index].respostaDaAlternativaB = text;
-                respostaB = listaRespostas[index].respostaDaAlternativaB;
-              },
-              decoration: InputDecoration(
-                labelText: 'Resposta B',
-              ),
+          ),
+          CheckboxListTile(
+            value: listaRespostas[index].alternativaB,
+            onChanged: (bool? value) {
+              setState(() {
+                listaRespostas[index].alternativaB = value!;
+                //checkAlternativaB = listaRespostas[index].alternativaB;
+                listaRespostas[index].alternativaA = false;
+                listaRespostas[index].alternativaC = false;
+                listaRespostas[index].alternativaD = false;
+                listaRespostas[index].alternativaE = false;
+                if (value) {
+                  listaRespostas[index].alternativaCorreta = 'B';
+                } else {
+                  listaRespostas[index].alternativaCorreta = '';
+                }
+              });
+            },
+            title: Text('Selecionar'),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            onChanged: (text) {
+              listaRespostas[index].respostaDaAlternativaC = text;
+              respostaC = listaRespostas[index].respostaDaAlternativaC;
+            },
+            decoration: InputDecoration(
+              labelText: 'Resposta C',
             ),
-            CheckboxListTile(
-              value: listaRespostas[index].alternativaB,
-              onChanged: (bool? value) {
-                setState(() {
-                  listaRespostas[index].alternativaB = value!;
-                  //checkAlternativaB = listaRespostas[index].alternativaB;
-                  listaRespostas[index].alternativaA = false;
-                  listaRespostas[index].alternativaC = false;
-                  listaRespostas[index].alternativaD = false;
-                  listaRespostas[index].alternativaE = false;
-                  if (value!) {
-                    listaRespostas[index].alternativaCorreta = 'B';
-                  } else {
-                    listaRespostas[index].alternativaCorreta = '';
-                  }
-                });
-              },
-              title: Text('Selecionar'),
+          ),
+          CheckboxListTile(
+            value: listaRespostas[index].alternativaC,
+            onChanged: (bool? value) {
+              setState(() {
+                listaRespostas[index].alternativaC = value!;
+                //checkAlternativaC = listaRespostas[index].alternativaC;
+                listaRespostas[index].alternativaA = false;
+                listaRespostas[index].alternativaB = false;
+                listaRespostas[index].alternativaD = false;
+                listaRespostas[index].alternativaE = false;
+                if (value) {
+                  listaRespostas[index].alternativaCorreta = 'C';
+                } else {
+                  listaRespostas[index].alternativaCorreta = '';
+                }
+              });
+            },
+            title: Text('Selecionar'),
+          ),
+          SizedBox(height: 10),
+          TextField(
+            onChanged: (text) {
+              listaRespostas[index].respostaDaAlternativaD = text;
+              respostaD = listaRespostas[index].respostaDaAlternativaD;
+            },
+            decoration: InputDecoration(
+              labelText: 'Resposta D',
             ),
-            
-            SizedBox(height: 20),
-            TextField(
-              onChanged: (text) {
-                listaRespostas[index].respostaDaAlternativaC = text;
-                respostaC = listaRespostas[index].respostaDaAlternativaC;
-              },
-              decoration: InputDecoration(
-                labelText: 'Resposta C',
-              ),
+          ),
+          CheckboxListTile(
+            value: listaRespostas[index].alternativaD,
+            onChanged: (bool? value) {
+              setState(() {
+                listaRespostas[index].alternativaD = value!;
+                //checkAlternativaD = listaRespostas[index].alternativaD;
+                listaRespostas[index].alternativaA = false;
+                listaRespostas[index].alternativaB = false;
+                listaRespostas[index].alternativaC = false;
+                listaRespostas[index].alternativaE = false;
+                if (value) {
+                  listaRespostas[index].alternativaCorreta = 'D';
+                } else {
+                  listaRespostas[index].alternativaCorreta = '';
+                }
+              });
+            },
+            title: Text('Selecionar'),
+          ),
+          SizedBox(height: 10),
+          TextField(
+            onChanged: (text) {
+              listaRespostas[index].respostaDaAlternativaE = text;
+              respostaE = listaRespostas[index].respostaDaAlternativaE;
+            },
+            decoration: InputDecoration(
+              labelText: 'Resposta E',
             ),
-            CheckboxListTile(
-              value: listaRespostas[index].alternativaC,
-              onChanged: (bool? value) {
-                setState(() {
-                  listaRespostas[index].alternativaC = value!;
-                  //checkAlternativaC = listaRespostas[index].alternativaC;
-                  listaRespostas[index].alternativaA = false;
-                  listaRespostas[index].alternativaB = false;
-                  listaRespostas[index].alternativaD = false;
-                  listaRespostas[index].alternativaE = false;
-                  if (value!) {
-                    listaRespostas[index].alternativaCorreta = 'C';
-                  } else {
-                    listaRespostas[index].alternativaCorreta = '';
-                  }
-                });
-              },
-              title: Text('Selecionar'),
-            ),
-            
-            SizedBox(height: 10),
-            TextField(
-              onChanged: (text) {
-                listaRespostas[index].respostaDaAlternativaD = text;
-                respostaD = listaRespostas[index].respostaDaAlternativaD;
-              },
-              decoration: InputDecoration(
-                labelText: 'Resposta D',
-              ),
-            ),
-            CheckboxListTile(
-              value: listaRespostas[index].alternativaD,
-              onChanged: (bool? value) {
-                setState(() {
-                  listaRespostas[index].alternativaD = value!;
-                  //checkAlternativaD = listaRespostas[index].alternativaD;
-                  listaRespostas[index].alternativaA = false;
-                  listaRespostas[index].alternativaB = false;
-                  listaRespostas[index].alternativaC = false;
-                  listaRespostas[index].alternativaE = false;
-                  if (value!) {
-                    listaRespostas[index].alternativaCorreta = 'D';
-                  } else {
-                    listaRespostas[index].alternativaCorreta = '';
-                  }
-
-                });
-              },
-              title: Text('Selecionar'),
-            ),
-
-            SizedBox(height: 10),
-            TextField(
-              onChanged: (text) {
-                listaRespostas[index].respostaDaAlternativaE = text;
-                respostaE = listaRespostas[index].respostaDaAlternativaE;
-              },
-              decoration: InputDecoration(
-                labelText: 'Resposta E',
-              ),
-            ),           
-            CheckboxListTile(
-              value: listaRespostas[index].alternativaE,
-              onChanged: (bool? value) {
-                setState(() {
-                  listaRespostas[index].alternativaE = value!;
-                  //checkAlternativaE = listaRespostas[index].alternativaE;
-                  listaRespostas[index].alternativaA = false;
-                  listaRespostas[index].alternativaB = false;
-                  listaRespostas[index].alternativaC = false;
-                  listaRespostas[index].alternativaD = false;
-                  if (value!) {
-                    listaRespostas[index].alternativaCorreta = 'E';
-                  } else {
-                    listaRespostas[index].alternativaCorreta = '';
-                  }
-                });
-
-              },
-              title: Text('Selecionar'),
-            ), 
-          ],
-        );
+          ),
+          CheckboxListTile(
+            value: listaRespostas[index].alternativaE,
+            onChanged: (bool? value) {
+              setState(() {
+                listaRespostas[index].alternativaE = value!;
+                //checkAlternativaE = listaRespostas[index].alternativaE;
+                listaRespostas[index].alternativaA = false;
+                listaRespostas[index].alternativaB = false;
+                listaRespostas[index].alternativaC = false;
+                listaRespostas[index].alternativaD = false;
+                if (value) {
+                  listaRespostas[index].alternativaCorreta = 'E';
+                } else {
+                  listaRespostas[index].alternativaCorreta = '';
+                }
+              });
+            },
+            title: Text('Selecionar'),
+          ),
+        ],
+      );
     }
+
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Quiz'),
-          titleTextStyle: style,
+        title: const Text('Quiz'),
+        titleTextStyle: style,
       ),
-        body: ListView.builder(
+      body: ListView.builder(
         itemCount: salvaResp.length,
         itemBuilder: (context, index) {
           salvaIndex = index;
@@ -288,51 +285,51 @@ class QuizState extends State<Quiz> {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center, 
-              children: [
-                FloatingActionButton(
-                  onPressed: () {
-                      addResposta();
-                      contaQuestao++;
-                  },
-                  child: Text('NOVO', style: TextStyle(fontSize: 20)),
-                ),
-              ]),
-              SizedBox(height: 5,),
-              SizedBox(
-                height: 58,
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              FloatingActionButton(
+                onPressed: () {
+                  addResposta();
+                  contaQuestao++;
+                },
+                child: Text('NOVO', style: TextStyle(fontSize: 20)),
+              ),
+            ]),
+            SizedBox(
+              height: 5,
+            ),
+            SizedBox(
+              height: 58,
+              child: ButtonTheme(
+                minWidth: MediaQuery.of(context).size.width,
                 child: ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width,
-                  child: ButtonTheme(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32.0),
-                        ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32.0),
                       ),
-                      onPressed: () {
-                        //Funcao para mandar questão para o banco de dados passando salvaResp
-                        printRespostas(salvaResp);
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        "Enviar quiz",
-                        textAlign: TextAlign.center,
-                        style: style.copyWith(
-                          color: Colors.lightBlue,
-                          fontWeight: FontWeight.normal,
-                        ),
+                    ),
+                    onPressed: () {
+                      //Funcao para mandar questão para o banco de dados passando salvaResp
+                      printRespostas(salvaResp);
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      "Enviar quiz",
+                      textAlign: TextAlign.center,
+                      style: style.copyWith(
+                        color: Colors.lightBlue,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
                 ),
-              )
+              ),
+            )
           ]),
     );
   }
 }
-
 
 class Respostas {
   String questao;
@@ -350,7 +347,7 @@ class Respostas {
   bool alternativaC;
   bool alternativaD;
   bool alternativaE;
-  int idTreinamentoQuiz;
+  String idTreinamentoQuiz;
 
   Respostas({
     required this.idTreinamentoQuiz,

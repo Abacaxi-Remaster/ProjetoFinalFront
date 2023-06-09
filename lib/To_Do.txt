@@ -7,6 +7,9 @@ Perguntas:
 -> get vaga luisinho! (fazer backend);
 -> Adicionar id a mentores!
 -> Email Pk por favor!
+-> Função que pega todas as vagas de uma empresa específica!
+-> Função que pega todas as vagas que um aluno de inscreveu
+
 Lembrete:
 -> login adm -> testar c tabela luisinho
 

@@ -41,17 +41,16 @@ class MyAppState extends ChangeNotifier {
   late ScaffoldMessengerState scaffoldMessenger;
   var selectedIndex = 0;
   Widget page = LoginPage();
-  var test = <String>[];
   var logado = false;
   var tipoLogado = 0;
   LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 'id');
   Vaga vagaAtual = Vaga(
       tituloVaga: 'tituloVaga',
       descricao: 'descricao',
-      id: -1,
-      empresaContratando: 'empresaContratando',
+      id: '-1',
+      idEmpresaContratando: 'empresaContratando',
       requisitos: 'requisitos',
-      salario: 'salario');
+      salario: 0);
 
   void logar(LoggedUser user) {
     if (user.tipo == 204) {

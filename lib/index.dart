@@ -240,18 +240,30 @@ void criaTreinamento(
 class Vaga {
   String tituloVaga;
   String descricao;
-  int id;
-  String empresaContratando;
+  String id;
+  String idEmpresaContratando;
   String requisitos;
-  String salario;
+  int salario;
 
   Vaga(
       {required this.tituloVaga,
       required this.descricao,
       required this.id,
-      required this.empresaContratando,
+      required this.idEmpresaContratando,
       required this.requisitos,
       required this.salario});
+
+  factory Vaga.fromJson(Map<String, dynamic> json) {
+    print(json);
+    return Vaga(
+      tituloVaga: json['titulo_vaga'],
+      descricao: json['descricao'],
+      id: json['id'],
+      idEmpresaContratando: json['id_empresa'],
+      requisitos: json['requisitos'],
+      salario: json['salario'],
+    );
+  }
 
   @override
   String toString() {
@@ -259,16 +271,16 @@ class Vaga {
         'tituloVaga=$tituloVaga, '
         'descricao=$descricao, '
         'id=$id, '
-        'empresaContratando=$empresaContratando, '
+        'id_empresa=$idEmpresaContratando, '
         'requisitos=$requisitos, '
         'salario=$salario';
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "tituloVaga": tituloVaga,
+      "titulo_vaga": tituloVaga,
       "descricao": descricao,
-      "empresaContratando": empresaContratando,
+      "id_empresa": idEmpresaContratando,
       "requisitos": requisitos,
       "salario": salario
     };
@@ -276,47 +288,70 @@ class Vaga {
 }
 
 void criaVaga(
-    tituloVaga, descricao, id, empresaContratando, requisitos, salario) async {
+    tituloVaga, descricao, id, idEmpresa, requisitos, int salario) async {
   Vaga novaVaga = Vaga(
       tituloVaga: tituloVaga,
       descricao: descricao,
-      id: id,
-      empresaContratando: empresaContratando,
+      id: 'id',
+      idEmpresaContratando: idEmpresa,
       requisitos: requisitos,
       salario: salario);
   String jsonVaga = jsonEncode(novaVaga.toJson());
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/vagas"),
+    Uri.parse("http://localhost:8000/vagas/cadastro"),
     headers: {'Content-Type': 'application/json'},
     body: jsonVaga,
   );
+  print(jsonVaga);
   if (response.statusCode == 200) {
     print('Vaga registrada com sucesso');
+  } else {
+    print(response.statusCode);
   }
 }
 
-Vaga getVaga(int id) {
+Future<List<Vaga>> listaVagas() async {
+  List<Vaga> vagas = [];
+
+  http.Response response = await http.get(
+    Uri.parse('http://localhost:8000/vagas'),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    vagas = decodedData.map((data) => Vaga.fromJson(data)).toList();
+  } else {
+    print(response.statusCode);
+  }
+
+  return vagas;
+}
+
+void listaVagasEmpresa(idEmpresa) {}
+
+Vaga getVaga(String id) {
   // ver get c luisinho!
   Vaga vaga;
   vaga = Vaga(
       tituloVaga: 'tituloVaga',
       descricao: 'descricao',
       id: id,
-      empresaContratando: 'empresaContratando',
+      idEmpresaContratando: 'empresaContratando',
       requisitos: 'requisitos',
-      salario: 'salario');
+      salario: 0);
   return vaga;
 }
 
 class Inscrito {
-  int idVaga;
-  int idAluno;
+  String idVaga;
+  String idAluno;
 
   Inscrito({required this.idVaga, required this.idAluno});
   Map<String, dynamic> toJson() {
     return {
       "id_aluno": idAluno,
-      "id_vagas": idVaga,
+      "id_vaga": idVaga,
     };
   }
 }
@@ -324,12 +359,15 @@ class Inscrito {
 void criaInscricao(idVaga, idAluno) async {
   Inscrito inscricao = Inscrito(idVaga: idVaga, idAluno: idAluno);
   String jsonInscricao = jsonEncode(inscricao.toJson());
+
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/"),
+    Uri.parse("http://localhost:8000/vagas/inscricao"),
     headers: {'Content-Type': 'application/json'},
     body: jsonInscricao,
   );
   if (response.statusCode == 200) {
     print('Inscrição realizada com sucesso');
+  } else {
+    print(response.statusCode);
   }
 }

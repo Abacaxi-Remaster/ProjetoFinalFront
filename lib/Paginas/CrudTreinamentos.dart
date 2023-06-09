@@ -6,6 +6,7 @@ import 'dart:math';
 import '../main.dart';
 import 'Quiz.dart';
 import '../all.dart';
+import 'FazerQuiz.dart';
 
 class MenuTreinamentos extends StatefulWidget {
   @override
@@ -60,14 +61,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    void checkText(minCandidatos, maxCandidatos) {
-      if (minCandidatos != '' && maxCandidatos != '') {
-        if (int.parse(maxCandidatos) < int.parse(minCandidatos) ||
-            int.parse(minCandidatos) > int.parse(maxCandidatos)) {
-          fieldText.clear();
-        }
-      }
-    }
+
     
     return ListView(
       children: [
@@ -191,11 +185,114 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
 }
 
 class TreinamentosAlunoPage extends StatelessWidget {
+  final TextStyle style = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
+  
+  int index = 0;
+  String emailUser = '';
+  List<dynamic> dataListCursosBD = [];
+  String _userType = '';
+  String _emailUser = '';
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+    int idAluno = 0;
+    int idTreinamento = 0;
+    int flag = 0;
 
+    void criarInscritoTreinamento() {
+      Inscrito inscrito = Inscrito(
+        idAluno: idAluno,
+        idVaga: idTreinamento,
+      );
+
+      var appState = context.watch<MyAppState>();
+      appState.adicionarInscrito(inscrito);
+    }
     return ListView(
+      children: [
+        Text('Lista de Treinamentos:', style: TextStyle(fontSize: 25)),
+        for (var treinamento in appState.treinamentos)
+          ListTile(
+            leading: Icon(Icons.task),
+            title: Text('Titulo: ${treinamento.nomeComercial}'),
+            subtitle: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Descrição: ${treinamento.descricao}'),
+                      Text('Carga Horária: ${treinamento.cargaHoraria}'),
+                      Text('Código: ${treinamento.codigo}'),
+                      Text('Mínimo de Candidatos: ${treinamento.minCandidatos}'),
+                      Text('Máximo de Candidatos: ${treinamento.maxCandidatos}'),
+                      Text(
+                          'Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
+                      Text(
+                          'Data Final de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalInscricao)}'),
+                      Text(
+                          'Data Inicial do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialTreinamento)}'),
+                      Text(
+                          'Data Final do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalTreinamento)}'),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: Icon(Icons.add),
+                    tooltip: 'Inscreva-se',
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Confirme sua Inscrição'),
+                            actions: [
+                              TextButton(
+                                child: Text('Cancelar'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Confirmar e começar quiz'),
+                               onPressed: () {
+                                  Navigator.of(context).pop();
+                                  appState.adicionarInscrito(Inscrito(
+                                    idAluno: idAluno,
+                                    idVaga: idTreinamento,
+                                  ));
+                                  Navigator.push(
+                                   context,
+                                    MaterialPageRoute(
+                                      builder: (context) => FazerQuiz(
+                                        emailUser: _emailUser, 
+                                        quizID: idTreinamento,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
+    
+    /*return ListView(
       children: [
         Text('Lista de Treinamentos:', style: TextStyle(fontSize: 25)),
         for (var treinamento in appState.treinamentos)
@@ -221,7 +318,42 @@ class TreinamentosAlunoPage extends StatelessWidget {
               ],
             ),
           ),
+          Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: Icon(Icons.add),
+                    tooltip: 'Inscreva-se',
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Confirme sua Inscrição'),
+                            actions: [
+                              TextButton(
+                                child: Text('Cancelar'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Confirmar'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  appState.adicionarInscrito(Inscrito(
+                                    idAluno: idAluno,
+                                    idVaga: idTreinamento,
+                                  ));
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
       ],
-    );
+    );*/
   }
 }

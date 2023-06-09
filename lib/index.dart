@@ -317,3 +317,54 @@ void criaInscricao(idVaga, idAluno) async {
     print('Inscrição realizada com sucesso');
   }
 }
+
+class quiz {
+  String questao;
+  String pergunta;
+
+  String respostaDaAlternativaA;
+  String respostaDaAlternativaB;
+  String respostaDaAlternativaC;
+  String respostaDaAlternativaD;
+  String respostaDaAlternativaE;
+  String alternativaCorreta;
+
+
+  int idTreinamentoQuiz;
+
+  quiz({
+    required this.idTreinamentoQuiz,
+    required this.questao,
+    required this.pergunta,
+    required this.respostaDaAlternativaA,
+    required this.respostaDaAlternativaB,
+    required this.respostaDaAlternativaC,
+    required this.respostaDaAlternativaD,
+    required this.respostaDaAlternativaE,
+    required this.alternativaCorreta,
+  });
+
+  @override
+  String toString() {
+    return 'quiz: '
+        'enunciado=$pergunta, '
+        'resposta=$alternativaCorreta, '
+        'opcao_a=$respostaDaAlternativaA, '
+        'opcao_b=$respostaDaAlternativaB, '
+        'opcao_c=$respostaDaAlternativaC, '
+        'opcao_d=$respostaDaAlternativaD, '
+        'opcao_e=$respostaDaAlternativaE, ';
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+        "enunciado": pergunta,
+        "resposta": alternativaCorreta,
+        "opcao_a": respostaDaAlternativaA,
+        "opcao_b": respostaDaAlternativaB,
+        "opcao_c": respostaDaAlternativaC,
+        "opcao_d": respostaDaAlternativaD,
+        "opcao_e": respostaDaAlternativaE,
+    };
+  }
+}

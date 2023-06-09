@@ -125,10 +125,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
         ),
         for (var vaga in appState.vagas)
           ListTile(
-            leading: Icon(Icons.task),
-            title: Text(vaga.tituloVaga),
-            subtitle: Text(vaga.descricao),
-            trailing: IconButton(
+            leading: IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {
                 appState.vagaAtual = vaga;
@@ -138,6 +135,14 @@ class MenuVagasCrudState extends State<MenuVagas> {
                     builder: (context) => DetalheVaga(),
                   ),
                 );
+              },
+            ),
+            title: Text(vaga.tituloVaga),
+            subtitle: Text(vaga.descricao),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                appState.removerVaga(vaga);
               },
             ),
           ),
@@ -224,6 +229,73 @@ class VagasAlunoPage extends StatelessWidget {
               ],
             ),
           ),
+      ],
+    );
+  }
+}
+
+class VagasInscritasAlunoPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    return ListView(
+      children: [
+        Text('Vagas Inscritas:', style: TextStyle(fontSize: 25)),
+        //for (var vaga in appState.vagas)
+        ListTile(
+          leading: Icon(Icons.task),
+          title: Text('Titulo: '),
+          subtitle: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Descrição: Teste'),
+                    Text('Código: teste'),
+                    Text('Empresa Contratante: Teste'),
+                    Text('Requisitos: Teste'),
+                    Text('Salario: Teste'),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  icon: Icon(Icons.not_interested),
+                  tooltip: 'Desinscreva-se',
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Cancelar Inscrição'),
+                          actions: [
+                            TextButton(
+                              child: Text('Cancelar'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: Text('Confirmar'),
+                              onPressed: () {
+                                //remover aluno efetivamente!
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

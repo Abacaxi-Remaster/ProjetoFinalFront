@@ -22,19 +22,37 @@ class _DetalheVagaState extends State<DetalheVaga> {
       ),
       body: ListView(
         children: [
-          for (var inscritos in appState.treinamentos) ...[
-            /*ListTile(
-              title: Text(treinamento.nomeComercial),
-              subtitle: Text(treinamento.descricao),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 25,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Descrição: ${vaga.descricao}',
+                    style: TextStyle(fontSize: 20)),
+                Text('Requisitos: ${vaga.requisitos}',
+                    style: TextStyle(fontSize: 15)),
+                Text('Salário: ${vaga.salario}',
+                    style: TextStyle(fontSize: 15)),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Text('Inscritos:', style: TextStyle(fontSize: 30)),
+          ),
+          /*for (var inscritos in appState.ins) ...[
+            ListTile(
+              style: Theme.of(context).listTileTheme.style,
+              title: Text(inscritos),
+              subtitle: Text(vaga.descricao),
               trailing: IconButton(
                 icon: Icon(Icons.delete),
-                onPressed: () {
-                  appState.removerTreinamento(treinamento);
-                },
+                onPressed: () {},
               ),
             ),
-          */
-          ]
+          ]*/
         ],
       ),
     );

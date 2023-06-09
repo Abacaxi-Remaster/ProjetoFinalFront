@@ -26,6 +26,10 @@ class MyHomePageState extends State<MyHomePage> {
         icon: Icon(Icons.event),
         label: Text('Vagas'),
       ),
+      NavigationRailDestination(
+        icon: Icon(Icons.event_available),
+        label: Text('Vagas Inscritas'),
+      ),
     ],
     [
       //Mentor
@@ -81,13 +85,14 @@ class MyHomePageState extends State<MyHomePage> {
       TreinamentosAlunoPage(),
       Placeholder(),
       VagasAlunoPage(),
+      VagasInscritasAlunoPage(),
     ];
     final mentorOptions = [
       Placeholder(),
       VagasPage(),
     ];
     final empresaOptions = [
-      Placeholder(),
+      TestesPage(),
       MenuVagas(),
       Placeholder(),
     ];

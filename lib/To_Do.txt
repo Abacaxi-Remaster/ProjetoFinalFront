@@ -4,6 +4,12 @@
 
 
 Perguntas:
+-> get vaga luisinho! (fazer backend);
+-> Adicionar id a mentores!
+-> Email Pk por favor!
+-> Função que pega todas as vagas de uma empresa específica!
+-> Função que pega todas as vagas que um aluno de inscreveu
+
 Lembrete:
 -> login adm -> testar c tabela luisinho
 
@@ -17,11 +23,48 @@ Páginas:
     Prontas, com leves ajustes faltando:
         - Login
             - Falta Login do ADM! (backend)
+            - falta id em mentores (backend)
+
+    Falta Ligar o Back:
+        -Atividades Recentes
+        
     
     Em Desenvolvimento:
-        -Treinamentos
+        - Treinamentos (front)
             - Falta o quiz
-        - Quiz
+            - Falta conectar com o banco de dados!
+            - Se inscrever (aluno);
+        - Quiz(front)
         - Atividades recentes
             -Falta o quiz
-        - 
+        - Vagas(back)
+            -Falta ver o banco de dados para adicionar a lista de inscritos
+            -Falta o menu das vagas ( detalhes + inscritos)
+            -limitar int(salario!) -> erro!
+            -limitar vazio -> erro!
+        - Atividades Recentes: especificar qual teste!
+            
+====================================================================================================
+Aluno:
+-> Treinamentos:            TreinamentosAlunoPage() -> CrudTreinamentos.dart 
+-> Testes:                  
+-> Vagas:                   VagasAlunoPage() -> CrudVagas.dart              
+-> Inscrições:              VagasInscritasAlunoPage() -> CrudVagas.dart  
+
+Mentor:
+-> Atividades Recentes:     
+-> Vagas:                   VagasPage() -> CrudVagas.dart (rever, talvez outra coisa!);
+
+Empresa:
+-> Atividades Concluidas:   TestesPage() -> MenuTestes.dart
+-> CRUD vagas:              MenuVagas() -> CrudVagas.dart
+
+ADM:
+-> CRUD treinamentos:       MenuTreinamentos() -> CrudTreinamentos.dart
+-> Lista Treinamentos:      
+-> CRUD vagas:              
+-> Lista Vagas:             VagasPage() -> CrudVagas.dart
+-> Atividades Concluídas:   
+
+
+

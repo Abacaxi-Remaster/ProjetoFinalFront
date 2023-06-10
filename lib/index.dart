@@ -328,19 +328,64 @@ Future<List<Vaga>> listaVagas() async {
   return vagas;
 }
 
-void listaVagasEmpresa(idEmpresa) {}
+Future<List<Vaga>> listaVagasAluno(String idAluno) async {
+  List<Vaga> vagas = [];
 
-Vaga getVaga(String id) {
-  // ver get c luisinho!
-  Vaga vaga;
-  vaga = Vaga(
-      tituloVaga: 'tituloVaga',
-      descricao: 'descricao',
-      id: id,
-      idEmpresaContratando: 'empresaContratando',
-      requisitos: 'requisitos',
-      salario: 0);
-  return vaga;
+  String url = 'http://localhost:8000//?idAluno=$idAluno';
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    vagas = decodedData.map((data) => Vaga.fromJson(data)).toList();
+  } else {
+    print(response.statusCode);
+  }
+
+  return vagas;
+}
+
+Future<List<Vaga>> listaVagasEmpresa(String idEmpresa) async {
+  List<Vaga> vagas = [];
+
+  String url = 'http://localhost:8000//?idEmpresa=$idEmpresa';
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    vagas = decodedData.map((data) => Vaga.fromJson(data)).toList();
+  } else {
+    print(response.statusCode);
+  }
+
+  return vagas;
+}
+
+Future<List<String>> getInscritos(String idVaga) async {
+  List<String> inscritos = [];
+
+  String url = 'http://localhost:8000/?idVaga=$idVaga';
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    inscritos = []; //decodar aqui!
+  } else {
+    print(response.statusCode);
+  }
+
+  return inscritos;
 }
 
 class InscritoVaga {

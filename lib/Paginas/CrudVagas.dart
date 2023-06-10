@@ -117,7 +117,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
             );
           },
         ),
-        for (var vaga in appState.vagas)
+        /*for (var vaga in appState.vagas)
           ListTile(
             leading: IconButton(
               icon: Icon(Icons.menu),
@@ -140,6 +140,8 @@ class MenuVagasCrudState extends State<MenuVagas> {
               },
             ),
           ),
+        */
+        EmpresaVagas(),
       ],
     );
   }
@@ -236,7 +238,82 @@ class VagasInscritasAlunoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return ListView(
+    return FutureBuilder<List<Vaga>>(
+      future: listaVagasAluno(appState.logged.id),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // Display a loading indicator while fetching data
+        } else if (snapshot.hasError) {
+          return Text(
+              'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
+        } else {
+          List<Vaga>? vagas = snapshot.data;
+
+          return ListView(
+            children: [
+              Text('Vagas Inscritas:', style: TextStyle(fontSize: 25)),
+              for (var vaga in vagas!)
+                ListTile(
+                  leading: Icon(Icons.task),
+                  title: Text(vaga.tituloVaga),
+                  subtitle: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Descrição: ${vaga.descricao}'),
+                            Text('Código: ${vaga.id}'),
+                            Text(
+                                'Empresa Contratante: ${vaga.idEmpresaContratando}'),
+                            Text('Requisitos: ${vaga.requisitos}'),
+                            Text('Salario: ${vaga.salario}'),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          icon: Icon(Icons.not_interested),
+                          tooltip: 'Desinscreva-se',
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Cancelar Inscrição'),
+                                  actions: [
+                                    TextButton(
+                                      child: Text('Cancelar'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('Confirmar'),
+                                      onPressed: () {
+                                        //remover aluno efetivamente!
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          );
+        }
+      },
+    );
+
+    /*return ListView(
       children: [
         Text('Vagas Inscritas:', style: TextStyle(fontSize: 25)),
         //for (var vaga in appState.vagas)
@@ -292,9 +369,10 @@ class VagasInscritasAlunoPage extends StatelessWidget {
               ),
             ],
           ),
-        ),
+        ), 
       ],
     );
+    */
   }
 }
 
@@ -303,25 +381,111 @@ class VagasPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return ListView(
-      children: [
-        Text('Lista de Vagas:', style: TextStyle(fontSize: 25)),
-        for (var vaga in appState.vagas)
-          ListTile(
-            leading: Icon(Icons.task),
-            title: Text('Titulo: ${vaga.tituloVaga}'),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Descrição: ${vaga.descricao}'),
-                Text('Código: ${vaga.id}'),
-                Text('Empresa Contratante: ${vaga.idEmpresaContratando}'),
-                Text('Requisitos: ${vaga.requisitos}'),
-                Text('Vaga: ${vaga.salario}'),
-              ],
-            ),
-          ),
-      ],
+    return FutureBuilder<List<Vaga>>(
+      future: listaVagas(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // Display a loading indicator while fetching data
+        } else if (snapshot.hasError) {
+          return Text(
+              'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
+        } else {
+          List<Vaga>? vagas = snapshot.data;
+
+          return ListView(
+            children: [
+              Text('Lista de Vagas:', style: TextStyle(fontSize: 25)),
+              for (var vaga in vagas!)
+                ListTile(
+                  leading: Icon(Icons.task),
+                  title: Text('Titulo: ${vaga.tituloVaga}'),
+                  subtitle: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Descrição: ${vaga.descricao}'),
+                            Text('Código: ${vaga.id}'),
+                            Text(
+                                'Empresa Contratante: ${vaga.idEmpresaContratando}'),
+                            Text('Requisitos: ${vaga.requisitos}'),
+                            Text('Salario: ${vaga.salario}'),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          icon: Icon(Icons.menu),
+                          onPressed: () {
+                            appState.vagaAtual = vaga;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetalheVaga(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          );
+        }
+      },
+    );
+  }
+}
+
+class EmpresaVagas extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    return FutureBuilder<List<Vaga>>(
+      future: listaVagasEmpresa(appState.logged.id),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // Display a loading indicator while fetching data
+        } else if (snapshot.hasError) {
+          return Text(
+              'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
+        } else {
+          List<Vaga>? vagas = snapshot.data;
+
+          return ListView(
+            children: [
+              for (var vaga in vagas!)
+                ListTile(
+                  leading: IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      appState.vagaAtual = vaga;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetalheVaga(),
+                        ),
+                      );
+                    },
+                  ),
+                  title: Text(vaga.tituloVaga),
+                  subtitle: Text(vaga.descricao),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      //appState.removerVaga(vaga);
+                    },
+                  ),
+                ),
+            ],
+          );
+        }
+      },
     );
   }
 }

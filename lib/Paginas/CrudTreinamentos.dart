@@ -32,24 +32,6 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
   DateTime dataInicialTreinamento = DateTime.now();
   DateTime dataFinalTreinamento = DateTime.now();
 
-  void criarTreinamento() {
-    Treinamento treinamento = Treinamento(
-      nomeComercial: nomeComercial,
-      descricao: descricao,
-      cargaHoraria: cargaHoraria,
-      codigo: codigo,
-      minCandidatos: minCandidatos,
-      maxCandidatos: maxCandidatos,
-      dataInicialInscricao: dataInicialInscricao,
-      dataFinalInscricao: dataFinalInscricao,
-      dataInicialTreinamento: dataInicialTreinamento,
-      dataFinalTreinamento: dataFinalTreinamento,
-    );
-
-    var appState = context.watch<MyAppState>();
-    appState.adicionarTreinamento(treinamento);
-  }
-
   void submitForm() {
     nomeComercialController.clear();
     descricaoController.clear();
@@ -147,7 +129,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
                       child: Text('Salvar'),
                       onPressed: () {
                         Navigator.of(context).pop();
-                        appState.adicionarTreinamento(Treinamento(
+                        /*appState.adicionarTreinamento(Treinamento(
                           nomeComercial: nomeComercial,
                           descricao: descricao,
                           cargaHoraria: cargaHoraria,
@@ -159,6 +141,21 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
                           dataInicialTreinamento: dataInicialTreinamento,
                           dataFinalTreinamento: dataFinalTreinamento,
                         ));
+                        */
+                        criaTreinamento(
+                            Treinamento(
+                              nomeComercial: nomeComercial,
+                              descricao: descricao,
+                              cargaHoraria: cargaHoraria,
+                              codigo: codigo,
+                              minCandidatos: minCandidatos,
+                              maxCandidatos: maxCandidatos,
+                              dataInicialInscricao: dataInicialInscricao,
+                              dataFinalInscricao: dataFinalInscricao,
+                              dataInicialTreinamento: dataInicialTreinamento,
+                              dataFinalTreinamento: dataFinalTreinamento,
+                            ),
+                            appState.Quizzes);
                         submitForm();
                       },
                     ),

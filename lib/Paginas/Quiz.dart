@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -32,11 +33,11 @@ class QuizState extends State<Quiz> {
   bool checkAlternativaD = false;
   bool checkAlternativaE = false;
 
-  List<Respostas> salvaResp = [];
+  List<Questao> salvaResp = [];
   void addResposta() {
     setState(() {
       int contaQuestao = salvaResp.length + 1;
-      salvaResp.add(Respostas(
+      salvaResp.add(Questao(
         idTreinamentoQuiz: widget.quizID,
         questao: 'Questão $contaQuestao',
         pergunta: pergunta,
@@ -55,9 +56,9 @@ class QuizState extends State<Quiz> {
     });
   }
 
-  void printRespostas(List<Respostas> respostas) {
+  void printRespostas(List<Questao> respostas) {
     for (int i = 0; i < respostas.length; i++) {
-      Respostas resposta = respostas[i];
+      Questao resposta = respostas[i];
       print('Questão: ${resposta.questao}');
       print('Pergunta: ${resposta.pergunta}');
       print('Alternativa Correta: ${resposta.alternativaCorreta}');
@@ -81,6 +82,7 @@ class QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
     final TextStyle style = TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
@@ -311,7 +313,7 @@ class QuizState extends State<Quiz> {
                     ),
                     onPressed: () {
                       //Funcao para mandar questão para o banco de dados passando salvaResp
-                      printRespostas(salvaResp);
+                      appState.addQuiz(salvaResp);
                       Navigator.of(context).pop();
                     },
                     child: Text(
@@ -331,7 +333,7 @@ class QuizState extends State<Quiz> {
   }
 }
 
-class Respostas {
+class Questao {
   String questao;
   String pergunta;
 
@@ -349,7 +351,7 @@ class Respostas {
   bool alternativaE;
   String idTreinamentoQuiz;
 
-  Respostas({
+  Questao({
     required this.idTreinamentoQuiz,
     required this.questao,
     required this.pergunta,
@@ -365,4 +367,16 @@ class Respostas {
     required this.alternativaE,
     required this.alternativaCorreta,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "enunciado": pergunta,
+      "resposta": alternativaCorreta,
+      "opcao_a": respostaDaAlternativaA,
+      "opcao_b": respostaDaAlternativaB,
+      "opcao_c": respostaDaAlternativaC,
+      "opcao_d": respostaDaAlternativaD,
+      "opcao_e": respostaDaAlternativaE,
+    };
+  }
 }

@@ -53,7 +53,7 @@ class _DetalheVagaState extends State<DetalheVaga> {
               ),
             ),
           ]*/
-          //ListaInscritos(),
+          ListaInscritos(),
         ],
       ),
     );
@@ -76,7 +76,7 @@ class ListaInscritos extends StatelessWidget {
         } else {
           List<String>? inscritos = snapshot.data;
 
-          return ListView(
+          return Column(
             children: [
               for (var aluno in inscritos!)
                 ListTile(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final_front/Paginas/CrudVagas.dart';
+import 'package:projeto_final_front/Paginas/Quiz.dart';
 import 'package:projeto_final_front/all.dart';
 import 'package:provider/provider.dart';
 import 'HomePage.dart';
@@ -173,5 +174,18 @@ class MyAppState extends ChangeNotifier {
   var vaga = <String>[];
   void addVagas(String vagasAlunos) {
     vaga.add(vagasAlunos);
+  }
+
+  List<QuizClass> Quizzes = [];
+
+  void addQuiz(List<Questao> questoesx) {
+    QuizClass quiz = QuizClass();
+
+    for (var pergunta in questoesx) {
+      quiz.addQuestao(pergunta);
+    }
+
+    Quizzes.add(quiz);
+    print('adicionou quiz');
   }
 }

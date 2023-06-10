@@ -52,10 +52,6 @@ class MyHomePageState extends State<MyHomePage> {
         icon: Icon(Icons.edit_calendar),
         label: Text('Criar Vagas'),
       ),
-      NavigationRailDestination(
-        icon: Icon(Icons.check_box),
-        label: Text('Atividades Concluidas'),
-      ),
     ],
     [
       //ADM
@@ -94,7 +90,6 @@ class MyHomePageState extends State<MyHomePage> {
     final empresaOptions = [
       TestesPage(),
       MenuVagas(),
-      Placeholder(),
     ];
     switch (tipoLogado) {
       case 0:

@@ -1,9 +1,12 @@
+-> Limpar Tabela de Quiz ao dar SubmitForm
+
+
+
 Perguntas:
 -> Criar Tabela Mentores
 -> Email Pk por favor!
 -> Função que pega todas as vagas de uma empresa específica!
 -> Função que pega todas as vagas que um aluno de inscreveu
--> Como mando parâmetro na requisição
 
 Lembrete:
 -> login adm -> testar c tabela luisinho
@@ -28,6 +31,7 @@ Páginas:
             - Falta conectar com o banco de dados!
             - Se inscrever (aluno);
         - Quiz(front)
+        - 
         - Atividades recentes
             -Falta o quiz
         - Vagas(back)

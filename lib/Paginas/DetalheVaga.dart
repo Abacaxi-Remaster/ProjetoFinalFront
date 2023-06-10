@@ -53,8 +53,40 @@ class _DetalheVagaState extends State<DetalheVaga> {
               ),
             ),
           ]*/
+          ListaInscritos(),
         ],
       ),
+    );
+  }
+}
+
+class ListaInscritos extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    return FutureBuilder<List<String>>(
+      future: getInscritos(appState.vagaAtual.id),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // Display a loading indicator while fetching data
+        } else if (snapshot.hasError) {
+          return Text(
+              'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
+        } else {
+          List<String>? inscritos = snapshot.data;
+
+          return Column(
+            children: [
+              for (var aluno in inscritos!)
+                ListTile(
+                  leading: Icon(Icons.face),
+                  title: Text(aluno),
+                ),
+            ],
+          );
+        }
+      },
     );
   }
 }

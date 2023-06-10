@@ -1,19 +1,15 @@
--> Inscrição Treinamento (botão)
--> Lista Inscritos (vaga e treinamento)
--> Atividades Concluídas
+-> Limpar Tabela de Quiz ao dar SubmitForm
+
 
 
 Perguntas:
--> get vaga luisinho! (fazer backend);
--> Adicionar id a mentores!
+-> Criar Tabela Mentores
 -> Email Pk por favor!
 -> Função que pega todas as vagas de uma empresa específica!
 -> Função que pega todas as vagas que um aluno de inscreveu
 
 Lembrete:
 -> login adm -> testar c tabela luisinho
-
-
 
 Páginas:
     100% prontas:
@@ -35,6 +31,7 @@ Páginas:
             - Falta conectar com o banco de dados!
             - Se inscrever (aluno);
         - Quiz(front)
+        - 
         - Atividades recentes
             -Falta o quiz
         - Vagas(back)
@@ -65,6 +62,3 @@ ADM:
 -> CRUD vagas:              
 -> Lista Vagas:             VagasPage() -> CrudVagas.dart
 -> Atividades Concluídas:   
-
-
-

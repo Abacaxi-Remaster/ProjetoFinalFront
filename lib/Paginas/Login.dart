@@ -86,11 +86,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () { //async
-                    appState.TESTE_toggle_logado();
+                onPressed: () async {
+                  //async
+                  /*appState.TESTE_toggle_logado();
                     appState.setPage(
                       MyHomePageState().updatePage(0, appState.tipoLogado));
-                /*
+                */
                   if (_formKey.currentState!.validate()) {
                     LoggedUser loggedUser;
                     print(appState.logado);
@@ -106,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                       appState.setPage(
                           MyHomePageState().updatePage(0, appState.tipoLogado));
                     }
-                  }*/
+                  }
                 },
                 child: Text('Próximo'),
               ),

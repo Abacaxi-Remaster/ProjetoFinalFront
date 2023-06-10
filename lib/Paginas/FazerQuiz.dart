@@ -5,27 +5,27 @@ import 'dart:core';
 
 class FazerQuiz extends StatefulWidget {
   final String emailUser;
-  final int quizID;
+  final String quizID;
 
-  const FazerQuiz(
-      {required this.emailUser, required this.quizID});
+  const FazerQuiz({required this.emailUser, required this.quizID});
 
   @override
   FazerQuizState createState() => FazerQuizState();
 }
 
 class FazerQuizState extends State<FazerQuiz> {
-  int quizID = 0;
+  String quizID = '0';
   String emailUser = '';
-  List<dynamic>dataListQuestoesBD = [];
+  List<dynamic> dataListQuestoesBD = [];
   List<String> dataListRespostas = [];
   @override
   void initState() {
     super.initState();
     populateDataListQuestoesBD();
   }
-  void populateDataListQuestoesBD()  {
-    List<dynamic>dataListQuestoesBD = [
+
+  void populateDataListQuestoesBD() {
+    List<dynamic> dataListQuestoesBD = [
       {
         'questao': 'Qual é a capital do Brasil?',
         'resposta_a': 'São Paulo',
@@ -61,9 +61,11 @@ class FazerQuizState extends State<FazerQuiz> {
           SizedBox(
             width: 800,
             height: 50,
-            child: Text('${dataListQuestoesBD[index]['questao']}',
-            //child: Text('Questão 1', style: style)
-          ),),
+            child: Text(
+              '${dataListQuestoesBD[index]['questao']}',
+              //child: Text('Questão 1', style: style)
+            ),
+          ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
@@ -79,8 +81,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child:
-                  Text(listaRespostas[index]['resposta_a'], style: style),
+              child: Text(listaRespostas[index]['resposta_a'], style: style),
             ),
           ),
           CheckboxListTile(
@@ -98,8 +99,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child:
-                  Text(listaRespostas[index]['resposta_b'], style: style),
+              child: Text(listaRespostas[index]['resposta_b'], style: style),
             ),
           ),
           CheckboxListTile(
@@ -117,8 +117,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child:
-                  Text(listaRespostas[index]['resposta_c'], style: style),
+              child: Text(listaRespostas[index]['resposta_c'], style: style),
             ),
           ),
           CheckboxListTile(
@@ -136,8 +135,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child:
-                  Text(listaRespostas[index]['resposta_d'], style: style),
+              child: Text(listaRespostas[index]['resposta_d'], style: style),
             ),
           ),
           CheckboxListTile(
@@ -155,8 +153,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child:
-                  Text(listaRespostas[index]['resposta_e'], style: style),
+              child: Text(listaRespostas[index]['resposta_e'], style: style),
             ),
           ),
         ],
@@ -227,17 +224,16 @@ class FazerQuizState extends State<FazerQuiz> {
                 child: ListView.builder(
                   itemCount: dataListQuestoesBD.length,
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text('${index + 1}', style: style),
-                        ),
-                        returnAnswers(index, dataListQuestoesBD, dataListRespostas),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0),
-                        ),
-                      ]
-                    );
+                    return Column(children: [
+                      ListTile(
+                        title: Text('${index + 1}', style: style),
+                      ),
+                      returnAnswers(
+                          index, dataListQuestoesBD, dataListRespostas),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                      ),
+                    ]);
                   },
                 ),
               ),

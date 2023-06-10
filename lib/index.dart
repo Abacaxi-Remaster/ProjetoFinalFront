@@ -261,6 +261,27 @@ void criaTreinamento(Treinamento novoTreinamento, List<QuizClass> quiz) async {
   }
 }
 
+Future<List<Treinamento>> listaTreinamentosAluno(String idAluno) async {
+  List<Treinamento> treinamentos = [];
+
+  String url = 'http://localhost:8000/treinamento/aluno/${idAluno}';
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    treinamentos =
+        decodedData.map((data) => Treinamento.fromJson(data)).toList();
+  } else {
+    print(response.statusCode);
+  }
+
+  return treinamentos;
+}
+
 //Vagas/Inscritos:
 class Vaga {
   String tituloVaga;
@@ -443,24 +464,3 @@ void criaInscricaoVaga(idVaga, idAluno) async {
 }
 
 //Treinamento
-
-Future<List<Treinamento>> listaTreinamentosAluno(String idAluno) async {
-  List<Treinamento> treinamentos = [];
-
-  String url = 'http://localhost:8000/treinamento/aluno/${idAluno}';
-
-  http.Response response = await http.get(
-    Uri.parse(url),
-    headers: {'Content-Type': 'application/json'},
-  );
-
-  if (response.statusCode == 200) {
-    List<dynamic> decodedData = jsonDecode(response.body);
-    treinamentos =
-        decodedData.map((data) => Treinamento.fromJson(data)).toList();
-  } else {
-    print(response.statusCode);
-  }
-
-  return treinamentos;
-}

@@ -232,9 +232,9 @@ class TreinamentosAlunoPage extends StatelessWidget {
                             Text('Carga Horária: ${treinamento.cargaHoraria}'),
                             Text('Código: ${treinamento.id}'),
                             Text(
-                                'Mínimo de Candidatos: ${treinamento.minCandidatos}'),
+                                'Máximo de Candidatos: ${treinamento.minCandidatos}'),
                             Text(
-                                'Máximo de Candidatos: ${treinamento.maxCandidatos}'),
+                                'Mínimo de Candidatos: ${treinamento.maxCandidatos}'),
                             Text(
                                 'Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
                             Text(

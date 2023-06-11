@@ -27,7 +27,7 @@ class QuizState extends State<Quiz> {
         List.generate(salvaResp.length, (index) => GlobalKey<FormState>());
   }
 
-  bool check = false;
+  int check = 0;
   String pergunta = '';
   String respostaA = '';
   String respostaB = '';
@@ -153,10 +153,11 @@ class QuizState extends State<Quiz> {
                   listaRespostas[index].alternativaE = false;
                   if (value) {
                     listaRespostas[index].alternativaCorreta = 'A';
+                    check++;
                   } else {
                     listaRespostas[index].alternativaCorreta = '';
+                    check--;
                   }
-                  check = value;
                 });
               },
               title: Text('Selecionar'),
@@ -186,10 +187,11 @@ class QuizState extends State<Quiz> {
                   listaRespostas[index].alternativaE = false;
                   if (value) {
                     listaRespostas[index].alternativaCorreta = 'B';
+                    check++;
                   } else {
                     listaRespostas[index].alternativaCorreta = '';
+                    check--;
                   }
-                  check = value;
                 });
               },
               title: Text('Selecionar'),
@@ -219,10 +221,11 @@ class QuizState extends State<Quiz> {
                   listaRespostas[index].alternativaE = false;
                   if (value) {
                     listaRespostas[index].alternativaCorreta = 'C';
+                    check++;
                   } else {
                     listaRespostas[index].alternativaCorreta = '';
+                    check--;
                   }
-                  check = value;
                 });
               },
               title: Text('Selecionar'),
@@ -252,10 +255,11 @@ class QuizState extends State<Quiz> {
                   listaRespostas[index].alternativaE = false;
                   if (value) {
                     listaRespostas[index].alternativaCorreta = 'D';
+                    check++;
                   } else {
                     listaRespostas[index].alternativaCorreta = '';
+                    check--;
                   }
-                  check = value;
                 });
               },
               title: Text('Selecionar'),
@@ -285,10 +289,11 @@ class QuizState extends State<Quiz> {
                   listaRespostas[index].alternativaD = false;
                   if (value) {
                     listaRespostas[index].alternativaCorreta = 'E';
+                    check++;
                   } else {
                     listaRespostas[index].alternativaCorreta = '';
+                    check--;
                   }
-                  check = value;
                 });
               },
               title: Text('Selecionar'),
@@ -297,9 +302,6 @@ class QuizState extends State<Quiz> {
         ),
       );
     }
-
-    _formKeys = List.generate(salvaResp.length,
-        (index) => GlobalKey<FormState>()); // Move this line here
 
     return Scaffold(
       appBar: AppBar(
@@ -331,7 +333,7 @@ class QuizState extends State<Quiz> {
               FloatingActionButton(
                 onPressed: () {
                   addResposta();
-//                  check = false;
+                  _formKeys.add(GlobalKey<FormState>());
                   contaQuestao++;
                 },
                 child: Text('NOVO', style: TextStyle(fontSize: 20)),
@@ -354,20 +356,22 @@ class QuizState extends State<Quiz> {
                     ),
                     onPressed: () {
                       //Funcao para mandar questão para o banco de dados passando salvaResp
-                      if (salvaResp.length == 3) {
-                        if (_formKeys
-                            .every((key) => key.currentState!.validate())) {
-                          if (check) {
-                            appState.addQuiz(salvaResp);
-                            Navigator.of(context).pop();
-                          } else {
-                            appState.erro(
-                                'Erro no Cadastro - Assinale a alternativa correta em todas as perguntas!');
-                          }
+                      if (salvaResp.length >= 3) {
+                        /*if (_formKeys.every((key) =>
+                            key.currentState != null &&
+                            key.currentState!.validate())) {
+                          */
+                        if (check == salvaResp.length) {
+                          appState.addQuiz(salvaResp);
+                          Navigator.of(context).pop();
                         } else {
                           appState.erro(
-                              'Erro no Cadastro - Preencha todos os Campos!');
+                              'Erro no Cadastro - Assinale a alternativa correta em todas as perguntas!');
                         }
+                        /*} else {
+                          appState.erro(
+                              'Erro no Cadastro - Preencha todos os Campos!');
+                        }*/
                       } else {
                         appState
                             .erro('Erro no Cadastro - mínimo de 3 perguntas!');

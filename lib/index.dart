@@ -432,12 +432,14 @@ Future<List<Vaga>> listaVagasAluno(String idAluno) async {
 Future<List<Vaga>> listaVagasEmpresa(String idEmpresa) async {
   List<Vaga> vagas = [];
 
-  String url = 'http://localhost:8000/vagas//$idEmpresa';
+  String url = 'http://localhost:8000/vagas/$idEmpresa';
 
   http.Response response = await http.get(
     Uri.parse(url),
     headers: {'Content-Type': 'application/json'},
   );
+
+  print(response.body);
 
   if (response.statusCode == 200) {
     List<dynamic> decodedData = jsonDecode(response.body);
@@ -452,16 +454,19 @@ Future<List<Vaga>> listaVagasEmpresa(String idEmpresa) async {
 Future<List<String>> getInscritos(String idVaga) async {
   List<String> inscritos = [];
 
-  String url = 'http://localhost:8000/vagas//$idVaga';
+  String url = 'http://localhost:8000/vagas/todosInscritos/$idVaga';
 
   http.Response response = await http.get(
     Uri.parse(url),
     headers: {'Content-Type': 'application/json'},
   );
 
+  print(response.body);
+
   if (response.statusCode == 200) {
     List<dynamic> decodedData = jsonDecode(response.body);
-    inscritos = []; //decodar aqui!
+    inscritos =
+        List<String>.from(decodedData.map((dynamic item) => item['nome']));
   } else {
     print(response.statusCode);
   }
@@ -497,5 +502,3 @@ void criaInscricaoVaga(idVaga, idAluno) async {
     print(response.statusCode);
   }
 }
-
-//Treinamento

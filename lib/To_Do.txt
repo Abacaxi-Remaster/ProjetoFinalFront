@@ -1,14 +1,8 @@
 To Do:
--> Limitar 3 testes!
--> Limitar mínimo 3 perguntas 
--> 
+-> validar texto null quiz 
 -> 
 
 Perguntas:
-JÃO ESTÁ FAZENDO:
-    -> Função que pega todas as vagas de uma empresa específica!
-    -> Função que pega todas as vagas que um aluno de inscreveu
-
 -> Adicionar no historico a coluna situação(aprovado / reprovado)
 
 REQUISIÇÕES QUE PRECISAMOS (ORDEM DE PRIORIDADE):
@@ -46,7 +40,6 @@ Páginas:
             - Lista Treinamentos:
                 - detalhes
             - Lista Vagas:
-                - Requisição Jão  
     
     Em Desenvolvimento:
         - Aluno:

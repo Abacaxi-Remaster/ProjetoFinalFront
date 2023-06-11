@@ -62,3 +62,8 @@ ADM:
 -> CRUD vagas:              
 -> Lista Vagas:             VagasPage() -> CrudVagas.dart
 -> Atividades Concluídas:   
+
+
+"comeco_insc":"2023-06-10T19:17:48.239772",
+
+[{"id":"1fa28417-4f62-4ceb-b228-0d0f7c813c89","nome_comercial":"a","descricao":"a","carga_horaria":1,"comeco_insc":"2023-06-10T19:17:48.239772","fim_insc":"2023-06-10T19:17:48.239772","comeco_treinamento":"2023-06-10T19:17:48.239772","fim_treinamento":"2023-06-10T19:17:48.239772","qntd_min_insc":1,"qntd_max_insc":0},{"id":"3b485d5f-a9db-42a8-aebd-def926a75b0b","nome_comercial":"string","descricao":"string","carga_horaria":10,"comeco_insc":"string","fim_insc":"string","comeco_treinamento":"string","fim_treinamento":"string","qntd_min_insc":5,"qntd_max_insc":20}]

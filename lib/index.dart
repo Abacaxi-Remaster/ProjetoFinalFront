@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:projeto_final_front/Paginas/Quiz.dart';
 import 'dart:convert';
 
@@ -153,10 +154,10 @@ Future<LoggedUser> login(tipo, email, senha) async {
 class Treinamento {
   String nomeComercial;
   String descricao;
-  String cargaHoraria;
-  int codigo;
-  String minCandidatos;
-  String maxCandidatos;
+  int cargaHoraria;
+  String codigo;
+  int minCandidatos;
+  int maxCandidatos;
   DateTime dataInicialInscricao;
   DateTime dataFinalInscricao;
   DateTime dataInicialTreinamento;
@@ -194,29 +195,30 @@ class Treinamento {
     return {
       "nome_comercial": nomeComercial,
       "descricao": descricao,
-      "carga_horaria": int.parse(cargaHoraria),
+      "carga_horaria": cargaHoraria,
       "comeco_insc": dataInicialInscricao.toIso8601String(),
       "fim_insc": dataFinalInscricao.toIso8601String(),
       "comeco_treinamento": dataInicialTreinamento.toIso8601String(),
       "fim_treinamento": dataFinalTreinamento.toIso8601String(),
-      "qntd_min_insc": int.parse(minCandidatos),
-      "qntd_max_insc": int.parse(maxCandidatos),
+      "qntd_min_insc": minCandidatos,
+      "qntd_max_insc": maxCandidatos,
     };
   }
 
   factory Treinamento.fromJson(Map<String, dynamic> json) {
     print(json);
     return Treinamento(
-      nomeComercial: json['descricao'],
+      nomeComercial: json['nome_comercial'],
       descricao: json['descricao'],
-      cargaHoraria: json['descricao'],
-      codigo: json['descricao'],
-      minCandidatos: json['descricao'],
-      maxCandidatos: json['descricao'],
-      dataInicialInscricao: json['descricao'],
-      dataFinalInscricao: json['descricao'],
-      dataInicialTreinamento: json['descricao'],
-      dataFinalTreinamento: json['descricao'],
+      cargaHoraria: json['carga_horaria'],
+      codigo: json['id'],
+      minCandidatos: json['qntd_min_insc'],
+      maxCandidatos: json['qntd_max_insc'],
+      dataInicialInscricao:
+          DateTime.parse(json['comeco_insc']), //2023-06-10T19:17:48.239772
+      dataFinalInscricao: DateTime.parse(json['fim_insc']),
+      dataInicialTreinamento: DateTime.parse(json['comeco_treinamento']),
+      dataFinalTreinamento: DateTime.parse(json['fim_treinamento']),
     );
   }
 }
@@ -251,7 +253,7 @@ void criaTreinamento(Treinamento novoTreinamento, List<QuizClass> quiz) async {
   print(jsonTotal);
 
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/treinamentos"),
+    Uri.parse("http://localhost:8000/treinamentos/cadastro"),
     headers: {'Content-Type': 'application/json'},
     body: jsonTotal,
   );
@@ -259,6 +261,27 @@ void criaTreinamento(Treinamento novoTreinamento, List<QuizClass> quiz) async {
   if (response.statusCode == 200) {
     print('Treinamento registrado com sucesso');
   }
+}
+
+Future<List<Treinamento>> listaTreinamentos() async {
+  List<Treinamento> treinamentos = [];
+
+  String url = 'http://localhost:8000/treinamentos';
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    treinamentos =
+        decodedData.map((data) => Treinamento.fromJson(data)).toList();
+  } else {
+    print(response.statusCode);
+  }
+
+  return treinamentos;
 }
 
 Future<List<Treinamento>> listaTreinamentosAluno(String idAluno) async {

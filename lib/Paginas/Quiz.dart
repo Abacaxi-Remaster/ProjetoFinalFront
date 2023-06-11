@@ -293,7 +293,7 @@ class QuizState extends State<Quiz> {
                   addResposta();
                   contaQuestao++;
                 },
-                child: Text('NOVO', style: TextStyle(fontSize: 20)),
+                child: Text('NOVO', style: TextStyle(fontSize: 18)),
               ),
             ]),
             SizedBox(
@@ -320,8 +320,9 @@ class QuizState extends State<Quiz> {
                       "Enviar quiz",
                       textAlign: TextAlign.center,
                       style: style.copyWith(
-                        color: Colors.lightBlue,
+                        color: Colors.black,
                         fontWeight: FontWeight.normal,
+                        fontSize: 20,
                       ),
                     ),
                   ),

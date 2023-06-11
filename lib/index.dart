@@ -464,3 +464,21 @@ void criaInscricaoVaga(idVaga, idAluno) async {
 }
 
 //Treinamento
+
+Future<QuizClass> receberQuizBD() async {
+  QuizClass Quiz = QuizClass();
+  
+  http.Response response = await http.get(
+    Uri.parse('http://localhost:8000/fazerQuiz'),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    //jsondecode
+  } else {
+    print(response.statusCode);
+  }
+
+  return Quiz;
+}

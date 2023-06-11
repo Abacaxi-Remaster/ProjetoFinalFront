@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -23,14 +24,16 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
 
   String nomeComercial = '';
   String descricao = '';
-  String cargaHoraria = '';
-  int codigo = Random().nextInt(1000);
-  String minCandidatos = '';
-  String maxCandidatos = '';
+  int cargaHoraria = 0;
+  String codigo = 'Random().nextInt(1000)';
+  int minCandidatos = 0;
+  int maxCandidatos = 0;
   DateTime dataInicialInscricao = DateTime.now();
   DateTime dataFinalInscricao = DateTime.now();
   DateTime dataInicialTreinamento = DateTime.now();
   DateTime dataFinalTreinamento = DateTime.now();
+
+  TextInputFormatter _inputFormatter = FilteringTextInputFormatter.digitsOnly;
 
   void submitForm() {
     nomeComercialController.clear();
@@ -67,30 +70,33 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
         ),
         TextFormField(
           controller: cargaHorariaController,
+          inputFormatters: [_inputFormatter],
           decoration: InputDecoration(labelText: 'Carga Horária'),
           onChanged: (value) {
             setState(() {
-              cargaHoraria = value;
+              cargaHoraria = int.tryParse(value)!;
             });
           },
         ),
         TextFormField(
           controller: qtdMinInscritosController,
+          inputFormatters: [_inputFormatter],
           decoration:
               InputDecoration(labelText: 'Quantidade Mínima de Inscritos'),
           onChanged: (value) {
             setState(() {
-              minCandidatos = value;
+              minCandidatos = int.tryParse(value)!;
             });
           },
         ),
         TextFormField(
           controller: qtdMaxInscritosController,
+          inputFormatters: [_inputFormatter],
           decoration:
               InputDecoration(labelText: 'Quantidade Máxima de Inscritos'),
           onChanged: (value) {
             setState(() {
-              maxCandidatos = value;
+              maxCandidatos = int.tryParse(value)!;
             });
           },
         ),
@@ -194,6 +200,7 @@ class TreinamentosAlunoPage extends StatelessWidget {
   List<dynamic> dataListCursosBD = [];
   String _userType = '';
   String _emailUser = '';
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -210,150 +217,100 @@ class TreinamentosAlunoPage extends StatelessWidget {
       appState.adicionarInscrito(inscrito);
     }
 
-    return ListView(
-      children: [
-        Text('Lista de Treinamentos:', style: TextStyle(fontSize: 25)),
-        for (var treinamento in appState.treinamentos)
-          ListTile(
-            leading: Icon(Icons.task),
-            title: Text('Titulo: ${treinamento.nomeComercial}'),
-            subtitle: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return FutureBuilder<List<Treinamento>>(
+      future: listaTreinamentos(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // Display a loading indicator while fetching data
+        } else if (snapshot.hasError) {
+          return Text(
+              'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
+        } else {
+          List<Treinamento>? treinamentos = snapshot.data;
+
+          return ListView(
+            children: [
+              Text('Lista de Treinamentos:', style: TextStyle(fontSize: 25)),
+              for (var treinamento in treinamentos!)
+                ListTile(
+                  leading: Icon(Icons.task),
+                  title: Text('Titulo: ${treinamento.nomeComercial}'),
+                  subtitle: Row(
                     children: [
-                      Text('Descrição: ${treinamento.descricao}'),
-                      Text('Carga Horária: ${treinamento.cargaHoraria}'),
-                      Text('Código: ${treinamento.codigo}'),
-                      Text(
-                          'Mínimo de Candidatos: ${treinamento.minCandidatos}'),
-                      Text(
-                          'Máximo de Candidatos: ${treinamento.maxCandidatos}'),
-                      Text(
-                          'Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
-                      Text(
-                          'Data Final de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalInscricao)}'),
-                      Text(
-                          'Data Inicial do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialTreinamento)}'),
-                      Text(
-                          'Data Final do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalTreinamento)}'),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Descrição: ${treinamento.descricao}'),
+                            Text('Carga Horária: ${treinamento.cargaHoraria}'),
+                            Text('Código: ${treinamento.codigo}'),
+                            Text(
+                                'Mínimo de Candidatos: ${treinamento.minCandidatos}'),
+                            Text(
+                                'Máximo de Candidatos: ${treinamento.maxCandidatos}'),
+                            Text(
+                                'Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
+                            Text(
+                                'Data Final de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalInscricao)}'),
+                            Text(
+                                'Data Inicial do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialTreinamento)}'),
+                            Text(
+                                'Data Final do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalTreinamento)}'),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          icon: Icon(Icons.add),
+                          tooltip: 'Inscreva-se',
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Confirme sua Inscrição'),
+                                  actions: [
+                                    TextButton(
+                                      child: Text('Cancelar'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('Confirmar e começar quiz'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        appState.adicionarInscrito(InscritoVaga(
+                                          idAluno: idAluno,
+                                          idVaga: idTreinamento,
+                                        ));
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => FazerQuiz(
+                                              emailUser: _emailUser,
+                                              quizID: '',
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                    icon: Icon(Icons.add),
-                    tooltip: 'Inscreva-se',
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Confirme sua Inscrição'),
-                            actions: [
-                              TextButton(
-                                child: Text('Cancelar'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: Text('Confirmar e começar quiz'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  appState.adicionarInscrito(InscritoVaga(
-                                    idAluno: idAluno,
-                                    idVaga: idTreinamento,
-                                  ));
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => FazerQuiz(
-                                        emailUser: _emailUser,
-                                        quizID: '',
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-      ],
+            ],
+          );
+        }
+      },
     );
-
-    /*return ListView(
-      children: [
-        Text('Lista de Treinamentos:', style: TextStyle(fontSize: 25)),
-        for (var treinamento in appState.treinamentos)
-          ListTile(
-            leading: Icon(Icons.task),
-            title: Text('Nome Comercial: ${treinamento.nomeComercial}'),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Descrição: ${treinamento.descricao}'),
-                Text('Carga Horária: ${treinamento.cargaHoraria}'),
-                Text('Código: ${treinamento.codigo}'),
-                Text('Mínimo de Candidatos: ${treinamento.minCandidatos}'),
-                Text('Máximo de Candidatos: ${treinamento.maxCandidatos}'),
-                Text(
-                    'Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
-                Text(
-                    'Data Final de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalInscricao)}'),
-                Text(
-                    'Data Inicial do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialTreinamento)}'),
-                Text(
-                    'Data Final do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalTreinamento)}'),
-              ],
-            ),
-          ),
-          Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                    icon: Icon(Icons.add),
-                    tooltip: 'Inscreva-se',
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Confirme sua Inscrição'),
-                            actions: [
-                              TextButton(
-                                child: Text('Cancelar'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: Text('Confirmar'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  appState.adicionarInscrito(Inscrito(
-                                    idAluno: idAluno,
-                                    idVaga: idTreinamento,
-                                  ));
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-      ],
-    );*/
   }
 }

@@ -233,6 +233,18 @@ class QuizClass {
   List<Map<String, dynamic>> toJson() {
     return questoes.map((questaox) => questaox.toJson()).toList();
   }
+
+    factory QuizClass.fromJson(Map<String, dynamic> json) {
+    print(json);
+    return QuizClass(
+      tituloVaga: json['titulo_vaga'],
+      descricao: json['descricao'],
+      id: json['id'],
+      idEmpresaContratando: json['id_empresa'],
+      requisitos: json['requisitos'],
+      salario: json['salario'],
+    );
+  }
 }
 
 void criaTreinamento(Treinamento novoTreinamento, List<QuizClass> quiz) async {
@@ -504,17 +516,17 @@ void criaInscricaoTreinamento(idVaga, idAluno) async {
 
 //Treinamento
 
-Future<QuizClass> receberQuizBD() async {
+Future<QuizClass> receberQuizBD(idTreinamento) async {
   QuizClass Quiz = QuizClass();
   
   http.Response response = await http.get(
-    Uri.parse('http://localhost:8000/fazerQuiz'),
+    Uri.parse('http://localhost:8000/quiz/aptidao/$idTreinamento'),
     headers: {'Content-Type': 'application/json'},
   );
 
   if (response.statusCode == 200) {
     List<dynamic> decodedData = jsonDecode(response.body);
-    //jsondecode
+    Quiz = QuizClass().fromJson
   } else {
     print(response.statusCode);
   }

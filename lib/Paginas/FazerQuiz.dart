@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:core';
+import '../main.dart';
+import "../all.dart";
 
 import 'package:projeto_final_front/all.dart';
 
@@ -29,6 +32,7 @@ class FazerQuizState extends State<FazerQuiz> {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
     final TextStyle style = TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
@@ -140,7 +144,7 @@ class FazerQuizState extends State<FazerQuiz> {
       );
     }
     return FutureBuilder<QuizClass>(
-      future: receberQuizBD(),
+      future: receberQuizBD(appState.idTreinamentoAtual),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Display a loading indicator while fetching data

@@ -44,6 +44,7 @@ class MyAppState extends ChangeNotifier {
   Widget page = LoginPage();
   var logado = false;
   var tipoLogado = 0;
+  String idTreinamentoAtual = '';
   LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 'id');
   Vaga vagaAtual = Vaga(
       tituloVaga: 'tituloVaga',

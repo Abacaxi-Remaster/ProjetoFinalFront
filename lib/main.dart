@@ -177,6 +177,13 @@ class MyAppState extends ChangeNotifier {
 
   void addQuiz(List<Questao> questoesx) {
     QuizClass quiz = QuizClass();
+    int num = Quizzes.length + 1;
+
+    if (num == 1) {
+      quiz.addNome('Quiz Introdutório');
+    } else {
+      quiz.addNome('Case $num');
+    }
 
     for (var pergunta in questoesx) {
       quiz.addQuestao(pergunta);
@@ -184,5 +191,11 @@ class MyAppState extends ChangeNotifier {
 
     Quizzes.add(quiz);
     print('adicionou quiz');
+    notifyListeners();
+  }
+
+  void clearQuizzes() {
+    Quizzes.clear();
+    notifyListeners();
   }
 }

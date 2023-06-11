@@ -56,8 +56,12 @@ class MyHomePageState extends State<MyHomePage> {
     [
       //ADM
       NavigationRailDestination(
+        icon: Icon(Icons.create_new_folder),
+        label: Text('Criar Treinamento'),
+      ),
+      NavigationRailDestination(
         icon: Icon(Icons.folder),
-        label: Text('Treinamentos'),
+        label: Text('Lista de Treinamentos'),
       ),
       NavigationRailDestination(
         icon: Icon(Icons.menu_book),
@@ -73,9 +77,9 @@ class MyHomePageState extends State<MyHomePage> {
   Widget updatePage(selectedIndex, tipoLogado) {
     final admOptions = [
       MenuTreinamentos(),
+      TreinamentosADMPage(),
       TestesPage(),
       VagasPage(),
-      AtConcluidasMentorPage(),
     ];
     final alunoOptions = [
       TreinamentosAlunoPage(),

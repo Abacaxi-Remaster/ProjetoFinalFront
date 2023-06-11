@@ -18,6 +18,16 @@ class Quiz extends StatefulWidget {
 }
 
 class QuizState extends State<Quiz> {
+  late List<GlobalKey<FormState>> _formKeys;
+  @override
+  void initState() {
+    super.initState();
+    // Move the initialization of _formKeys inside the initState method
+    _formKeys =
+        List.generate(salvaResp.length, (index) => GlobalKey<FormState>());
+  }
+
+  int check = 0;
   String pergunta = '';
   String respostaA = '';
   String respostaB = '';
@@ -88,7 +98,7 @@ class QuizState extends State<Quiz> {
       fontWeight: FontWeight.bold,
       color: Colors.black,
     );
-    Column returnCheckbox(index, listaRespostas) {
+    Form returnCheckbox(index, listaRespostas) {
       checkAlternativaA = false;
       checkAlternativaB = false;
       checkAlternativaC = false;
@@ -101,163 +111,195 @@ class QuizState extends State<Quiz> {
       respostaD = '';
       respostaE = '';
 
-      return Column(
-        children: [
-          TextField(
-            onChanged: (text) {
-              listaRespostas[index].pergunta = text;
-              pergunta = listaRespostas[index].pergunta;
-            },
-            decoration: InputDecoration(
-              labelText: 'Pergunta',
+      return Form(
+        key: _formKeys[index],
+        autovalidateMode: AutovalidateMode.always,
+        child: Column(
+          children: [
+            TextFormField(
+              validator: (value) {
+                return validaNullClean(value);
+              },
+              onChanged: (text) {
+                listaRespostas[index].pergunta = text;
+                pergunta = listaRespostas[index].pergunta;
+              },
+              decoration: InputDecoration(
+                labelText: 'Pergunta',
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          TextField(
-            onChanged: (text) {
-              listaRespostas[index].respostaDaAlternativaA = text;
-              respostaA = listaRespostas[index].respostaDaAlternativaA;
-            },
-            decoration: InputDecoration(
-              labelText: 'Resposta A',
+            SizedBox(height: 20),
+            TextFormField(
+              validator: (value) {
+                return validaNullClean(value);
+              },
+              onChanged: (text) {
+                listaRespostas[index].respostaDaAlternativaA = text;
+                respostaA = listaRespostas[index].respostaDaAlternativaA;
+              },
+              decoration: InputDecoration(
+                labelText: 'Resposta A',
+              ),
             ),
-          ),
-          CheckboxListTile(
-            value: listaRespostas[index].alternativaA,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostas[index].alternativaA = value!;
-                //checkAlternativaA = listaRespostas[index].alternativaA;
-                listaRespostas[index].alternativaB = false;
-                listaRespostas[index].alternativaC = false;
-                listaRespostas[index].alternativaD = false;
-                listaRespostas[index].alternativaE = false;
-                if (value) {
-                  listaRespostas[index].alternativaCorreta = 'A';
-                } else {
-                  listaRespostas[index].alternativaCorreta = '';
-                }
-              });
-            },
-            title: Text('Selecionar'),
-          ),
-          SizedBox(height: 10),
-          TextField(
-            onChanged: (text) {
-              listaRespostas[index].respostaDaAlternativaB = text;
-              respostaB = listaRespostas[index].respostaDaAlternativaB;
-            },
-            decoration: InputDecoration(
-              labelText: 'Resposta B',
+            CheckboxListTile(
+              value: listaRespostas[index].alternativaA,
+              onChanged: (bool? value) {
+                setState(() {
+                  listaRespostas[index].alternativaA = value!;
+                  //checkAlternativaA = listaRespostas[index].alternativaA;
+                  listaRespostas[index].alternativaB = false;
+                  listaRespostas[index].alternativaC = false;
+                  listaRespostas[index].alternativaD = false;
+                  listaRespostas[index].alternativaE = false;
+                  if (value) {
+                    listaRespostas[index].alternativaCorreta = 'A';
+                    check++;
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                    check--;
+                  }
+                });
+              },
+              title: Text('Selecionar'),
             ),
-          ),
-          CheckboxListTile(
-            value: listaRespostas[index].alternativaB,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostas[index].alternativaB = value!;
-                //checkAlternativaB = listaRespostas[index].alternativaB;
-                listaRespostas[index].alternativaA = false;
-                listaRespostas[index].alternativaC = false;
-                listaRespostas[index].alternativaD = false;
-                listaRespostas[index].alternativaE = false;
-                if (value) {
-                  listaRespostas[index].alternativaCorreta = 'B';
-                } else {
-                  listaRespostas[index].alternativaCorreta = '';
-                }
-              });
-            },
-            title: Text('Selecionar'),
-          ),
-          SizedBox(height: 20),
-          TextField(
-            onChanged: (text) {
-              listaRespostas[index].respostaDaAlternativaC = text;
-              respostaC = listaRespostas[index].respostaDaAlternativaC;
-            },
-            decoration: InputDecoration(
-              labelText: 'Resposta C',
+            SizedBox(height: 10),
+            TextFormField(
+              validator: (value) {
+                return validaNullClean(value);
+              },
+              onChanged: (text) {
+                listaRespostas[index].respostaDaAlternativaB = text;
+                respostaB = listaRespostas[index].respostaDaAlternativaB;
+              },
+              decoration: InputDecoration(
+                labelText: 'Resposta B',
+              ),
             ),
-          ),
-          CheckboxListTile(
-            value: listaRespostas[index].alternativaC,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostas[index].alternativaC = value!;
-                //checkAlternativaC = listaRespostas[index].alternativaC;
-                listaRespostas[index].alternativaA = false;
-                listaRespostas[index].alternativaB = false;
-                listaRespostas[index].alternativaD = false;
-                listaRespostas[index].alternativaE = false;
-                if (value) {
-                  listaRespostas[index].alternativaCorreta = 'C';
-                } else {
-                  listaRespostas[index].alternativaCorreta = '';
-                }
-              });
-            },
-            title: Text('Selecionar'),
-          ),
-          SizedBox(height: 10),
-          TextField(
-            onChanged: (text) {
-              listaRespostas[index].respostaDaAlternativaD = text;
-              respostaD = listaRespostas[index].respostaDaAlternativaD;
-            },
-            decoration: InputDecoration(
-              labelText: 'Resposta D',
+            CheckboxListTile(
+              value: listaRespostas[index].alternativaB,
+              onChanged: (bool? value) {
+                setState(() {
+                  listaRespostas[index].alternativaB = value!;
+                  //checkAlternativaB = listaRespostas[index].alternativaB;
+                  listaRespostas[index].alternativaA = false;
+                  listaRespostas[index].alternativaC = false;
+                  listaRespostas[index].alternativaD = false;
+                  listaRespostas[index].alternativaE = false;
+                  if (value) {
+                    listaRespostas[index].alternativaCorreta = 'B';
+                    check++;
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                    check--;
+                  }
+                });
+              },
+              title: Text('Selecionar'),
             ),
-          ),
-          CheckboxListTile(
-            value: listaRespostas[index].alternativaD,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostas[index].alternativaD = value!;
-                //checkAlternativaD = listaRespostas[index].alternativaD;
-                listaRespostas[index].alternativaA = false;
-                listaRespostas[index].alternativaB = false;
-                listaRespostas[index].alternativaC = false;
-                listaRespostas[index].alternativaE = false;
-                if (value) {
-                  listaRespostas[index].alternativaCorreta = 'D';
-                } else {
-                  listaRespostas[index].alternativaCorreta = '';
-                }
-              });
-            },
-            title: Text('Selecionar'),
-          ),
-          SizedBox(height: 10),
-          TextField(
-            onChanged: (text) {
-              listaRespostas[index].respostaDaAlternativaE = text;
-              respostaE = listaRespostas[index].respostaDaAlternativaE;
-            },
-            decoration: InputDecoration(
-              labelText: 'Resposta E',
+            SizedBox(height: 20),
+            TextFormField(
+              validator: (value) {
+                return validaNullClean(value);
+              },
+              onChanged: (text) {
+                listaRespostas[index].respostaDaAlternativaC = text;
+                respostaC = listaRespostas[index].respostaDaAlternativaC;
+              },
+              decoration: InputDecoration(
+                labelText: 'Resposta C',
+              ),
             ),
-          ),
-          CheckboxListTile(
-            value: listaRespostas[index].alternativaE,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostas[index].alternativaE = value!;
-                //checkAlternativaE = listaRespostas[index].alternativaE;
-                listaRespostas[index].alternativaA = false;
-                listaRespostas[index].alternativaB = false;
-                listaRespostas[index].alternativaC = false;
-                listaRespostas[index].alternativaD = false;
-                if (value) {
-                  listaRespostas[index].alternativaCorreta = 'E';
-                } else {
-                  listaRespostas[index].alternativaCorreta = '';
-                }
-              });
-            },
-            title: Text('Selecionar'),
-          ),
-        ],
+            CheckboxListTile(
+              value: listaRespostas[index].alternativaC,
+              onChanged: (bool? value) {
+                setState(() {
+                  listaRespostas[index].alternativaC = value!;
+                  //checkAlternativaC = listaRespostas[index].alternativaC;
+                  listaRespostas[index].alternativaA = false;
+                  listaRespostas[index].alternativaB = false;
+                  listaRespostas[index].alternativaD = false;
+                  listaRespostas[index].alternativaE = false;
+                  if (value) {
+                    listaRespostas[index].alternativaCorreta = 'C';
+                    check++;
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                    check--;
+                  }
+                });
+              },
+              title: Text('Selecionar'),
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              validator: (value) {
+                return validaNullClean(value);
+              },
+              onChanged: (text) {
+                listaRespostas[index].respostaDaAlternativaD = text;
+                respostaD = listaRespostas[index].respostaDaAlternativaD;
+              },
+              decoration: InputDecoration(
+                labelText: 'Resposta D',
+              ),
+            ),
+            CheckboxListTile(
+              value: listaRespostas[index].alternativaD,
+              onChanged: (bool? value) {
+                setState(() {
+                  listaRespostas[index].alternativaD = value!;
+                  //checkAlternativaD = listaRespostas[index].alternativaD;
+                  listaRespostas[index].alternativaA = false;
+                  listaRespostas[index].alternativaB = false;
+                  listaRespostas[index].alternativaC = false;
+                  listaRespostas[index].alternativaE = false;
+                  if (value) {
+                    listaRespostas[index].alternativaCorreta = 'D';
+                    check++;
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                    check--;
+                  }
+                });
+              },
+              title: Text('Selecionar'),
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              validator: (value) {
+                return validaNullClean(value);
+              },
+              onChanged: (text) {
+                listaRespostas[index].respostaDaAlternativaE = text;
+                respostaE = listaRespostas[index].respostaDaAlternativaE;
+              },
+              decoration: InputDecoration(
+                labelText: 'Resposta E',
+              ),
+            ),
+            CheckboxListTile(
+              value: listaRespostas[index].alternativaE,
+              onChanged: (bool? value) {
+                setState(() {
+                  listaRespostas[index].alternativaE = value!;
+                  //checkAlternativaE = listaRespostas[index].alternativaE;
+                  listaRespostas[index].alternativaA = false;
+                  listaRespostas[index].alternativaB = false;
+                  listaRespostas[index].alternativaC = false;
+                  listaRespostas[index].alternativaD = false;
+                  if (value) {
+                    listaRespostas[index].alternativaCorreta = 'E';
+                    check++;
+                  } else {
+                    listaRespostas[index].alternativaCorreta = '';
+                    check--;
+                  }
+                });
+              },
+              title: Text('Selecionar'),
+            ),
+          ],
+        ),
       );
     }
 
@@ -291,6 +333,7 @@ class QuizState extends State<Quiz> {
               FloatingActionButton(
                 onPressed: () {
                   addResposta();
+                  _formKeys.add(GlobalKey<FormState>());
                   contaQuestao++;
                 },
                 child: Text('NOVO', style: TextStyle(fontSize: 18)),
@@ -313,8 +356,26 @@ class QuizState extends State<Quiz> {
                     ),
                     onPressed: () {
                       //Funcao para mandar questão para o banco de dados passando salvaResp
-                      appState.addQuiz(salvaResp);
-                      Navigator.of(context).pop();
+                      if (salvaResp.length >= 3) {
+                        /*if (_formKeys.every((key) =>
+                            key.currentState != null &&
+                            key.currentState!.validate())) {
+                          */
+                        if (check == salvaResp.length) {
+                          appState.addQuiz(salvaResp);
+                          Navigator.of(context).pop();
+                        } else {
+                          appState.erro(
+                              'Erro no Cadastro - Assinale a alternativa correta em todas as perguntas!');
+                        }
+                        /*} else {
+                          appState.erro(
+                              'Erro no Cadastro - Preencha todos os Campos!');
+                        }*/
+                      } else {
+                        appState
+                            .erro('Erro no Cadastro - mínimo de 3 perguntas!');
+                      }
                     },
                     child: Text(
                       "Enviar quiz",

@@ -155,7 +155,7 @@ class Treinamento {
   String nomeComercial;
   String descricao;
   int cargaHoraria;
-  String codigo;
+  String id;
   int minCandidatos;
   int maxCandidatos;
   DateTime dataInicialInscricao;
@@ -167,7 +167,7 @@ class Treinamento {
     required this.nomeComercial,
     required this.descricao,
     required this.cargaHoraria,
-    required this.codigo,
+    required this.id,
     required this.minCandidatos,
     required this.maxCandidatos,
     required this.dataInicialInscricao,
@@ -182,7 +182,7 @@ class Treinamento {
         'nomeComercial=$nomeComercial, '
         'descricao=$descricao, '
         'cargaHoraria=$cargaHoraria, '
-        'codigo=$codigo, '
+        'id=$id, '
         'minCandidatos=$minCandidatos, '
         'maxCandidatos=$maxCandidatos, '
         'dataInicialInscricao=$dataInicialInscricao, '
@@ -211,7 +211,7 @@ class Treinamento {
       nomeComercial: json['nome_comercial'],
       descricao: json['descricao'],
       cargaHoraria: json['carga_horaria'],
-      codigo: json['id'],
+      id: json['id'],
       minCandidatos: json['qntd_min_insc'],
       maxCandidatos: json['qntd_max_insc'],
       dataInicialInscricao:
@@ -486,4 +486,38 @@ void criaInscricaoVaga(idVaga, idAluno) async {
   }
 }
 
+void criaInscricaoTreinamento(idVaga, idAluno) async {
+  InscritoVaga inscricao = InscritoVaga(idVaga: idVaga, idAluno: idAluno);
+  String jsonInscricao = jsonEncode(inscricao.toJson());
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/vagas/inscricao"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonInscricao,
+  );
+  if (response.statusCode == 200) {
+    print('Inscrição realizada com sucesso');
+  } else {
+    print(response.statusCode);
+  }
+}
+
 //Treinamento
+
+Future<QuizClass> receberQuizBD() async {
+  QuizClass Quiz = QuizClass();
+  
+  http.Response response = await http.get(
+    Uri.parse('http://localhost:8000/fazerQuiz'),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    //jsondecode
+  } else {
+    print(response.statusCode);
+  }
+
+  return Quiz;
+}

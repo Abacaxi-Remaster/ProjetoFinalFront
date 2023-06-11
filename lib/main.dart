@@ -136,11 +136,7 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void adicionarInscrito(InscritoVaga inscrito) {
-    _inscritos.add(inscrito);
-    notifyListeners();
-    print(inscrito);
-  }
+
 
   void TESTE_toggle_logado() {
     logado = !logado;

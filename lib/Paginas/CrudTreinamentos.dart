@@ -25,7 +25,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
   String nomeComercial = '';
   String descricao = '';
   int cargaHoraria = 0;
-  String codigo = 'Random().nextInt(1000)';
+  String id = 'Random().nextInt(1000)';
   int minCandidatos = 0;
   int maxCandidatos = 0;
   DateTime dataInicialInscricao = DateTime.now();
@@ -153,7 +153,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
                               nomeComercial: nomeComercial,
                               descricao: descricao,
                               cargaHoraria: cargaHoraria,
-                              codigo: codigo,
+                              id: id,
                               minCandidatos: minCandidatos,
                               maxCandidatos: maxCandidatos,
                               dataInicialInscricao: dataInicialInscricao,
@@ -195,28 +195,14 @@ class TreinamentosAlunoPage extends StatelessWidget {
     color: Colors.black,
   );
 
-  int index = 0;
-  String emailUser = '';
-  List<dynamic> dataListCursosBD = [];
-  String _userType = '';
-  String _emailUser = '';
+ int index = 0;
+ String emailUser = '';
+ List<dynamic> dataListCursosBD = [];
+ String _emailUser = '';
 
-  @override
-  Widget build(BuildContext context) {
+ @override
+ Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    String idAluno = '0';
-    String idTreinamento = '0';
-
-    void criarInscritoTreinamento() {
-      InscritoVaga inscrito = InscritoVaga(
-        idAluno: idAluno,
-        idVaga: idTreinamento,
-      );
-
-      var appState = context.watch<MyAppState>();
-      appState.adicionarInscrito(inscrito);
-    }
-
     return FutureBuilder<List<Treinamento>>(
       future: listaTreinamentos(),
       builder: (context, snapshot) {
@@ -244,7 +230,7 @@ class TreinamentosAlunoPage extends StatelessWidget {
                           children: [
                             Text('Descrição: ${treinamento.descricao}'),
                             Text('Carga Horária: ${treinamento.cargaHoraria}'),
-                            Text('Código: ${treinamento.codigo}'),
+                            Text('Código: ${treinamento.id}'),
                             Text(
                                 'Mínimo de Candidatos: ${treinamento.minCandidatos}'),
                             Text(
@@ -281,11 +267,12 @@ class TreinamentosAlunoPage extends StatelessWidget {
                                     TextButton(
                                       child: Text('Confirmar e começar quiz'),
                                       onPressed: () {
-                                        Navigator.of(context).pop();
-                                        appState.adicionarInscrito(InscritoVaga(
-                                          idAluno: idAluno,
-                                          idVaga: idTreinamento,
-                                        ));
+                                       /* print(treinamento.id);
+                                        print('arroz');
+                                        print(appState.logged.id);              //SE A PESSOA PASSAR NO QUIZ FAZ ISSO
+                                        criaInscricaoTreinamento(
+                                            treinamento.id, appState.logged.id);
+                                        Navigator.of(context).pop();*/
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(

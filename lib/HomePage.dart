@@ -79,7 +79,7 @@ class MyHomePageState extends State<MyHomePage> {
     ];
     final alunoOptions = [
       TreinamentosAlunoPage(),
-      Placeholder(),
+      TestesPageAluno(),
       VagasAlunoPage(),
       VagasInscritasAlunoPage(),
     ];

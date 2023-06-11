@@ -446,7 +446,7 @@ Future<List<Vaga>> listaVagasAluno(String idAluno) async {
 Future<List<Vaga>> listaVagasEmpresa(String idEmpresa) async {
   List<Vaga> vagas = [];
 
-  String url = 'http://localhost:8000/vagas/$idEmpresa';
+  String url = 'http://localhost:8000/vagas/empresa/$idEmpresa';
 
   http.Response response = await http.get(
     Uri.parse(url),

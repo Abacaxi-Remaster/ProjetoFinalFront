@@ -22,8 +22,7 @@ class FazerQuizState extends State<FazerQuiz> {
   String quizID = '';
   String emailUser = '';
   List<dynamic> ListQuestoesBD = []; //recebe os valores do bd
-  List<String> listaRespostasMarcada =
-      []; //receber o valor que a pessoa respondeu
+  List<String> listaRespostasMarcada = []; //receber o valor que a pessoa respondeu
   bool alternativaA = false;
   bool alternativaB = false;
   bool alternativaC = false;
@@ -65,7 +64,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_a'], style: style),
+              child: Text(ListQuestoesBD[index]['opcao_a'], style: style),
             ),
           ),
           CheckboxListTile(
@@ -83,7 +82,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_b'], style: style),
+              child: Text(ListQuestoesBD[index]['opcao_b'], style: style),
             ),
           ),
           CheckboxListTile(
@@ -101,7 +100,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_c'], style: style),
+              child: Text(ListQuestoesBD[index]['opcao_c'], style: style),
             ),
           ),
           CheckboxListTile(
@@ -119,7 +118,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_d'], style: style),
+              child: Text(ListQuestoesBD[index]['opcao_d'], style: style),
             ),
           ),
           CheckboxListTile(
@@ -137,14 +136,14 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_e'], style: style),
+              child: Text(ListQuestoesBD[index]['opcao_e'], style: style),
             ),
           ),
         ],
       );
     }
 
-    return FutureBuilder<QuizClass>(
+ return FutureBuilder<QuizClass>(
       future: receberQuizAptidaoBD(appState.idTreinamentoAtual),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -153,7 +152,7 @@ class FazerQuizState extends State<FazerQuiz> {
           return Text(
               'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
         } else {
-          QuizClass? quiz = snapshot.data;
+          QuizClass? quiz = snapshot.data;;
         }
         return Scaffold(
           appBar: AppBar(
@@ -173,7 +172,7 @@ class FazerQuizState extends State<FazerQuiz> {
                       return Column(
                         children: [
                           ListTile(
-                            title: Text('${index + 1}', style: style),
+                            title: Text ('${index + 1}', style: style)
                           ),
                           returnAnswers(
                               index, ListQuestoesBD, listaRespostasMarcada),

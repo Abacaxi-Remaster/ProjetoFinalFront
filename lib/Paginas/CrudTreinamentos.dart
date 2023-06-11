@@ -154,29 +154,29 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
                         child: Text('Salvar'),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            if (appState.Quizzes.length == 2) {
-                              Navigator.of(context).pop();
-                              criaTreinamento(
-                                  Treinamento(
-                                    nomeComercial: nomeComercial,
-                                    descricao: descricao,
-                                    cargaHoraria: cargaHoraria,
-                                    codigo: codigo,
-                                    minCandidatos: minCandidatos,
-                                    maxCandidatos: maxCandidatos,
-                                    dataInicialInscricao: dataInicialInscricao,
-                                    dataFinalInscricao: dataFinalInscricao,
-                                    dataInicialTreinamento:
-                                        dataInicialTreinamento,
-                                    dataFinalTreinamento: dataFinalTreinamento,
-                                  ),
-                                  appState.Quizzes);
-                              submitForm();
-                              appState.clearQuizzes();
-                            } else {
+                            //if (appState.Quizzes.length == 2) {
+                            Navigator.of(context).pop();
+                            criaTreinamento(
+                                Treinamento(
+                                  nomeComercial: nomeComercial,
+                                  descricao: descricao,
+                                  cargaHoraria: cargaHoraria,
+                                  id: 'codigo',
+                                  minCandidatos: minCandidatos,
+                                  maxCandidatos: maxCandidatos,
+                                  dataInicialInscricao: dataInicialInscricao,
+                                  dataFinalInscricao: dataFinalInscricao,
+                                  dataInicialTreinamento:
+                                      dataInicialTreinamento,
+                                  dataFinalTreinamento: dataFinalTreinamento,
+                                ),
+                                appState.Quizzes);
+                            submitForm();
+                            appState.clearQuizzes();
+                            /*} else {
                               appState.erro(
                                   'Erro no Cadastro - Insira 3 Quiz no total!');
-                            }
+                            }*/
                           } else {
                             appState.erro(
                                 'Erro no Cadastro - Preencha os Campos Obrigatórios!');
@@ -207,13 +207,13 @@ class TreinamentosAlunoPage extends StatelessWidget {
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
- int index = 0;
- String emailUser = '';
- List<dynamic> dataListCursosBD = [];
- String _emailUser = '';
+  int index = 0;
+  String emailUser = '';
+  List<dynamic> dataListCursosBD = [];
+  String _emailUser = '';
 
- @override
- Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     String idAluno = '0';
     String idTreinamento = '0';
@@ -229,7 +229,7 @@ class TreinamentosAlunoPage extends StatelessWidget {
     }
 
     return FutureBuilder<List<Treinamento>>(
-      future: listaTreinamentos(),
+      future: listaTreinamentos(appState.logged.id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Display a loading indicator while fetching data
@@ -292,12 +292,14 @@ class TreinamentosAlunoPage extends StatelessWidget {
                                     TextButton(
                                       child: Text('Confirmar e começar quiz'),
                                       onPressed: () {
-                                       /* print(treinamento.id);
+                                        /* print(treinamento.id);
                                         print('arroz');
                                         print(appState.logged.id);              //SE A PESSOA PASSAR NO QUIZ FAZ ISSO
                                         criaInscricaoTreinamento(
                                             treinamento.id, appState.logged.id);
                                         Navigator.of(context).pop();*/
+                                        appState.idTreinamentoAtual =
+                                            treinamento.id;
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -355,7 +357,7 @@ class TreinamentosADMPage extends StatelessWidget {
     }
 
     return FutureBuilder<List<Treinamento>>(
-      future: listaTreinamentos(),
+      future: listaTreinamentos(appState.logged.id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Display a loading indicator while fetching data
@@ -381,7 +383,7 @@ class TreinamentosADMPage extends StatelessWidget {
                           children: [
                             Text('Descrição: ${treinamento.descricao}'),
                             Text('Carga Horária: ${treinamento.cargaHoraria}'),
-                            Text('Código: ${treinamento.codigo}'),
+                            Text('Código: ${treinamento.id}'),
                             Text(
                                 'Mínimo de Candidatos: ${treinamento.minCandidatos}'),
                             Text(

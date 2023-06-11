@@ -234,6 +234,11 @@ class QuizClass {
   String Nome = '';
   List<Questao> questoes = [];
 
+  QuizClass() {
+    Nome = '';
+    questoes = [];
+  }
+
   void addNome(String value) {
     Nome = value;
   }
@@ -242,20 +247,17 @@ class QuizClass {
     questoes.add(questaox);
   }
 
-  List<Map<String, dynamic>> toJson() {
-    return questoes.map((questaox) => questaox.toJson()).toList();
+  factory QuizClass.fromJson(List<Map<String, dynamic>> json) {
+    final quiz = QuizClass();
+    json.forEach((questaoJson) {
+      final questao = Questao.fromJson(questaoJson);
+      quiz.addQuestao(questao);
+    });
+    return quiz;
   }
 
-    factory QuizClass.fromJson(Map<String, dynamic> json) {
-    print(json);
-    return QuizClass(
-      tituloVaga: json['titulo_vaga'],
-      descricao: json['descricao'],
-      id: json['id'],
-      idEmpresaContratando: json['id_empresa'],
-      requisitos: json['requisitos'],
-      salario: json['salario'],
-    );
+  List<Map<String, dynamic>> toJson() {
+    return questoes.map((questaox) => questaox.toJson()).toList();
   }
 }
 
@@ -287,10 +289,10 @@ void criaTreinamento(Treinamento novoTreinamento, List<QuizClass> quiz) async {
   }
 }
 
-Future<List<Treinamento>> listaTreinamentos() async {
+Future<List<Treinamento>> listaTreinamentos(idAluno) async {
   List<Treinamento> treinamentos = [];
 
-  String url = 'http://localhost:8000/treinamentos';
+  String url = 'http://localhost:8000/treinamentos/$idAluno';
 
   http.Response response = await http.get(
     Uri.parse(url),
@@ -533,17 +535,20 @@ void criaInscricaoTreinamento(idVaga, idAluno) async {
 
 //Treinamento
 
-Future<QuizClass> receberQuizBD(idTreinamento) async {
+Future<QuizClass> receberQuizAptidaoBD(idTreinamento) async {
   QuizClass Quiz = QuizClass();
-  
+  print('chamou: idTreinamento: $idTreinamento');
   http.Response response = await http.get(
     Uri.parse('http://localhost:8000/quiz/aptidao/$idTreinamento'),
     headers: {'Content-Type': 'application/json'},
   );
 
+  print(response.statusCode);
+  print(response.body);
+
   if (response.statusCode == 200) {
     List<dynamic> decodedData = jsonDecode(response.body);
-    Quiz = QuizClass().fromJson
+    Quiz = QuizClass.fromJson(decodedData.cast<Map<String, dynamic>>());
   } else {
     print(response.statusCode);
   }

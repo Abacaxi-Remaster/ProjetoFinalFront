@@ -48,6 +48,7 @@ class QuizState extends State<Quiz> {
     setState(() {
       int contaQuestao = salvaResp.length + 1;
       salvaResp.add(Questao(
+        idQuestao: '',
         idTreinamentoQuiz: widget.quizID,
         questao: 'Questão $contaQuestao',
         pergunta: pergunta,
@@ -356,26 +357,26 @@ class QuizState extends State<Quiz> {
                     ),
                     onPressed: () {
                       //Funcao para mandar questão para o banco de dados passando salvaResp
-                      if (salvaResp.length >= 3) {
-                        /*if (_formKeys.every((key) =>
+                      // if (salvaResp.length >= 3) {
+                      /*if (_formKeys.every((key) =>
                             key.currentState != null &&
                             key.currentState!.validate())) {
                           */
-                        if (check == salvaResp.length) {
-                          appState.addQuiz(salvaResp);
-                          Navigator.of(context).pop();
-                        } else {
+                      //if (check == salvaResp.length) {
+                      appState.addQuiz(salvaResp);
+                      Navigator.of(context).pop();
+                      /*} else {
                           appState.erro(
                               'Erro no Cadastro - Assinale a alternativa correta em todas as perguntas!');
-                        }
-                        /*} else {
+                        }*/
+                      /*} else {
                           appState.erro(
                               'Erro no Cadastro - Preencha todos os Campos!');
                         }*/
-                      } else {
+                      /*} else {
                         appState
                             .erro('Erro no Cadastro - mínimo de 3 perguntas!');
-                      }
+                      }*/
                     },
                     child: Text(
                       "Enviar quiz",
@@ -398,6 +399,7 @@ class QuizState extends State<Quiz> {
 class Questao {
   String questao;
   String pergunta;
+  String idQuestao;
 
   String respostaDaAlternativaA;
   String respostaDaAlternativaB;
@@ -414,6 +416,7 @@ class Questao {
   String idTreinamentoQuiz;
 
   Questao({
+    required this.idQuestao,
     required this.idTreinamentoQuiz,
     required this.questao,
     required this.pergunta,
@@ -440,5 +443,25 @@ class Questao {
       "opcao_d": respostaDaAlternativaD,
       "opcao_e": respostaDaAlternativaE,
     };
+  }
+
+  factory Questao.fromJson(Map<String, dynamic> json) {
+    return Questao(
+      idQuestao: json['id'],
+      questao: '',
+      idTreinamentoQuiz: json['id_quiz'],
+      pergunta: json['enunciado'],
+      alternativaCorreta: json['resposta'],
+      respostaDaAlternativaA: json['opcao_a'],
+      respostaDaAlternativaB: json['opcao_b'],
+      respostaDaAlternativaC: json['opcao_c'],
+      respostaDaAlternativaD: json['opcao_d'],
+      respostaDaAlternativaE: json['opcao_e'],
+      alternativaA: false,
+      alternativaB: false,
+      alternativaC: false,
+      alternativaD: false,
+      alternativaE: false,
+    );
   }
 }

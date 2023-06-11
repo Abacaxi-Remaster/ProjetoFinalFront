@@ -22,13 +22,13 @@ class FazerQuizState extends State<FazerQuiz> {
   String quizID = '';
   String emailUser = '';
   List<dynamic> ListQuestoesBD = []; //recebe os valores do bd
-  List<String> listaRespostasMarcada = []; //receber o valor que a pessoa respondeu
+  List<String> listaRespostasMarcada =
+      []; //receber o valor que a pessoa respondeu
   bool alternativaA = false;
   bool alternativaB = false;
   bool alternativaC = false;
   bool alternativaD = false;
   bool alternativaE = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -143,8 +143,9 @@ class FazerQuizState extends State<FazerQuiz> {
         ],
       );
     }
+
     return FutureBuilder<QuizClass>(
-      future: receberQuizBD(appState.idTreinamentoAtual),
+      future: receberQuizAptidaoBD(appState.idTreinamentoAtual),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Display a loading indicator while fetching data
@@ -154,63 +155,65 @@ class FazerQuizState extends State<FazerQuiz> {
         } else {
           QuizClass? quiz = snapshot.data;
         }
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Quiz'),
-          titleTextStyle: style,
-          automaticallyImplyLeading: false,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 200.0, vertical: 50),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: ListQuestoesBD.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text('${index + 1}', style: style),
-                        ),
-                        returnAnswers(index, ListQuestoesBD, listaRespostasMarcada),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-            ],
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Quiz'),
+            titleTextStyle: style,
+            automaticallyImplyLeading: false,
           ),
-        ),
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          body: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 200.0, vertical: 50),
+            child: Column(
               children: [
-                FloatingActionButton.extended(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32.0),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: ListQuestoesBD.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Text('${index + 1}', style: style),
+                          ),
+                          returnAnswers(
+                              index, ListQuestoesBD, listaRespostasMarcada),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20.0),
+                          ),
+                        ],
+                      );
+                    },
                   ),
-                  label: const Text('Finalizar Quiz'),
-                  onPressed: () async {
-                    //funcao para corrigir teste
-                    //corrigirTeste(index, ListQuestoesBD ,listaRespostasMarcada);
-                    Navigator.of(context).pop();
-                    print("Enviou");
-                  },
                 ),
               ],
             ),
-            const SizedBox(width: 30),
-          ],
-        ),
-      );
-  
+          ),
+          floatingActionButton: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FloatingActionButton.extended(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.0),
+                    ),
+                    label: const Text('Finalizar Quiz'),
+                    onPressed: () async {
+                      //funcao para corrigir teste
+                      //corrigirTeste(index, ListQuestoesBD ,listaRespostasMarcada);
+                      appState.idTreinamentoAtual = '';
+                      Navigator.of(context).pop();
+                      print("Enviou");
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(width: 30),
+            ],
+          ),
+        );
       },
     );
   }

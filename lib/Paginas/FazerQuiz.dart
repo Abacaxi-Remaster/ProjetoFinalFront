@@ -209,6 +209,5 @@ class FazerQuizState extends State<FazerQuiz> {
   
       },
     );
-  
-}
+  }
 }

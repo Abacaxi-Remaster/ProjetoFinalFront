@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:projeto_final_front/Paginas/Quiz.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:core';
@@ -21,13 +22,10 @@ class FazerQuiz extends StatefulWidget {
 class FazerQuizState extends State<FazerQuiz> {
   String quizID = '';
   String emailUser = '';
-  List<dynamic> ListQuestoesBD = []; //recebe os valores do bd
+  List<Questao> ListQuestoesBD = []; //recebe os valores do bd
   List<String> listaRespostasMarcada = []; //receber o valor que a pessoa respondeu
-  bool alternativaA = false;
-  bool alternativaB = false;
-  bool alternativaC = false;
-  bool alternativaD = false;
-  bool alternativaE = false;
+  List<bool> alternativasSelecionadas = [false, false, false, false, false];
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,107 +35,69 @@ class FazerQuizState extends State<FazerQuiz> {
       fontWeight: FontWeight.bold,
       color: Colors.black,
     );
+    CheckboxListTile buildCheckboxListTile(
+        int index, String alternativa, String resposta, bool selecionada) {
+      return CheckboxListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
+        value: selecionada,
+        onChanged: (bool? value) {
+          setState(() {
+            for (int i = 0; i < alternativasSelecionadas.length; i++) {
+              if (i == index) {
+                alternativasSelecionadas[i] = value!;
+                listaRespostasMarcada[index] = alternativa;
+              } else {
+                alternativasSelecionadas[i] = false;
+              }
+            }
+          });
+        },
+        title: SizedBox(
+          child: Text(resposta, style: style),
+        ),
+      );
+    }
     emailUser = widget.emailUser;
-    Column returnAnswers(index, listaRespostas, listaRespostasMarcada) {
+    Column returnAnswers(int index, List<Questao> questoes) {
+      listaRespostasMarcada.add('');
       return Column(
         children: [
           SizedBox(
             width: 800,
             height: 50,
             child: Text(
-              //Vai pegar do bd o numero da questao
-              '${ListQuestoesBD[index]['enunciado']}',
+              questoes[index].pergunta,
             ),
           ),
-          CheckboxListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaA,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostasMarcada[index] = 'a';
-                alternativaA = value!;
-                alternativaB = false;
-                alternativaC = false;
-                alternativaD = false;
-                alternativaE = false;
-              });
-            },
-            title: SizedBox(
-              child: Text(ListQuestoesBD[index]['opcao_a'], style: style),
-            ),
+          buildCheckboxListTile(
+            0,
+            'a',
+            questoes[index].respostaDaAlternativaA,
+            alternativasSelecionadas[0],
           ),
-          CheckboxListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaB,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostasMarcada[index] = 'b';
-                alternativaB = value!;
-                alternativaA = false;
-                alternativaC = false;
-                alternativaD = false;
-                alternativaE = false;
-              });
-            },
-            title: SizedBox(
-              child: Text(ListQuestoesBD[index]['opcao_b'], style: style),
-            ),
+          buildCheckboxListTile(
+            1,
+            'b',
+            questoes[index].respostaDaAlternativaB,
+            alternativasSelecionadas[1],
           ),
-          CheckboxListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaC,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostasMarcada[index] = 'c';
-                alternativaC = value!;
-                alternativaA = false;
-                alternativaB = false;
-                alternativaD = false;
-                alternativaE = false;
-              });
-            },
-            title: SizedBox(
-              child: Text(ListQuestoesBD[index]['opcao_c'], style: style),
-            ),
+          buildCheckboxListTile(
+            2,
+            'c',
+            questoes[index].respostaDaAlternativaC,
+            alternativasSelecionadas[2],
           ),
-          CheckboxListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaD,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostasMarcada[index] = 'd';
-                alternativaD = value!;
-                alternativaA = false;
-                alternativaB = false;
-                alternativaC = false;
-                alternativaE = false;
-              });
-            },
-            title: SizedBox(
-              child: Text(ListQuestoesBD[index]['opcao_d'], style: style),
-            ),
+          buildCheckboxListTile(
+            3,
+            'd',
+            questoes[index].respostaDaAlternativaD,
+            alternativasSelecionadas[3],
           ),
-          CheckboxListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaE,
-            onChanged: (bool? value) {
-              setState(() {
-                listaRespostasMarcada[index] = 'e';
-                alternativaE = value!;
-                alternativaA = false;
-                alternativaB = false;
-                alternativaC = false;
-                alternativaD = false;
-              });
-            },
-            title: SizedBox(
-              child: Text(ListQuestoesBD[index]['opcao_e'], style: style),
-            ),
+          buildCheckboxListTile(
+            4,
+            'e',
+            questoes[index].respostaDaAlternativaE,
+            alternativasSelecionadas[4],
           ),
         ],
       );
@@ -152,7 +112,9 @@ class FazerQuizState extends State<FazerQuiz> {
           return Text(
               'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
         } else {
-          QuizClass? quiz = snapshot.data;;
+          QuizClass? quiz = snapshot.data;
+          ListQuestoesBD = quiz!.questoes;
+          
         }
         return Scaffold(
           appBar: AppBar(
@@ -175,7 +137,7 @@ class FazerQuizState extends State<FazerQuiz> {
                             title: Text ('${index + 1}', style: style)
                           ),
                           returnAnswers(
-                              index, ListQuestoesBD, listaRespostasMarcada),
+                              index, ListQuestoesBD),
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 20.0),
                           ),

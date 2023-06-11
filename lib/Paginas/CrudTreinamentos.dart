@@ -26,7 +26,7 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
   String nomeComercial = '';
   String descricao = '';
   int cargaHoraria = 0;
-  String codigo = 'Random().nextInt(1000)';
+  String id = 'Random().nextInt(1000)';
   int minCandidatos = 0;
   int maxCandidatos = 0;
   DateTime dataInicialInscricao = DateTime.now();
@@ -207,13 +207,13 @@ class TreinamentosAlunoPage extends StatelessWidget {
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
+ int index = 0;
+ String emailUser = '';
+ List<dynamic> dataListCursosBD = [];
+ String _emailUser = '';
 
-  int index = 0;
-  List<dynamic> dataListCursosBD = [];
-  String _emailUser = '';
-
-  @override
-  Widget build(BuildContext context) {
+ @override
+ Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     String idAluno = '0';
     String idTreinamento = '0';
@@ -255,11 +255,11 @@ class TreinamentosAlunoPage extends StatelessWidget {
                           children: [
                             Text('Descrição: ${treinamento.descricao}'),
                             Text('Carga Horária: ${treinamento.cargaHoraria}'),
-                            Text('Código: ${treinamento.codigo}'),
+                            Text('Código: ${treinamento.id}'),
                             Text(
-                                'Mínimo de Candidatos: ${treinamento.minCandidatos}'),
+                                'Máximo de Candidatos: ${treinamento.minCandidatos}'),
                             Text(
-                                'Máximo de Candidatos: ${treinamento.maxCandidatos}'),
+                                'Mínimo de Candidatos: ${treinamento.maxCandidatos}'),
                             Text(
                                 'Data Inicial de Inscrição: ${DateFormat('dd/MM/yyyy').format(treinamento.dataInicialInscricao)}'),
                             Text(
@@ -292,11 +292,12 @@ class TreinamentosAlunoPage extends StatelessWidget {
                                     TextButton(
                                       child: Text('Confirmar e começar quiz'),
                                       onPressed: () {
-                                        Navigator.of(context).pop();
-                                        appState.adicionarInscrito(InscritoVaga(
-                                          idAluno: idAluno,
-                                          idVaga: idTreinamento,
-                                        ));
+                                       /* print(treinamento.id);
+                                        print('arroz');
+                                        print(appState.logged.id);              //SE A PESSOA PASSAR NO QUIZ FAZ ISSO
+                                        criaInscricaoTreinamento(
+                                            treinamento.id, appState.logged.id);
+                                        Navigator.of(context).pop();*/
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(

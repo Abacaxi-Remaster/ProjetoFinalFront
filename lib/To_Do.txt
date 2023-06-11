@@ -1,69 +1,91 @@
--> Limpar Tabela de Quiz ao dar SubmitForm
-
-
+To Do:
+-> Limitar 3 testes!
+-> Limitar mínimo 3 perguntas 
+-> 
+-> 
 
 Perguntas:
--> Criar Tabela Mentores
--> Email Pk por favor!
--> Função que pega todas as vagas de uma empresa específica!
--> Função que pega todas as vagas que um aluno de inscreveu
+JÃO ESTÁ FAZENDO:
+    -> Função que pega todas as vagas de uma empresa específica!
+    -> Função que pega todas as vagas que um aluno de inscreveu
 
-Lembrete:
--> login adm -> testar c tabela luisinho
+-> Adicionar no historico a coluna situação(aprovado / reprovado)
+
+REQUISIÇÕES QUE PRECISAMOS (ORDEM DE PRIORIDADE):
+    -> 'get' que recebe idTreinamento e retorna o Quiz(perguntas) introdutório dele;
+    -> 'post' que recebe as respostas do quiz, avalia e armazena a nota/ situação (aprovado e reprovado)
+    -> 'post' de um idAluno e um idVaga e deleta essa inscrição
+    -> 'get' que recebe um idAluno e um idTreinamento e retorna:
+        -> Todos os testes do treinamento
+        -> nota / situação do aluno em cada teste de seu histórico deste treinamento
+
 
 Páginas:
     100% prontas:
-        - HomePage
-        - Cadastro
+        - Geral:
+            - HomePage
+            - Cadastro
+            - Login
+        - Aluno:
+            - Vagas(inscrição)
+        - ADM: 
+            -
     
     Prontas, com leves ajustes faltando:
-        - Login
-            - Falta Login do ADM! (backend)
-            - falta id em mentores (backend)
-
-    Falta Ligar o Back:
-        -Atividades Recentes
-        
+        - Aluno:
+            - Vagas Inscritas:
+                - Desinscrever
+        - Mentor:
+        - Empresa:
+            - CRUD Vagas:
+                - Requisição Jão
+                - Limitar NULL
+        - ADM:
+            - CRUD Treinamentos:
+                - Mostrar os Quiz antes de enviar o treinamento
+            - Lista Treinamentos:
+                - detalhes
+            - Lista Vagas:
+                - Requisição Jão  
     
     Em Desenvolvimento:
-        - Treinamentos (front)
-            - Falta o quiz
-            - Falta conectar com o banco de dados!
-            - Se inscrever (aluno);
-        - Quiz(front)
-        - 
+        - Aluno:
+            - Treinamento:
+                - Inscrição
+                - Realizar Quiz
+            - Testes:
+                - Página inteira
+        - Mentor:
+            - Atividades Recentes:
+                - Tudo
+        - Empresa:
+            - Atividades Concluídas:
+                - Conectar com BD
+        - ADM:
+            - Atividades Concluidas
+
+
         - Atividades recentes
             -Falta o quiz
-        - Vagas(back)
-            -Falta ver o banco de dados para adicionar a lista de inscritos
-            -Falta o menu das vagas ( detalhes + inscritos)
-            -limitar int(salario!) -> erro!
-            -limitar vazio -> erro!
-        - Atividades Recentes: especificar qual teste!
             
 ====================================================================================================
 Aluno:
--> Treinamentos:            TreinamentosAlunoPage() -> CrudTreinamentos.dart 
--> Testes:                  
--> Vagas:                   VagasAlunoPage() -> CrudVagas.dart              
--> Inscrições:              VagasInscritasAlunoPage() -> CrudVagas.dart  
-
+    -> Treinamentos:            TreinamentosAlunoPage() -> CrudTreinamentos.dart 
+    -> Testes:                  
+    -> Vagas:                   VagasAlunoPage() -> CrudVagas.dart              
+    -> Inscrições:              VagasInscritasAlunoPage() -> CrudVagas.dart  
 Mentor:
--> Atividades Recentes:     
--> Vagas:                   VagasPage() -> CrudVagas.dart (rever, talvez outra coisa!);
-
+    -> Atividades Recentes:     
+    -> Vagas:                   VagasPage() -> CrudVagas.dart (rever, talvez outra coisa!);
 Empresa:
--> Atividades Concluidas:   TestesPage() -> MenuTestes.dart
--> CRUD vagas:              MenuVagas() -> CrudVagas.dart
-
+    -> Atividades Concluidas:   TestesPage() -> MenuTestes.dart
+    -> CRUD vagas:              MenuVagas() -> CrudVagas.dart
 ADM:
--> CRUD treinamentos:       MenuTreinamentos() -> CrudTreinamentos.dart
--> Lista Treinamentos:      
--> CRUD vagas:              
--> Lista Vagas:             VagasPage() -> CrudVagas.dart
--> Atividades Concluídas:   
+    -> CRUD treinamentos:       MenuTreinamentos() -> CrudTreinamentos.dart
+    -> Lista Treinamentos:      TreinamentosADMPage() -> CrudTreinamentos.dart
+    -> Lista Vagas:             VagasPage() -> CrudVagas.dart
+    -> Atividades Concluídas:   
 
+      TestesPage(),
+      AtConcluidasMentorPage(),
 
-"comeco_insc":"2023-06-10T19:17:48.239772",
-
-[{"id":"1fa28417-4f62-4ceb-b228-0d0f7c813c89","nome_comercial":"a","descricao":"a","carga_horaria":1,"comeco_insc":"2023-06-10T19:17:48.239772","fim_insc":"2023-06-10T19:17:48.239772","comeco_treinamento":"2023-06-10T19:17:48.239772","fim_treinamento":"2023-06-10T19:17:48.239772","qntd_min_insc":1,"qntd_max_insc":0},{"id":"3b485d5f-a9db-42a8-aebd-def926a75b0b","nome_comercial":"string","descricao":"string","carga_horaria":10,"comeco_insc":"string","fim_insc":"string","comeco_treinamento":"string","fim_treinamento":"string","qntd_min_insc":5,"qntd_max_insc":20}]

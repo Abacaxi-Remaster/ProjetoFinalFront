@@ -12,6 +12,13 @@ validaNull(value) {
   return null;
 }
 
+validaNullClean(value) {
+  if (value == null || value.isEmpty) {
+    return '';
+  }
+  return null;
+}
+
 //Cadastro/Login:
 class RegisterUser {
   int tipo;
@@ -224,7 +231,12 @@ class Treinamento {
 }
 
 class QuizClass {
+  String Nome = '';
   List<Questao> questoes = [];
+
+  void addNome(String value) {
+    Nome = value;
+  }
 
   void addQuestao(questaox) {
     questoes.add(questaox);

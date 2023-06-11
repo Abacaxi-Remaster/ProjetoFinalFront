@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
 import '../main.dart';
@@ -20,6 +21,8 @@ class MenuVagasCrudState extends State<MenuVagas> {
   String empresaContratando = '';
   String requisitos = '';
   int salario = 0;
+
+  TextInputFormatter _inputFormatter1 = FilteringTextInputFormatter.digitsOnly;
 
   void submitForm() {
     tituloController.clear();
@@ -64,6 +67,7 @@ class MenuVagasCrudState extends State<MenuVagas> {
         ),
         TextFormField(
           controller: salarioController,
+          inputFormatters: [_inputFormatter1],
           decoration: InputDecoration(labelText: 'Salario'),
           onChanged: (value) {
             setState(() {

@@ -6,18 +6,18 @@ Perguntas:
 -> Adicionar no historico a coluna situação(aprovado / reprovado)
 
 REQUISIÇÕES QUE PRECISAMOS (ORDEM DE PRIORIDADE):
-    -> 'get' que recebe idTreinamento e retorna o Quiz(perguntas) introdutório dele;
-    -> 'post' que recebe as respostas do quiz, avalia e armazena a nota/ situação (aprovado e reprovado)
     -> 'post' de um idAluno e um idVaga e deleta essa inscrição
     -> 'get' que recebe um idAluno e um idTreinamento e retorna:
         -> Todos os testes do treinamento
-        -> nota / situação do aluno em cada teste de seu histórico deste treinamento
+        -> nota do aluno em cada teste de seu histórico deste treinamento
+    -> 'post' de idVaga e deleta essa Vaga
+    -> 'get' das últimas 10 atividades de cada aluno
 
 Anotações:
     Arrumar a parte do aluno poder fazer o quiz mais de uma vez(tirar pop.up)
     Passar o teste 1 e 2 e permitir que o aluno que passar do teste de aptidão acesse;
     Mostrar nota do quiz aptidão e dos testes 1 e 2 para empresas e alunos;
-    Fazer funcionalidade do botão Desinscrever-se   
+    Fazer funcionalidade do botão Desinscrever-se (Vaga) 
     Mostrar Atividades Concluídas para os mentores
 
 

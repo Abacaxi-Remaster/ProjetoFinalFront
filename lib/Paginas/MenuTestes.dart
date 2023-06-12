@@ -284,6 +284,11 @@ Widget build(BuildContext context) {
                       ),
                     ),
                   ListTile(
+                    leading: Icon(Icons.task_alt),
+                    title: Text('Teste de aptidão'),
+                    subtitle: Text('Nota: 0'),
+                  ),
+                  ListTile(
                     leading: Icon(Icons.task),
                     title: Text('Teste 1'),
                     subtitle: Text('Nota: 0'),
@@ -353,6 +358,11 @@ Widget build(BuildContext context) {
               child: ExpansionTile(
                 title: Text('Treinamento 2'),
                 children: [
+                  ListTile(
+                    leading: Icon(Icons.task_alt),
+                    title: Text('Teste de aptidão'),
+                    subtitle: Text('Nota: 0'),
+                  ),
                   ListTile(
                     leading: Icon(Icons.task),
                     title: Text('Teste 1'),

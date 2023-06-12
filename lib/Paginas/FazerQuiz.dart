@@ -206,6 +206,7 @@ class FazerQuizState extends State<FazerQuiz> {
                     onPressed: () async {
                       //funcao para corrigir teste
                       //corrigirTeste(index, ListQuestoesBD ,listaRespostasMarcada);
+                      mandarQuiz(appState.logged.id, ListQuestoesBD[0].idTreinamentoQuiz, listaRespostasMarcada);
                       appState.idTreinamentoAtual = '';
                       Navigator.of(context).pop();
                       print("Enviou");

@@ -17,7 +17,6 @@ Anotações:
     Passar o teste 1 e 2 e permitir que o aluno que passar do teste de aptidão acesse;
     Mostrar nota do quiz aptidão e dos testes 1 e 2 para empresas e alunos;
     Fazer funcionalidade do botão Desinscrever-se (Vaga);
-    Mostrar Atividades Concluídas para os mentores.
 
 Páginas:
     100% prontas:
@@ -50,7 +49,6 @@ Páginas:
         - Aluno:
             - Treinamento:
                 - Inscrição
-                - Realizar Quiz
             - Testes:
                 - Página inteira
         - Mentor:
@@ -62,9 +60,6 @@ Páginas:
         - ADM:
             - Atividades Concluidas
 
-
-        - Atividades recentes
-            -Falta o quiz
             
 ====================================================================================================
 Aluno:

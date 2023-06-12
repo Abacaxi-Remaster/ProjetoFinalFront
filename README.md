@@ -19,7 +19,7 @@ O projeto tem como propósito desenvolver um aplicativo para desktop que funcion
 
 Para fazer a instalação do programa e conseguir executar o programa corretamente no windows o usuário deve seguir os passos abaixo:
     <div align="center">
-    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.tabnine.com%2Fblog%2Fvisual-studio-vs-visual-studio-code%2F&psig=AOvVaw2O_QosjPyDNVVsRHDtBsQ3&ust=1686691054365000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCMjlqYXTvv8CFQAAAAAdAAAAABAO" width="400">
+    <img src="https://www.tabnine.com/blog/wp-content/uploads/2022/03/blog_10-1.png" width="400">
     </div>
     <br>
     <br>

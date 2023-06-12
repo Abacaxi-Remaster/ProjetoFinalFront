@@ -23,8 +23,9 @@ Para fazer a instalação do programa e conseguir executar o programa corretamen
     </div>
     <br>
     <br>
-<p align="justify"> 
     -> Baixar o Visual Studio Code em https://code.visualstudio.com/download
+<p align="justify"> 
+    
             -> Dentro do Visual Studio Code vá em extensões no lado esquerdo da tela ou acesse pelo atalho (Ctrl + Shift + X)
             -> Pesquise por Flutter na barra de pesquisas e baixe o Flutter da publisher Dart Code (verificado)
 </p>
@@ -33,16 +34,16 @@ Para fazer a instalação do programa e conseguir executar o programa corretamen
     </div>
     <br>
     <br>
-
-<p align="justify"> 
     -> Baixar o flutter em https://docs.flutter.dev/get-started/install/windows
+<p align="justify"> 
+    
             -> Siga os passos descritos no link a cima.
             -> Após isso(já com o Flutter e o Visual Studio Code baixados) entre em Painel de Controle > Contas de Usuário > Contas de Usuário > Alterar as variáveis do meu ambiente e em path adicione o caminho para a pasta bin do flutter. 
             Por exemplo: D:\src\flutter\bin
 </p>
-
+    -> Baixar o Visual Studio Community em https://visualstudio.microsoft.com/pt-br/downloads/
 <p align="justify">   
-     -> Baixar o Visual Studio Community em https://visualstudio.microsoft.com/pt-br/downloads/
+     
             -> No momento da instalação selecione para baixar junto o Desenvolvimento para desktop com C++ e siga a instalação normalmente.
 
 </p>

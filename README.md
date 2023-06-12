@@ -12,12 +12,9 @@ Para fazer a instalação do programa e conseguir executar o programa corretamen
 
     -> Baixar o Visual Studio Code em https://code.visualstudio.com/download
 
-<p align="justify"> 
-    
-            -> Dentro do Visual Studio Code vá em extensões no lado esquerdo da tela ou acesse pelo atalho (Ctrl + Shift + X)
-            -> Pesquise por Flutter na barra de pesquisas e baixe o Flutter da publisher Dart Code (verificado)
-</p>
 
+
+    Baixar o Visual Studio Community em:
 
     - [Visual Studio 2022](https://visualstudio.microsoft.com/pt-br/downloads/)
 

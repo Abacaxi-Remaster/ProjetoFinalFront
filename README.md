@@ -1,20 +1,3 @@
-# projeto_final_front
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
 O projeto tem como propósito desenvolver um aplicativo para desktop que funcione a partir da existência de um banco de dados conectado com o front end, onde as informações requisitadas pelo front são guardadas nele afim de utilizá-las futuramente dentro do aplicativo.
 
 Para fazer a instalação do programa e conseguir executar o programa corretamente no windows o usuário deve seguir os passos abaixo:

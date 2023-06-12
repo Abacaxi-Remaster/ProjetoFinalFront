@@ -296,8 +296,8 @@ class TreinamentosAlunoPage extends StatelessWidget {
                                         print('arroz');
                                         print(appState.logged.id);              //SE A PESSOA PASSAR NO QUIZ FAZ ISSO
                                         criaInscricaoTreinamento(
-                                            treinamento.id, appState.logged.id);
-                                        Navigator.of(context).pop();*/
+                                            treinamento.id, appState.logged.id);*/
+                                        Navigator.of(context).pop();
                                         appState.idTreinamentoAtual =
                                             treinamento.id;
                                         Navigator.push(

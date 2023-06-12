@@ -40,15 +40,15 @@ class FazerQuizState extends State<FazerQuiz> {
     );
     emailUser = widget.emailUser;
     Column returnAnswers(int index, List<Questao> listQuestoes, Map<int, String> respostasMarcadas) {
-      //listaRespostasMarcada.add('');
       return Column(
         children: [
           SizedBox(
             width: 800,
             height: 50,
             child: Text(
-              ListQuestoesBD[index].pergunta,
-              //Vai pegar do bd o numero da questao
+              // Print da pergunta
+              'Pergunta: ' + ListQuestoesBD[index].pergunta,
+              style: style,
             ),
           ),
           CheckboxListTile(
@@ -66,13 +66,13 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(ListQuestoesBD[index].respostaDaAlternativaA, style: style),
+              child: Text('a) ' + ListQuestoesBD[index].respostaDaAlternativaA, style: style), // Print da alternativa A
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: respostasMarcadas[index] == 'b',
+            value: respostasMarcadas[index] == 'b', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'b';
@@ -84,13 +84,13 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(ListQuestoesBD[index].respostaDaAlternativaB, style: style),
+              child: Text('b) ' + ListQuestoesBD[index].respostaDaAlternativaB, style: style), // Print da alternativa B
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: respostasMarcadas[index] == 'c',
+            value: respostasMarcadas[index] == 'c', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'c';
@@ -102,13 +102,13 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(ListQuestoesBD[index].respostaDaAlternativaC, style: style),
+              child: Text('c) ' + ListQuestoesBD[index].respostaDaAlternativaC, style: style), // Print da alternativa C
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: respostasMarcadas[index] == 'd',
+            value: respostasMarcadas[index] == 'd', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'd';
@@ -120,13 +120,13 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(ListQuestoesBD[index].respostaDaAlternativaD, style: style),
+              child: Text('d) ' + ListQuestoesBD[index].respostaDaAlternativaD, style: style), // Print da alternativa D
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: respostasMarcadas[index] == 'e',
+            value: respostasMarcadas[index] == 'e', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'e';
@@ -138,7 +138,7 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(ListQuestoesBD[index].respostaDaAlternativaE, style: style),
+              child: Text('e) ' + ListQuestoesBD[index].respostaDaAlternativaE, style: style), // Print da alternativa E
             ),
           ),
         ],
@@ -149,10 +149,10 @@ class FazerQuizState extends State<FazerQuiz> {
       future: receberQuizAptidaoBD(appState.idTreinamentoAtual),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // Display a loading indicator while fetching data
+          return CircularProgressIndicator(); // Sinal de carregando se não receber os dados do bd
         } else if (snapshot.hasError) {
           return Text(
-              'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
+              'Error: ${snapshot.error}'); // Mensagem de erro se falhar no retorno dos dados
         } else {
           QuizClass? quiz = snapshot.data;
           ListQuestoesBD = quiz!.questoes;
@@ -176,7 +176,7 @@ class FazerQuizState extends State<FazerQuiz> {
                       return Column(
                         children: [
                           ListTile(
-                            title: Text ('${index + 1}', style: style)
+                            title: Text ('Questão ${index + 1}', style: style)
                           ),
                           returnAnswers(
                               index, ListQuestoesBD, listaRespostasMarcada),
@@ -204,8 +204,7 @@ class FazerQuizState extends State<FazerQuiz> {
                     ),
                     label: const Text('Finalizar Quiz'),
                     onPressed: () async {
-                      //funcao para corrigir teste
-                      //corrigirTeste(index, ListQuestoesBD ,listaRespostasMarcada);
+                      //envia as respostas do aluno do quiz para o bd
                       mandarQuiz(appState.logged.id, ListQuestoesBD[0].idTreinamentoQuiz, listaRespostasMarcada);
                       appState.idTreinamentoAtual = '';
                       Navigator.of(context).pop();

@@ -14,12 +14,10 @@ REQUISIÇÕES QUE PRECISAMOS (ORDEM DE PRIORIDADE):
     -> 'get' das últimas 10 atividades de cada aluno
 
 Anotações:
-    Arrumar a parte do aluno poder fazer o quiz mais de uma vez(tirar pop.up)
     Passar o teste 1 e 2 e permitir que o aluno que passar do teste de aptidão acesse;
     Mostrar nota do quiz aptidão e dos testes 1 e 2 para empresas e alunos;
-    Fazer funcionalidade do botão Desinscrever-se (Vaga) 
-    Mostrar Atividades Concluídas para os mentores
-
+    Fazer funcionalidade do botão Desinscrever-se (Vaga);
+    Mostrar Atividades Concluídas para os mentores.
 
 Páginas:
     100% prontas:

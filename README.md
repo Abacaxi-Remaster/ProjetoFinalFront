@@ -19,7 +19,9 @@ Para fazer a instalação do programa e conseguir executar o programa corretamen
 </p>
 
 
-    -> Baixar o Visual Studio Community em - [Visual Studio 2022](https://visualstudio.microsoft.com/pt-br/downloads/)
+    -> Baixar o Visual Studio Community em:
+    
+    - [Visual Studio 2022](https://visualstudio.microsoft.com/pt-br/downloads/)
 
 <p align="justify">   
      

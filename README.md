@@ -10,7 +10,7 @@ Para fazer a instalação do programa e conseguir executar o programa corretamen
     <br>
     <br>
 
-    -> Baixar o Visual Studio Code em https://code.visualstudio.com/download
+ Baixar o Visual Studio Code em - [Visual Studio Code](https://code.visualstudio.com/download)
 
 <p align="justify"> 
     
@@ -19,8 +19,7 @@ Para fazer a instalação do programa e conseguir executar o programa corretamen
 </p>
 
 
-    -> Baixar o Visual Studio Community em 
-    - [Visual Studio 2022](https://visualstudio.microsoft.com/pt-br/downloads/)
+ Baixar o Visual Studio Community em - [Visual Studio 2022](https://visualstudio.microsoft.com/pt-br/downloads/)
 
 <p align="justify">   
      
@@ -33,7 +32,7 @@ Para fazer a instalação do programa e conseguir executar o programa corretamen
     <br>
     <br>
     
-    -> Baixar o flutter em https://docs.flutter.dev/get-started/install/windows
+ Baixar o flutter em - [Visual Studio Code](https://docs.flutter.dev/get-started/install/windows)
 
 <p align="justify"> 
     

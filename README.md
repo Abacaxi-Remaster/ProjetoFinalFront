@@ -40,7 +40,10 @@ Para fazer a instalação do programa e conseguir executar o programa corretamen
             -> Após isso(já com o Flutter e o Visual Studio Code baixados) entre em Painel de Controle > Contas de Usuário > Contas de Usuário > Alterar as variáveis do meu ambiente e em path adicione o caminho para a pasta bin do flutter. 
             Por exemplo: D:\src\flutter\bin
 
+Após essas etapas o usuário estará pronto para utilizar o aplicativo.
 
-No aplicativo o usuário tem a possibilidade de logar como aluno mentor empresa ou ADM, tendo cada um acesso aos seus próprios menus e interações, por exemplo o aluno quando logado possui acesso a lista de treinamentos, local onde são mostrados todos os treinamentos (criados por ADMs) que os alunos podem participar, onde inicalmente é necessário participar de um teste de aptidão(quiz de aptidão) onde o aluno deve obter uma nota maior ou igual a 70% como pré-requisito para ir para as próximas etapas. Os próximos 2 testes serão trilhas definidas pelo administrador do sistema. Junto a isso o aluno possui um menu de atividades concluídas onde pode ver todos os treinamentos que ele ja participou além de se inscrever nas trilhas 1 e 2(testes) e poder ver sua nota nos respectivos testes concluídos.
+<br>
 
+No aplicativo o usuário tem a possibilidade de logar como aluno mentor empresa ou ADM, tendo cada um acesso aos seus próprios menus e interações, por exemplo o aluno quando logado possui acesso a lista de treinamentos, local onde são mostrados todos os treinamentos (criados por ADMs) que os alunos podem participar, onde inicalmente é necessário participar de um teste de aptidão(quiz de aptidão) onde o aluno deve obter uma nota maior ou igual a 70% como pré-requisito para ir para as próximas etapas. Os próximos 2 testes serão trilhas definidas pelo administrador do sistema. Junto a isso o aluno possui um menu de atividades concluídas onde pode ver todos os treinamentos que ele ja participou além de se inscrever nas trilhas 1 e 2(testes) e poder ver sua nota nos respectivos testes concluídos. Outras funcionalidades que o aluno possui são, por exemplo a de se inscrever ou desinscrever em uma vaga criada pelas empresas, vagas essas que possuem descrição, requisitos, salário e a empresa contratante.
+ 
 <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="100">

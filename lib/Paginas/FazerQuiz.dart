@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:projeto_final_front/Paginas/Quiz.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:core';
@@ -21,9 +22,8 @@ class FazerQuiz extends StatefulWidget {
 class FazerQuizState extends State<FazerQuiz> {
   String quizID = '';
   String emailUser = '';
-  List<dynamic> ListQuestoesBD = []; //recebe os valores do bd
-  List<String> listaRespostasMarcada =
-      []; //receber o valor que a pessoa respondeu
+  List<Questao> ListQuestoesBD = []; //recebe os valores do bd
+  Map<int, String> listaRespostasMarcada = {}; //receber o valor que a pessoa respondeu
   bool alternativaA = false;
   bool alternativaB = false;
   bool alternativaC = false;
@@ -39,21 +39,22 @@ class FazerQuizState extends State<FazerQuiz> {
       color: Colors.black,
     );
     emailUser = widget.emailUser;
-    Column returnAnswers(index, listaRespostas, listaRespostasMarcada) {
+    Column returnAnswers(int index, List<Questao> listQuestoes, Map<int, String> respostasMarcadas) {
+      //listaRespostasMarcada.add('');
       return Column(
         children: [
           SizedBox(
             width: 800,
             height: 50,
             child: Text(
+              ListQuestoesBD[index].pergunta,
               //Vai pegar do bd o numero da questao
-              '${ListQuestoesBD[index]['enunciado']}',
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaA,
+            value: respostasMarcadas[index] == 'a', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'a';
@@ -65,13 +66,13 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_a'], style: style),
+              child: Text(ListQuestoesBD[index].respostaDaAlternativaA, style: style),
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaB,
+            value: respostasMarcadas[index] == 'b',
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'b';
@@ -83,13 +84,13 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_b'], style: style),
+              child: Text(ListQuestoesBD[index].respostaDaAlternativaB, style: style),
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaC,
+            value: respostasMarcadas[index] == 'c',
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'c';
@@ -101,13 +102,13 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_c'], style: style),
+              child: Text(ListQuestoesBD[index].respostaDaAlternativaC, style: style),
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaD,
+            value: respostasMarcadas[index] == 'd',
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'd';
@@ -119,13 +120,13 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_d'], style: style),
+              child: Text(ListQuestoesBD[index].respostaDaAlternativaD, style: style),
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: alternativaE,
+            value: respostasMarcadas[index] == 'e',
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'e';
@@ -137,14 +138,14 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text(listaRespostas[index]['opcao_e'], style: style),
+              child: Text(ListQuestoesBD[index].respostaDaAlternativaE, style: style),
             ),
           ),
         ],
       );
     }
 
-    return FutureBuilder<QuizClass>(
+ return FutureBuilder<QuizClass>(
       future: receberQuizAptidaoBD(appState.idTreinamentoAtual),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -154,6 +155,8 @@ class FazerQuizState extends State<FazerQuiz> {
               'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
         } else {
           QuizClass? quiz = snapshot.data;
+          ListQuestoesBD = quiz!.questoes;
+          
         }
         return Scaffold(
           appBar: AppBar(
@@ -173,7 +176,7 @@ class FazerQuizState extends State<FazerQuiz> {
                       return Column(
                         children: [
                           ListTile(
-                            title: Text('${index + 1}', style: style),
+                            title: Text ('${index + 1}', style: style)
                           ),
                           returnAnswers(
                               index, ListQuestoesBD, listaRespostasMarcada),
@@ -203,6 +206,7 @@ class FazerQuizState extends State<FazerQuiz> {
                     onPressed: () async {
                       //funcao para corrigir teste
                       //corrigirTeste(index, ListQuestoesBD ,listaRespostasMarcada);
+                      mandarQuiz(appState.logged.id, ListQuestoesBD[0].idTreinamentoQuiz, listaRespostasMarcada);
                       appState.idTreinamentoAtual = '';
                       Navigator.of(context).pop();
                       print("Enviou");

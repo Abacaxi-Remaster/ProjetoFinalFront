@@ -461,7 +461,7 @@ class EmpresaVagas extends StatelessWidget {
         } else {
           List<Vaga>? vagas = snapshot.data;
 
-          return ListView(
+          return Column(
             children: [
               for (var vaga in vagas!)
                 ListTile(

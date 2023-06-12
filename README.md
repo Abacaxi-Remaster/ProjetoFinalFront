@@ -39,12 +39,17 @@ Para fazer a instalação do programa e conseguir executar o programa corretamen
             -> Siga os passos descritos no link a cima.
             -> Após isso(já com o Flutter e o Visual Studio Code baixados) entre em Painel de Controle > Contas de Usuário > Contas de Usuário > Alterar as variáveis do meu ambiente e em path adicione o caminho para a pasta bin do flutter. 
             Por exemplo: D:\src\flutter\bin
-            
+
 <br>
 
 Dentro do terminal do VS Code utilize o comando abaixo:
 
         git clone https://github.com/Abacaxi-Remaster/projeto_final_front.git
+
+Para baixar todas as dependências necessárias para o aplicativo funcionar voce deve digitar no console:
+        
+        flutter pub get
+
 Após essas etapas o usuário estará pronto para utilizar o aplicativo.
 
 <br>

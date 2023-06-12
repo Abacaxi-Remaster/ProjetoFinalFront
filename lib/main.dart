@@ -137,8 +137,6 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   void TESTE_toggle_logado() {
     logado = !logado;
     notifyListeners();

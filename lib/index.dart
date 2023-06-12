@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:projeto_final_front/Paginas/Quiz.dart';
@@ -517,12 +520,12 @@ void criaInscricaoVaga(idVaga, idAluno) async {
   }
 }
 
-void criaInscricaoTreinamento(idVaga, idAluno) async {
+void deletaInscricaoVaga(idVaga, idAluno) async {
   InscritoVaga inscricao = InscritoVaga(idVaga: idVaga, idAluno: idAluno);
   String jsonInscricao = jsonEncode(inscricao.toJson());
 
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/vagas/inscricao"),
+    Uri.parse("http://localhost:8000/vagas/aluno/desinscricao"),
     headers: {'Content-Type': 'application/json'},
     body: jsonInscricao,
   );
@@ -533,7 +536,40 @@ void criaInscricaoTreinamento(idVaga, idAluno) async {
   }
 }
 
-//Treinamento
+void deletaVaga(idVaga) async {
+  Map<String, dynamic> vaga = {"id_vaga": idVaga};
+  String json = jsonEncode(vaga);
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/vagas/deleta"),
+    headers: {'Content-Type': 'application/json'},
+    body: json,
+  );
+  if (response.statusCode == 200) {
+    print('Vaga Deletada com sucesso!');
+  } else {
+    print(response.statusCode);
+    print(response.body);
+  }
+}
+
+Future<bool> criaInscricaoTreinamento(idQuiz, idAluno) async {
+  Map<String, dynamic> inscricao = {"id_quiz": idQuiz, "id_aluno": idAluno};
+  String jsonInscricao = jsonEncode(inscricao);
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000//"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonInscricao,
+  );
+  if (response.statusCode == 200) {
+    print('Inscrição realizada com sucesso');
+    return true;
+  } else {
+    print(response.statusCode);
+    return false;
+  }
+}
 
 Future<QuizClass> receberQuizAptidaoBD(idTreinamento) async {
   QuizClass Quiz = QuizClass();
@@ -556,7 +592,7 @@ Future<QuizClass> receberQuizAptidaoBD(idTreinamento) async {
   return Quiz;
 }
 
-void mandarQuiz(id_aluno ,id_quiz, mapaRespostas) async{
+Future<int> mandarQuizAptidao(id_aluno, id_quiz, mapaRespostas) async {
   List<String> Resposta = [];
   mapaRespostas.forEach((key, value) {
     print('Questão $key: $value');
@@ -566,9 +602,9 @@ void mandarQuiz(id_aluno ,id_quiz, mapaRespostas) async{
   });
 
   Map<String, dynamic> jsonMap = {
-      'id_aluno': id_aluno,
-      'id_quiz': id_quiz,
-      'resposta': Resposta,
+    'id_aluno': id_aluno,
+    'id_quiz': id_quiz,
+    'resposta': Resposta,
   };
 
   String jsonString = json.encode(jsonMap);
@@ -580,29 +616,90 @@ void mandarQuiz(id_aluno ,id_quiz, mapaRespostas) async{
     body: jsonString,
   );
   if (response.statusCode == 200) {
-    print('Inscrição realizada com sucesso');
+    if (response.body == 'Aprovado') {
+      print('Aprovado - Realizando Inscrição...');
+      bool status = await criaInscricaoTreinamento(id_quiz, id_aluno);
+      if (status) {
+        return 0; // aprovado e inscrito
+      } else {
+        return 2; // aprovado, erro na inscricao
+      }
+    } else {
+      print(response.body);
+      return 4; // erro no cadastro
+    }
   } else {
     print(response.statusCode);
   }
+  return 1; //reprovado
 }
 
-Future<QuizClass> receberNotaQuiz(idTreinamento) async {
-  QuizClass Quiz = QuizClass();
-  print('chamou: idTreinamento: $idTreinamento');
-  http.Response response = await http.get(
-    Uri.parse('http://localhost:8000/quiz/aptidao/$idTreinamento'),
-    headers: {'Content-Type': 'application/json'},
-  );
+class TreinamentoNotas {
+  Treinamento treinamento = Treinamento(
+      nomeComercial: '',
+      descricao: 'descricao',
+      cargaHoraria: 0,
+      id: 'id',
+      minCandidatos: 0,
+      maxCandidatos: 0,
+      dataInicialInscricao: DateTime.now(),
+      dataFinalInscricao: DateTime.now(),
+      dataInicialTreinamento: DateTime.now(),
+      dataFinalTreinamento: DateTime.now());
+  String idTesteA = '';
+  String notaTesteA = '';
+  String idTeste1 = '';
+  String notaTeste1 = '';
+  String idTeste2 = '';
+  String notaTeste2 = '';
 
-  print(response.statusCode);
-  print(response.body);
+  TreinamentoNotas({
+    required this.treinamento,
+    required this.idTeste1,
+    required this.idTeste2,
+    required this.idTesteA,
+    required this.notaTeste1,
+    required this.notaTeste2,
+    required this.notaTesteA,
+  });
 
-  if (response.statusCode == 200) {
-    List<dynamic> decodedData = jsonDecode(response.body);
-    Quiz = QuizClass.fromJson(decodedData.cast<Map<String, dynamic>>());
-  } else {
-    print(response.statusCode);
+  factory TreinamentoNotas.fromJson(Map<String, dynamic> json) {
+    Map<String, dynamic> treinamentoJson = jsonDecode(json['treinamento']);
+    Map<String, dynamic> quiz1Json = jsonDecode(json['quiz1']);
+    Map<String, dynamic> quiz2Json = jsonDecode(json['quiz2']);
+    Map<String, dynamic> quizAJson = jsonDecode(json['quizApt']);
+    Map<String, dynamic> nota1Json = jsonDecode(json['nota1']);
+    Map<String, dynamic> nota2Json = jsonDecode(json['nota2']);
+    Map<String, dynamic> notaAJson = jsonDecode(json['notaApt']);
+
+    return TreinamentoNotas(
+      treinamento: Treinamento.fromJson(treinamentoJson),
+      idTeste1: quiz1Json['id'],
+      idTeste2: quiz2Json['id'],
+      idTesteA: quiz2Json['id'],
+      notaTeste1: nota1Json['nota'].toString(),
+      notaTeste2: nota2Json['nota'].toString(),
+      notaTesteA: nota2Json['nota'].toString(),
+    );
   }
 
-  return Quiz;
+  Future<List<TreinamentoNotas>> listTreinamentoAluno(idAluno) async {
+    List<TreinamentoNotas> treinamentos = [];
+
+    http.Response response = await http.get(
+      Uri.parse('http://localhost:8000/treinamento/aluno/$idAluno'),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> decodedData = jsonDecode(response.body);
+
+      for (var item in decodedData) {
+        TreinamentoNotas treinamentoNotas = TreinamentoNotas.fromJson(item);
+        treinamentos.add(treinamentoNotas);
+      }
+    }
+
+    return treinamentos;
+  }
 }

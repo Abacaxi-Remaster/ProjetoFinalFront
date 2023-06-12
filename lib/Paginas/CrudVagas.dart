@@ -151,7 +151,12 @@ class MenuVagasCrudState extends State<MenuVagas> {
   }
 }
 
-class VagasAlunoPage extends StatelessWidget {
+class VagasAlunoPage extends StatefulWidget {
+  @override
+  State<VagasAlunoPage> createState() => _VagasAlunoPageState();
+}
+
+class _VagasAlunoPageState extends State<VagasAlunoPage> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -211,10 +216,10 @@ class VagasAlunoPage extends StatelessWidget {
                                     TextButton(
                                       child: Text('Confirmar'),
                                       onPressed: () {
-                                        print(vaga.id);
-                                        print(appState.logged.id);
-                                        criaInscricaoVaga(
-                                            vaga.id, appState.logged.id);
+                                        setState(() {
+                                          criaInscricaoVaga(
+                                              vaga.id, appState.logged.id);
+                                        });
                                         Navigator.of(context)
                                             .pop(); // Pass the appropriate values for idAluno and idVaga
                                       },
@@ -237,7 +242,13 @@ class VagasAlunoPage extends StatelessWidget {
   }
 }
 
-class VagasInscritasAlunoPage extends StatelessWidget {
+class VagasInscritasAlunoPage extends StatefulWidget {
+  @override
+  State<VagasInscritasAlunoPage> createState() =>
+      _VagasInscritasAlunoPageState();
+}
+
+class _VagasInscritasAlunoPageState extends State<VagasInscritasAlunoPage> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -297,7 +308,10 @@ class VagasInscritasAlunoPage extends StatelessWidget {
                                     TextButton(
                                       child: Text('Confirmar'),
                                       onPressed: () {
-                                        //remover aluno efetivamente!
+                                        setState(() {
+                                          deletaInscricaoVaga(
+                                              vaga.id, appState.logged.id);
+                                        });
                                         Navigator.of(context).pop();
                                       },
                                     ),
@@ -445,51 +459,59 @@ class VagasPage extends StatelessWidget {
   }
 }
 
-class EmpresaVagas extends StatelessWidget {
+class EmpresaVagas extends StatefulWidget {
+  @override
+  State<EmpresaVagas> createState() => _EmpresaVagasState();
+}
+
+class _EmpresaVagasState extends State<EmpresaVagas> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return FutureBuilder<List<Vaga>>(
-      future: listaVagasEmpresa(appState.logged.id),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // Display a loading indicator while fetching data
-        } else if (snapshot.hasError) {
-          return Text(
-              'Error: ${snapshot.error}'); // Display an error message if data retrieval fails
-        } else {
-          List<Vaga>? vagas = snapshot.data;
+    return Consumer<MyAppState>(builder: (context, appState, _) {
+      return FutureBuilder<List<Vaga>>(
+        future: listaVagasEmpresa(appState.logged.id),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            List<Vaga>? vagas = snapshot.data;
 
-          return Column(
-            children: [
-              for (var vaga in vagas!)
-                ListTile(
-                  leading: IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: () {
-                      appState.vagaAtual = vaga;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetalheVaga(),
-                        ),
-                      );
-                    },
+            return Column(
+              children: [
+                for (var vaga in vagas!)
+                  ListTile(
+                    leading: IconButton(
+                      icon: Icon(Icons.menu),
+                      onPressed: () {
+                        appState.vagaAtual = vaga;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetalheVaga(),
+                          ),
+                        );
+                      },
+                    ),
+                    title: Text(vaga.tituloVaga),
+                    subtitle: Text(vaga.descricao),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        setState(() {
+                          deletaVaga(vaga.id);
+                        });
+                      },
+                    ),
                   ),
-                  title: Text(vaga.tituloVaga),
-                  subtitle: Text(vaga.descricao),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      //appState.removerVaga(vaga);
-                    },
-                  ),
-                ),
-            ],
-          );
-        }
-      },
-    );
+              ],
+            );
+          }
+        },
+      );
+    });
   }
 }

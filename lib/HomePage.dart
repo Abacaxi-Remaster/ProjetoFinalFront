@@ -122,8 +122,8 @@ class MyHomePageState extends State<MyHomePage> {
       return Scaffold(
         floatingActionButton: ElevatedButton(
           onPressed: () {
-            //appState.deslogar();
-            appState.TESTE_toggle_tipoLogado();
+            appState.deslogar();
+            //appState.TESTE_toggle_tipoLogado();
             //appState.TESTE_adm();
           },
           child: Text('Deslogar'),

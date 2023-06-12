@@ -1,71 +1,19 @@
-To Do:
--> validar texto null quiz 
--> 
+Falta Fazer:
+-> Terminar Inscrição no Treinamento (confirmar com Luisinho)
+-> Receber Nome Empresa (lembrar Luisinho)
+-> Atividade Recente (Mentores)
+
 
 Perguntas:
--> Adicionar no historico a coluna situação(aprovado / reprovado)
+-> Ver situação inscrição Treinamento.
+-> Nome Empresa ao invés de ID
+
 
 REQUISIÇÕES QUE PRECISAMOS (ORDEM DE PRIORIDADE):
-    -> 'post' de um idAluno e um idVaga e deleta essa inscrição
     -> 'get' que recebe um idAluno e um idTreinamento e retorna:
         -> Todos os testes do treinamento
         -> nota do aluno em cada teste de seu histórico deste treinamento
-    -> 'post' de idVaga e deleta essa Vaga
     -> 'get' das últimas 10 atividades de cada aluno
-
-Anotações:
-    Passar o teste 1 e 2 e permitir que o aluno que passar do teste de aptidão acesse;
-    Mostrar nota do quiz aptidão e dos testes 1 e 2 para empresas e alunos;
-    Fazer funcionalidade do botão Desinscrever-se (Vaga);
-    Mostrar Atividades Concluídas para os mentores.
-
-Páginas:
-    100% prontas:
-        - Geral:
-            - HomePage
-            - Cadastro
-            - Login
-        - Aluno:
-            - Vagas(inscrição)
-        - ADM: 
-            -
-    
-    Prontas, com leves ajustes faltando:
-        - Aluno:
-            - Vagas Inscritas:
-                - Desinscrever
-        - Mentor:
-        - Empresa:
-            - CRUD Vagas:
-                - Requisição Jão
-                - Limitar NULL
-        - ADM:
-            - CRUD Treinamentos:
-                - Mostrar os Quiz antes de enviar o treinamento
-            - Lista Treinamentos:
-                - detalhes
-            - Lista Vagas:
-    
-    Em Desenvolvimento:
-        - Aluno:
-            - Treinamento:
-                - Inscrição
-                - Realizar Quiz
-            - Testes:
-                - Página inteira
-        - Mentor:
-            - Atividades Recentes:
-                - Tudo
-        - Empresa:
-            - Atividades Concluídas:
-                - Conectar com BD
-        - ADM:
-            - Atividades Concluidas
-
-
-        - Atividades recentes
-            -Falta o quiz
-            
 ====================================================================================================
 Aluno:
     -> Treinamentos:            TreinamentosAlunoPage() -> CrudTreinamentos.dart 
@@ -84,6 +32,11 @@ ADM:
     -> Lista Vagas:             VagasPage() -> CrudVagas.dart
     -> Atividades Concluídas:   
 
-      TestesPage(),
-      AtConcluidasMentorPage(),
+
+
+
+
+
+
+
 

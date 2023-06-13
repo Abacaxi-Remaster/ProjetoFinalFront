@@ -7,7 +7,6 @@ Falta Fazer:
 -> Verifica Null Vaga (front)
 -> 
 
-
 Perguntas:
 -> Ver situação inscrição Treinamento.
 -> Nome Empresa ao invés de ID
@@ -17,6 +16,7 @@ REQUISIÇÕES QUE PRECISAMOS (ORDEM DE PRIORIDADE):
     -> 'get' que recebe um idAluno e retorna as últimas 10 atividades de cada aluno
     -> 'get' da lista de todos os alunos inscritos (nome, email, id);
     -> 
+
 ====================================================================================================
 Aluno:
     -> Treinamentos:            TreinamentosAlunoPage() -> CrudTreinamentos.dart 

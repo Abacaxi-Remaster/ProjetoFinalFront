@@ -403,14 +403,6 @@ class TreinamentosADMPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                          icon: Icon(Icons.menu),
-                          tooltip: 'Detalhes',
-                          onPressed: () {},
-                        ),
-                      ),
                     ],
                   ),
                 ),

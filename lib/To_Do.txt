@@ -1,5 +1,4 @@
 Falta Fazer:
--> Terminar Inscrição no Treinamento (confirmar com Luisinho)
 -> Receber Nome Empresa (lembrar Luisinho)
 -> Atividade Recente (Mentores) 
     -> 2 gets: 1 com a lista de todos os alunos

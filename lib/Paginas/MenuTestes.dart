@@ -222,217 +222,82 @@ class TestesPageAluno extends StatelessWidget {
           return ListView(
             children: [
               Text('Atividades Concluídas', style: TextStyle(fontSize: 25)),
-              // for (var testesAlunos in appState.teste)
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: ExpansionTile(
-                  title: Text('Treinamento 1'),
-                  children: [
-                    for (var treinamento in treinamentos!)
+              for (var testesAlunos in treinamentos!)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: ExpansionTile(
+                    title: Text(testesAlunos.treinamento.nomeComercial),
+                    children: [
+                      ListTile(
+                        leading: Icon(Icons.task_alt),
+                        title: Text('Teste de aptidão'),
+                        subtitle: Text('Nota: ${testesAlunos.notaTesteA}'),
+                      ),
                       ListTile(
                         leading: Icon(Icons.task),
-                        title: Text(treinamento.treinamento.nomeComercial),
-                        subtitle: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      'Descrição: ${treinamento.treinamento.descricao}'),
-                                  Text(
-                                      'Empresa Contratante: ${treinamento.treinamento.cargaHoraria}'),
-                                  Text('Código: ${treinamento.treinamento.id}'),
-                                  Text(
-                                      'Mínimo de cadndidatos: ${treinamento.treinamento.minCandidatos}'),
-                                  Text(
-                                      'Máximo de cadndidatos: ${treinamento.treinamento.maxCandidatos}'),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: IconButton(
-                                icon: Icon(Icons.not_interested),
-                                tooltip: 'Desinscreva-se',
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text('Cancelar Inscrição'),
-                                        actions: [
-                                          TextButton(
-                                            child: Text('Cancelar'),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                          TextButton(
-                                            child: Text('Confirmar'),
-                                            onPressed: () {
-                                              //remover aluno efetivamente!
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
+                        title: Text('Teste 1'),
+                        subtitle: Text('Nota: ${testesAlunos.notaTeste1}'),
+                        trailing: IconButton(
+                          icon: Icon(Icons.add),
+                          tooltip: 'Fazer teste',
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Iniciar teste 1'),
+                                  actions: [
+                                    TextButton(
+                                      child: Text('Cancelar'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('Confirmar e começar teste'),
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                         ),
                       ),
-                    ListTile(
-                      leading: Icon(Icons.task_alt),
-                      title: Text('Teste de aptidão'),
-                      subtitle: Text('Nota: 0'),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.task),
-                      title: Text('Teste 1'),
-                      subtitle: Text('Nota: 0'),
-                      trailing: IconButton(
-                        icon: Icon(Icons.add),
-                        tooltip: 'Fazer teste',
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Iniciar teste 1'),
-                                actions: [
-                                  TextButton(
-                                    child: Text('Cancelar'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: Text('Confirmar e começar teste'),
-                                    onPressed: () {},
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
+                      ListTile(
+                        leading: Icon(Icons.task),
+                        title: Text('Teste 2'),
+                        subtitle: Text('Nota: ${testesAlunos.notaTeste2}'),
+                        trailing: IconButton(
+                          icon: Icon(Icons.add),
+                          tooltip: 'Fazer teste',
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Inciar Teste 2'),
+                                  actions: [
+                                    TextButton(
+                                      child: Text('Cancelar'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('Confirmar e começar teste'),
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.task),
-                      title: Text('Teste 2'),
-                      subtitle: Text('Nota: 0'),
-                      trailing: IconButton(
-                        icon: Icon(Icons.add),
-                        tooltip: 'Fazer teste',
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Inciar Teste 2'),
-                                actions: [
-                                  TextButton(
-                                    child: Text('Cancelar'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: Text('Confirmar e começar teste'),
-                                    onPressed: () {},
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: ExpansionTile(
-                  title: Text('Treinamento 2'),
-                  children: [
-                    ListTile(
-                      leading: Icon(Icons.task_alt),
-                      title: Text('Teste de aptidão'),
-                      subtitle: Text('Nota: 0'),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.task),
-                      title: Text('Teste 1'),
-                      subtitle: Text('Nota: 0'),
-                      trailing: IconButton(
-                        icon: Icon(Icons.add),
-                        tooltip: 'Fazer teste',
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Iniciar teste 1'),
-                                actions: [
-                                  TextButton(
-                                    child: Text('Cancelar'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: Text('Confirmar e começar teste'),
-                                    onPressed: () {
-                                      //chamar
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.task),
-                      title: Text('Teste 2'),
-                      subtitle: Text('Nota: 0'),
-                      trailing: IconButton(
-                        icon: Icon(Icons.add),
-                        tooltip: 'Fazer teste',
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Inciar Teste 2'),
-                                actions: [
-                                  TextButton(
-                                    child: Text('Cancelar'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: Text('Confirmar e começar teste'),
-                                    onPressed: () {},
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ],
           );
         }

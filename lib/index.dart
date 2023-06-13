@@ -408,11 +408,11 @@ void criaVaga(
   }
 }
 
-Future<List<Vaga>> listaVagas() async {
+Future<List<Vaga>> listaVagas(id) async {
   List<Vaga> vagas = [];
 
   http.Response response = await http.get(
-    Uri.parse('http://localhost:8000/vagas'),
+    Uri.parse('http://localhost:8000/vagas/$id'),
     headers: {'Content-Type': 'application/json'},
   );
 
@@ -558,7 +558,7 @@ Future<bool> criaInscricaoTreinamento(idQuiz, idAluno) async {
   String jsonInscricao = jsonEncode(inscricao);
 
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000//"),
+    Uri.parse("http://localhost:8000/treinamento/cadastro"),
     headers: {'Content-Type': 'application/json'},
     body: jsonInscricao,
   );
@@ -616,7 +616,7 @@ Future<int> mandarQuizAptidao(id_aluno, id_quiz, mapaRespostas) async {
     body: jsonString,
   );
   if (response.statusCode == 200) {
-    if (response.body == 'Aprovado') {
+    if (response.body == "\"Aprovado\"") {
       print('Aprovado - Realizando Inscrição...');
       bool status = await criaInscricaoTreinamento(id_quiz, id_aluno);
       if (status) {
@@ -626,12 +626,12 @@ Future<int> mandarQuizAptidao(id_aluno, id_quiz, mapaRespostas) async {
       }
     } else {
       print(response.body);
-      return 4; // erro no cadastro
+      return 1; //reprovado
     }
   } else {
     print(response.statusCode);
+    return 4; // erro no cadastro
   }
-  return 1; //reprovado
 }
 
 class TreinamentoNotas {
@@ -682,24 +682,26 @@ class TreinamentoNotas {
       notaTesteA: nota2Json['nota'].toString(),
     );
   }
+}
 
-  Future<List<TreinamentoNotas>> listTreinamentoAluno(idAluno) async {
-    List<TreinamentoNotas> treinamentos = [];
+Future<List<TreinamentoNotas>> listTreinamentoAluno(idAluno) async {
+  List<TreinamentoNotas> treinamentos = [];
 
-    http.Response response = await http.get(
-      Uri.parse('http://localhost:8000/treinamento/aluno/$idAluno'),
-      headers: {'Content-Type': 'application/json'},
-    );
+  print('entro');
+  http.Response response = await http.get(
+    Uri.parse('http://localhost:8000/treinamento/aluno/$idAluno'),
+    headers: {'Content-Type': 'application/json'},
+  );
+  print(response.statusCode);
+  print(response.body);
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
 
-    if (response.statusCode == 200) {
-      List<dynamic> decodedData = jsonDecode(response.body);
-
-      for (var item in decodedData) {
-        TreinamentoNotas treinamentoNotas = TreinamentoNotas.fromJson(item);
-        treinamentos.add(treinamentoNotas);
-      }
+    for (var item in decodedData) {
+      TreinamentoNotas treinamentoNotas = TreinamentoNotas.fromJson(item);
+      treinamentos.add(treinamentoNotas);
     }
-
-    return treinamentos;
   }
+
+  return treinamentos;
 }

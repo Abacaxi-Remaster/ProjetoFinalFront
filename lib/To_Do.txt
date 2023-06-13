@@ -1,7 +1,12 @@
 Falta Fazer:
 -> Terminar Inscrição no Treinamento (confirmar com Luisinho)
 -> Receber Nome Empresa (lembrar Luisinho)
--> Atividade Recente (Mentores)
+-> Atividade Recente (Mentores) 
+    -> 2 gets: 1 com a lista de todos os alunos
+    -> 1 com as 1- ultimas atividades de um aluno
+-> Detalhe Treinamento (front)
+-> Verifica Null Vaga (front)
+-> 
 
 
 Perguntas:
@@ -10,10 +15,9 @@ Perguntas:
 
 
 REQUISIÇÕES QUE PRECISAMOS (ORDEM DE PRIORIDADE):
-    -> 'get' que recebe um idAluno e um idTreinamento e retorna:
-        -> Todos os testes do treinamento
-        -> nota do aluno em cada teste de seu histórico deste treinamento
-    -> 'get' das últimas 10 atividades de cada aluno
+    -> 'get' que recebe um idAluno e retorna as últimas 10 atividades de cada aluno
+    -> 'get' da lista de todos os alunos inscritos (nome, email, id);
+    -> 
 ====================================================================================================
 Aluno:
     -> Treinamentos:            TreinamentosAlunoPage() -> CrudTreinamentos.dart 

@@ -180,7 +180,7 @@ class MyAppState extends ChangeNotifier {
     if (num == 1) {
       quiz.addNome('Quiz Introdutório');
     } else {
-      quiz.addNome('Case $num');
+      quiz.addNome('Case ${num - 1}');
     }
 
     for (var pergunta in questoesx) {

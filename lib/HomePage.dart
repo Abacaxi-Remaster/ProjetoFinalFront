@@ -88,7 +88,7 @@ class MyHomePageState extends State<MyHomePage> {
       VagasInscritasAlunoPage(),
     ];
     final mentorOptions = [
-      Placeholder(),
+      TestesPage(),
       VagasPage(),
     ];
     final empresaOptions = [

@@ -1,39 +1,6 @@
 Falta Fazer:
--> Receber Nome Empresa (lembrar Luisinho)
--> Atividade Recente (Mentores) 
-    -> 2 gets: 1 com a lista de todos os alunos
-    -> 1 com as 1- ultimas atividades de um aluno
--> Detalhe Treinamento (front)
--> Verifica Null Vaga (front)
--> 
-
-Perguntas:
--> Ver situação inscrição Treinamento.
--> Nome Empresa ao invés de ID
-
-
-REQUISIÇÕES QUE PRECISAMOS (ORDEM DE PRIORIDADE):
-    -> 'get' que recebe um idAluno e retorna as últimas 10 atividades de cada aluno
-    -> 'get' da lista de todos os alunos inscritos (nome, email, id);
-    -> 
-
-====================================================================================================
-Aluno:
-    -> Treinamentos:            TreinamentosAlunoPage() -> CrudTreinamentos.dart 
-    -> Testes:                  
-    -> Vagas:                   VagasAlunoPage() -> CrudVagas.dart              
-    -> Inscrições:              VagasInscritasAlunoPage() -> CrudVagas.dart  
-Mentor:
-    -> Atividades Recentes:     
-    -> Vagas:                   VagasPage() -> CrudVagas.dart (rever, talvez outra coisa!);
-Empresa:
-    -> Atividades Concluidas:   TestesPage() -> MenuTestes.dart
-    -> CRUD vagas:              MenuVagas() -> CrudVagas.dart
-ADM:
-    -> CRUD treinamentos:       MenuTreinamentos() -> CrudTreinamentos.dart
-    -> Lista Treinamentos:      TreinamentosADMPage() -> CrudTreinamentos.dart
-    -> Lista Vagas:             VagasPage() -> CrudVagas.dart
-    -> Atividades Concluídas:   
+-> TestesAlunos PAge
+-> TestesPage
 
 
 

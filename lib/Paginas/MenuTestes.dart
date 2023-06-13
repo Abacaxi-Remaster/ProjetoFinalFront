@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'dart:math';
 import '../main.dart';
 import '../all.dart';
+import 'FazerQuiz.dart';
 
 class TestesPage extends StatelessWidget {
   final testesController = TextEditingController();
@@ -255,7 +256,20 @@ class TestesPageAluno extends StatelessWidget {
                                     ),
                                     TextButton(
                                       child: Text('Confirmar e começar teste'),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        appState.idTreinamentoAtual =
+                                            testesAlunos.treinamento.id;
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => FazerQuiz(
+                                              emailUser: '_emailUser',
+                                              quizID: '',
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ],
                                 );

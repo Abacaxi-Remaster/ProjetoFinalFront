@@ -162,7 +162,7 @@ class _VagasAlunoPageState extends State<VagasAlunoPage> {
     var appState = context.watch<MyAppState>();
 
     return FutureBuilder<List<Vaga>>(
-      future: listaVagas(appState.logged.id),
+      future: listaVagas(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Display a loading indicator while fetching data
@@ -400,7 +400,7 @@ class VagasPage extends StatelessWidget {
     var appState = context.watch<MyAppState>();
 
     return FutureBuilder<List<Vaga>>(
-      future: listaVagas(appState.logged.id),
+      future: listaVagas(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Display a loading indicator while fetching data

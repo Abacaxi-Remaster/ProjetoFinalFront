@@ -408,11 +408,11 @@ void criaVaga(
   }
 }
 
-Future<List<Vaga>> listaVagas(id) async {
+Future<List<Vaga>> listaVagas() async {
   List<Vaga> vagas = [];
 
   http.Response response = await http.get(
-    Uri.parse('http://localhost:8000/vagas/$id'),
+    Uri.parse('http://localhost:8000/vagas'),
     headers: {'Content-Type': 'application/json'},
   );
 
@@ -631,6 +631,57 @@ Future<int> mandarQuizAptidao(id_aluno, id_quiz, mapaRespostas) async {
   } else {
     print(response.statusCode);
     return 4; // erro no cadastro
+  }
+}
+
+Future<QuizClass> receberQuizBD(idTreinamento, num) async {
+  QuizClass Quiz = QuizClass();
+  print('chamou: idTreinamento: $idTreinamento');
+  http.Response response = await http.get(
+    Uri.parse('http://localhost:8000/quiz$num/$idTreinamento'),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  print(response.statusCode);
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    Quiz = QuizClass.fromJson(decodedData.cast<Map<String, dynamic>>());
+  } else {
+    print(response.statusCode);
+  }
+
+  return Quiz;
+}
+
+void mandarQuiz(id_aluno, id_quiz, mapaRespostas) async {
+  List<String> Resposta = [];
+  mapaRespostas.forEach((key, value) {
+    print('Questão $key: $value');
+    Resposta.add(value.toUpperCase());
+    print(Resposta);
+    print(id_quiz);
+  });
+
+  Map<String, dynamic> jsonMap = {
+    'id_aluno': id_aluno,
+    'id_quiz': id_quiz,
+    'resposta': Resposta,
+  };
+
+  String jsonString = json.encode(jsonMap);
+  print(jsonString);
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/historico_alunos/cadastro"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonString,
+  );
+  if (response.statusCode == 200) {
+    print('sucesso');
+  } else {
+    print(response.statusCode);
   }
 }
 

@@ -357,26 +357,26 @@ class QuizState extends State<Quiz> {
                     ),
                     onPressed: () {
                       //Funcao para mandar questão para o banco de dados passando salvaResp
-                      // if (salvaResp.length >= 3) {
-                      /*if (_formKeys.every((key) =>
+                      if (salvaResp.length >= 3) {
+                        /*if (_formKeys.every((key) =>
                             key.currentState != null &&
                             key.currentState!.validate())) {
                           */
-                      //if (check == salvaResp.length) {
-                      appState.addQuiz(salvaResp);
-                      Navigator.of(context).pop();
-                      /*} else {
+                        //if (check == salvaResp.length) {
+                        appState.addQuiz(salvaResp);
+                        Navigator.of(context).pop();
+                        /*} else {
                           appState.erro(
                               'Erro no Cadastro - Assinale a alternativa correta em todas as perguntas!');
                         }*/
-                      /*} else {
+                        /*} else {
                           appState.erro(
                               'Erro no Cadastro - Preencha todos os Campos!');
                         }*/
-                      /*} else {
+                      } else {
                         appState
                             .erro('Erro no Cadastro - mínimo de 3 perguntas!');
-                      }*/
+                      }
                     },
                     child: Text(
                       "Enviar quiz",

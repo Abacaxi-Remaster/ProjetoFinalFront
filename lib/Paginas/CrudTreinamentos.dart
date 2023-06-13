@@ -121,14 +121,18 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Quiz(
-                    quizID: '',
+              if (appState.Quizzes.length < 3) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Quiz(
+                      quizID: '',
+                    ),
                   ),
-                ),
-              );
+                );
+              } else {
+                appState.erro('Máximo de 3 Quiz!');
+              }
             },
             child: Text('Criar Quiz'),
           ),
@@ -154,29 +158,29 @@ class MenuTreinamentosCrudState extends State<MenuTreinamentos> {
                         child: Text('Salvar'),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            //if (appState.Quizzes.length == 2) {
-                            Navigator.of(context).pop();
-                            criaTreinamento(
-                                Treinamento(
-                                  nomeComercial: nomeComercial,
-                                  descricao: descricao,
-                                  cargaHoraria: cargaHoraria,
-                                  id: 'codigo',
-                                  minCandidatos: minCandidatos,
-                                  maxCandidatos: maxCandidatos,
-                                  dataInicialInscricao: dataInicialInscricao,
-                                  dataFinalInscricao: dataFinalInscricao,
-                                  dataInicialTreinamento:
-                                      dataInicialTreinamento,
-                                  dataFinalTreinamento: dataFinalTreinamento,
-                                ),
-                                appState.Quizzes);
-                            submitForm();
-                            appState.clearQuizzes();
-                            /*} else {
+                            if (appState.Quizzes.length == 3) {
+                              Navigator.of(context).pop();
+                              criaTreinamento(
+                                  Treinamento(
+                                    nomeComercial: nomeComercial,
+                                    descricao: descricao,
+                                    cargaHoraria: cargaHoraria,
+                                    id: 'codigo',
+                                    minCandidatos: minCandidatos,
+                                    maxCandidatos: maxCandidatos,
+                                    dataInicialInscricao: dataInicialInscricao,
+                                    dataFinalInscricao: dataFinalInscricao,
+                                    dataInicialTreinamento:
+                                        dataInicialTreinamento,
+                                    dataFinalTreinamento: dataFinalTreinamento,
+                                  ),
+                                  appState.Quizzes);
+                              submitForm();
+                              appState.clearQuizzes();
+                            } else {
                               appState.erro(
                                   'Erro no Cadastro - Insira 3 Quiz no total!');
-                            }*/
+                            }
                           } else {
                             appState.erro(
                                 'Erro no Cadastro - Preencha os Campos Obrigatórios!');
@@ -397,14 +401,6 @@ class TreinamentosADMPage extends StatelessWidget {
                             Text(
                                 'Data Final do Treinamento: ${DateFormat('dd/MM/yyyy').format(treinamento.dataFinalTreinamento)}'),
                           ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                          icon: Icon(Icons.menu),
-                          tooltip: 'Detalhes',
-                          onPressed: () {},
                         ),
                       ),
                     ],

@@ -23,7 +23,8 @@ class FazerQuizState extends State<FazerQuiz> {
   String quizID = '';
   String emailUser = '';
   List<Questao> ListQuestoesBD = []; //recebe os valores do bd
-  Map<int, String> listaRespostasMarcada = {}; //receber o valor que a pessoa respondeu
+  Map<int, String> listaRespostasMarcada =
+      {}; //receber o valor que a pessoa respondeu
   bool alternativaA = false;
   bool alternativaB = false;
   bool alternativaC = false;
@@ -39,7 +40,8 @@ class FazerQuizState extends State<FazerQuiz> {
       color: Colors.black,
     );
     emailUser = widget.emailUser;
-    Column returnAnswers(int index, List<Questao> listQuestoes, Map<int, String> respostasMarcadas) {
+    Column returnAnswers(int index, List<Questao> listQuestoes,
+        Map<int, String> respostasMarcadas) {
       return Column(
         children: [
           SizedBox(
@@ -54,7 +56,8 @@ class FazerQuizState extends State<FazerQuiz> {
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: respostasMarcadas[index] == 'a', // verificar se a resposta está marcada
+            value: respostasMarcadas[index] ==
+                'a', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'a';
@@ -66,13 +69,15 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text('a) ' + ListQuestoesBD[index].respostaDaAlternativaA, style: style), // Print da alternativa A
+              child: Text('a) ' + ListQuestoesBD[index].respostaDaAlternativaA,
+                  style: style), // Print da alternativa A
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: respostasMarcadas[index] == 'b', // verificar se a resposta está marcada
+            value: respostasMarcadas[index] ==
+                'b', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'b';
@@ -84,13 +89,15 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text('b) ' + ListQuestoesBD[index].respostaDaAlternativaB, style: style), // Print da alternativa B
+              child: Text('b) ' + ListQuestoesBD[index].respostaDaAlternativaB,
+                  style: style), // Print da alternativa B
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: respostasMarcadas[index] == 'c', // verificar se a resposta está marcada
+            value: respostasMarcadas[index] ==
+                'c', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'c';
@@ -102,13 +109,15 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text('c) ' + ListQuestoesBD[index].respostaDaAlternativaC, style: style), // Print da alternativa C
+              child: Text('c) ' + ListQuestoesBD[index].respostaDaAlternativaC,
+                  style: style), // Print da alternativa C
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: respostasMarcadas[index] == 'd', // verificar se a resposta está marcada
+            value: respostasMarcadas[index] ==
+                'd', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'd';
@@ -120,13 +129,15 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text('d) ' + ListQuestoesBD[index].respostaDaAlternativaD, style: style), // Print da alternativa D
+              child: Text('d) ' + ListQuestoesBD[index].respostaDaAlternativaD,
+                  style: style), // Print da alternativa D
             ),
           ),
           CheckboxListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 220, vertical: 5),
-            value: respostasMarcadas[index] == 'e', // verificar se a resposta está marcada
+            value: respostasMarcadas[index] ==
+                'e', // verificar se a resposta está marcada
             onChanged: (bool? value) {
               setState(() {
                 listaRespostasMarcada[index] = 'e';
@@ -138,14 +149,15 @@ class FazerQuizState extends State<FazerQuiz> {
               });
             },
             title: SizedBox(
-              child: Text('e) ' + ListQuestoesBD[index].respostaDaAlternativaE, style: style), // Print da alternativa E
+              child: Text('e) ' + ListQuestoesBD[index].respostaDaAlternativaE,
+                  style: style), // Print da alternativa E
             ),
           ),
         ],
       );
     }
 
- return FutureBuilder<QuizClass>(
+    return FutureBuilder<QuizClass>(
       future: receberQuizAptidaoBD(appState.idTreinamentoAtual),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -156,7 +168,6 @@ class FazerQuizState extends State<FazerQuiz> {
         } else {
           QuizClass? quiz = snapshot.data;
           ListQuestoesBD = quiz!.questoes;
-          
         }
         return Scaffold(
           appBar: AppBar(
@@ -176,8 +187,8 @@ class FazerQuizState extends State<FazerQuiz> {
                       return Column(
                         children: [
                           ListTile(
-                            title: Text ('Questão ${index + 1}', style: style)
-                          ),
+                              title:
+                                  Text('Questão ${index + 1}', style: style)),
                           returnAnswers(
                               index, ListQuestoesBD, listaRespostasMarcada),
                           const Padding(
@@ -204,10 +215,30 @@ class FazerQuizState extends State<FazerQuiz> {
                     ),
                     label: const Text('Finalizar Quiz'),
                     onPressed: () async {
-                      //envia as respostas do aluno do quiz para o bd
-                      mandarQuiz(appState.logged.id, ListQuestoesBD[0].idTreinamentoQuiz, listaRespostasMarcada);
-                      appState.idTreinamentoAtual = '';
                       Navigator.of(context).pop();
+                      //envia as respostas do aluno do quiz para o bd
+                      int status = await mandarQuizAptidao(
+                          appState.logged.id,
+                          ListQuestoesBD[0].idTreinamentoQuiz,
+                          listaRespostasMarcada);
+                      switch (status) {
+                        case 0:
+                          appState.erro(
+                              'Aprovado! - Inscrição Realizada Com Sucesso!');
+                          break;
+                        case 1:
+                          appState.erro('Reprovado - Inscrição Cancelada!');
+                          break;
+                        case 2:
+                          appState.erro(
+                              'Aprovado - Houve um erro durante a inscrição :(');
+                          break;
+                        default:
+                          appState.erro(
+                              'Erro no cadastro - entre em contato com um administrador!');
+                          break;
+                      }
+                      appState.idTreinamentoAtual = '';
                       print("Enviou");
                     },
                   ),
